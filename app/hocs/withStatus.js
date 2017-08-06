@@ -6,6 +6,8 @@ const { object, shape } = PropTypes;
 
 const withStatus = (statusCode) => (MyComponent) => {
   class StatusComponent extends Component {
+    static displayName = `withStatus(${MyComponent.displayName || MyComponent.name})`;
+
     static contextTypes = {
       router: shape({ staticContext: object }).isRequired
     };
