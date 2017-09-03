@@ -11,11 +11,11 @@ const store = configureStore(window.__PRELOADED_STATE__);
 delete window.__PRELOADED_STATE__;
 
 ReactDOM.render((
-  <BrowserRouter>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
       <App />
-    </Provider>
-  </BrowserRouter>
+    </BrowserRouter>
+  </Provider>
 ), document.getElementById("app"));
 
 if (module.hot) {
