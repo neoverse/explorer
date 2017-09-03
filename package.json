@@ -7,7 +7,11 @@
   "author": "Matt Huggins <matt.huggins@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_PATH=\"./app\" node index.js"
+    "start": "yarn run build:neo-api-js && razzle start",
+    "build:neo-api-js": "cd ./node_modules/neo-api-js && yarn install && yarn run build && cd ../..",
+    "build": "yarn run build:neo-api-js && razzle build",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -23,14 +27,19 @@
     "babel-register": "^6.24.1",
     "big-integer": "^1.6.23",
     "express": "^4.15.3",
+    "neo-api-js": "github:CityOfZion/neo-api-js",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "webpack": "^3.4.1"
   },
   "devDependencies": {
     "quick-local-ip": "^1.0.7",
+    "razzle": "^0.8.2",
     "webpack-dev-server": "^2.6.1"
   }
 }
