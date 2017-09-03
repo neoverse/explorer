@@ -1,3 +1,5 @@
+import serialize from "serialize-javascript";
+
 const isProduction = process.env.NODE_ENV === "production";
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
@@ -11,10 +13,6 @@ function getAssetsCSS() {
 
 function getAssetsJS() {
   return `<script src="${assets.client.js}" defer${isProduction ? " defer" : ""}></script>`;
-}
-
-function serialize(obj) {
-  return JSON.stringify(obj);
 }
 
 export default function renderServerHTML({ html = "", state = {} } = {}) {
@@ -31,7 +29,7 @@ export default function renderServerHTML({ html = "", state = {} } = {}) {
       <body>
         <div id="app">${html}</div>
         <script type="text/javascript">
-          window.__PRELOADED_STATE__ = ${serialize(state)};
+          window.__PRELOADED_STATE__ = ${serialize(state, { isJSON: true })};
         </script>
       </body>
     </html>

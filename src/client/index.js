@@ -8,6 +8,8 @@ import configureStore from "../common/boot/configureStore";
 
 const store = configureStore(window.__PRELOADED_STATE__);
 
+delete window.__PRELOADED_STATE__;
+
 ReactDOM.render((
   <BrowserRouter>
     <Provider store={store}>

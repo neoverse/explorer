@@ -9,8 +9,7 @@ import renderServerHTML from "./renderServerHTML";
 
 export default function handleRequest(req, res) {
   const context = {};
-  const state = {};
-  const store = configureStore(state);
+  const store = configureStore();
 
   const html = renderToString(
     <StaticRouter location={req.url} context={context}>
@@ -24,6 +23,6 @@ export default function handleRequest(req, res) {
     res.redirect(302, context.url);
   } else {
     const status = context.status || 200;
-    res.status(status).type("html").end(renderServerHTML({ html, state }));
+    res.status(status).type("html").end(renderServerHTML({ html, state: store.getState() }));
   }
 }
