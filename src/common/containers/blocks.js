@@ -1,23 +1,17 @@
 import { connect } from "react-redux";
 
 import Blocks from "../components/blocks";
-import { fetchHeight } from "../actions/blocks";
+import { fetchHeight } from "../actions/height";
 
 function mapStateToProps(state, ownProps) {
-  // console.log("STATE:", state);
-  // debugger;
-
   return {
-    height: state.blocks.height
+    height: state.height.data
   };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  // console.log("MAPPING DISPATCH");
-  // debugger;
-
   return {
-    fetch: fetchHeight(dispatch, ownProps)
+    fetchHeight: () => dispatch(fetchHeight())
   };
 }
 

@@ -1,8 +1,8 @@
 import {
-  FETCH_BLOCK_REQUEST,
-  FETCH_BLOCK_SUCCESS,
-  FETCH_BLOCK_FAILURE
-} from "../actions/blocks";
+  FETCH_HEIGHT_REQUEST,
+  FETCH_HEIGHT_SUCCESS,
+  FETCH_HEIGHT_FAILURE
+} from "../actions/height";
 
 const STATE_INITIAL = "INITIAL";
 const STATE_LOADING = "LOADING";
@@ -11,17 +11,17 @@ const STATE_ERROR = "ERROR";
 
 const initialState = {
   state: STATE_INITIAL,
-  data: {},
+  data: 0,
   error: null
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_BLOCK_REQUEST:
+    case FETCH_HEIGHT_REQUEST:
       return { ...state, state: STATE_LOADING };
-    case FETCH_BLOCK_SUCCESS:
+    case FETCH_HEIGHT_SUCCESS:
       return { ...state, state: STATE_LOADED, data: action.payload };
-    case FETCH_BLOCK_FAILURE:
+    case FETCH_HEIGHT_FAILURE:
       return { ...state, state: STATE_ERROR, error: action.payload };
     default:
       return state;
