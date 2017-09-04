@@ -1,15 +1,4 @@
-export const FETCH_BLOCKS_REQUEST = "BLOCKS/FETCH_BLOCKS_REQUEST";
-export const FETCH_BLOCKS_SUCCESS = "BLOCKS/FETCH_BLOCKS_SUCCESS";
-export const FETCH_BLOCKS_FAILURE = "BLOCKS/FETCH_BLOCKS_FAILURE";
+import createAsyncActions from "../util/api/createAsyncActions";
+import client from "../util/client";
 
-export function fetchBlock(id) {
-  return { type: FETCH_BLOCKS_REQUEST, payload: id };
-}
-
-export function fetchBlockSuccess(block) {
-  return { type: FETCH_BLOCKS_SUCCESS, payload: block };
-}
-
-export function fetchBlockFailure(message) {
-  return { type: FETCH_BLOCKS_FAILURE, payload: message };
-}
+export default createAsyncActions("HEIGHT", [client, "getLastBlockHash"]);

@@ -1,17 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const { number, func } = PropTypes;
+const { number } = PropTypes;
 
 export default class Blocks extends React.Component {
   static propTypes = {
-    height: number,
-    fetchHeight: func.isRequired
+    height: number
   };
-
-  componentWillMount = () => {
-    this.props.fetchHeight();
-  }
 
   render = () => {
     return (

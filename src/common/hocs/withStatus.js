@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import { wrapDisplayName } from "recompose";
 
 const { object, shape } = PropTypes;
 
 const withStatus = (statusCode) => (Component) => {
   class StatusComponent extends React.Component {
-    static displayName = `withStatus(${Component.displayName || Component.name})`;
+    static displayName = wrapDisplayName("withStatus", Component);
 
     static contextTypes = {
       router: shape({ staticContext: object }).isRequired
