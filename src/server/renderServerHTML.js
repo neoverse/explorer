@@ -5,7 +5,7 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
 function getAssetsCSS() {
   if (assets.client.css) {
-    return `<link rel="stylesheet" href="${assets.client.css}">`;
+    return `<link rel="stylesheet" href="${assets.client.css}" />`;
   } else {
     return "";
   }
@@ -23,6 +23,7 @@ export default function renderServerHTML({ html = "", state = {} } = {}) {
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>NEO Blockchain Explorer</title>
+        <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
         ${getAssetsCSS()}
         ${getAssetsJS()}
       </head>
