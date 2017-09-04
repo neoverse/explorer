@@ -3,14 +3,10 @@ import {
   FETCH_HEIGHT_SUCCESS,
   FETCH_HEIGHT_FAILURE
 } from "../actions/height";
-
-const STATE_INITIAL = "INITIAL";
-const STATE_LOADING = "LOADING";
-const STATE_LOADED = "LOADED";
-const STATE_ERROR = "ERROR";
+import { INITIAL, LOADING, LOADED, ERROR } from "../values/state";
 
 const initialState = {
-  state: STATE_INITIAL,
+  state: INITIAL,
   data: 0,
   error: null
 };
@@ -18,11 +14,11 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_HEIGHT_REQUEST:
-      return { ...state, state: STATE_LOADING };
+      return { ...state, state: LOADING };
     case FETCH_HEIGHT_SUCCESS:
-      return { ...state, state: STATE_LOADED, data: action.payload };
+      return { ...state, state: LOADED, data: action.payload };
     case FETCH_HEIGHT_FAILURE:
-      return { ...state, state: STATE_ERROR, error: action.payload };
+      return { ...state, state: ERROR, error: action.payload };
     default:
       return state;
   }

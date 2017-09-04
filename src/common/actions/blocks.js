@@ -1,19 +1,15 @@
-import client from "../util/client";
-
-export const FETCH_BLOCK_REQUEST = "BLOCKS/FETCH_BLOCK_REQUEST";
-export const FETCH_BLOCK_SUCCESS = "BLOCKS/FETCH_BLOCK_SUCCESS";
-export const FETCH_BLOCK_FAILURE = "BLOCKS/FETCH_BLOCK_FAILURE";
+export const FETCH_BLOCKS_REQUEST = "BLOCKS/FETCH_BLOCKS_REQUEST";
+export const FETCH_BLOCKS_SUCCESS = "BLOCKS/FETCH_BLOCKS_SUCCESS";
+export const FETCH_BLOCKS_FAILURE = "BLOCKS/FETCH_BLOCKS_FAILURE";
 
 export function fetchBlock(id) {
-  return (dispatch, getState) => {
-    dispatch({ type: FETCH_BLOCK_REQUEST });
+  return { type: FETCH_BLOCKS_REQUEST, payload: id };
+}
 
-    client.getLastBlockHash()
-      .then((response) => {
-        dispatch({ type: FETCH_BLOCK_SUCCESS, payload: response });
-      })
-      .catch((err) => {
-        dispatch({ type: FETCH_BLOCK_FAILURE, payload: err.message });
-      });
-  };
+export function fetchBlockSuccess(block) {
+  return { type: FETCH_BLOCKS_SUCCESS, payload: block };
+}
+
+export function fetchBlockFailure(message) {
+  return { type: FETCH_BLOCKS_FAILURE, payload: message };
 }
