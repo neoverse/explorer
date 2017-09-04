@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 
 import reducer from "../reducers";
-import saga from "../sagas"
+import saga from "../sagas";
 
 export default function configureStore(state = {}) {
   const sagaMiddleware = createSagaMiddleware();
@@ -17,4 +17,4 @@ export default function configureStore(state = {}) {
   sagaMiddleware.run(saga);
 
   return store;
-};
+}
