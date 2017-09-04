@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch, NavLink } from "react-router-dom";
 
 import "../styles/app.scss";
 import Home from "../containers/home";
@@ -15,12 +15,14 @@ export default class App extends React.Component {
   render = () => {
     return (
       <div className="app-component">
-        <h1>NEO Blockchain Explorer</h1>
+        <div className="header">
+          <h1>NEO Blockchain Explorer</h1>
 
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/blocks">Blocks</Link></li>
-        </ul>
+          <ul className="nav">
+            <li><NavLink exact to="/">Home</NavLink></li>
+            <li><NavLink exact to="/blocks">Blocks</NavLink></li>
+          </ul>
+        </div>
 
         <div className="content">
           <Switch>
