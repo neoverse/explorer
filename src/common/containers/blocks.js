@@ -1,18 +1,15 @@
-import { connect } from "react-redux";
+import { compose } from "recompose";
 
 import Blocks from "../components/blocks";
-import { fetchHeight } from "../actions/height";
+import heightActions from "../actions/height";
+import withFetch from "../hocs/api/withFetch";
+import withData from "../hocs/api/withData";
 
-function mapStateToProps(state, ownProps) {
-  return {
-    height: state.height.data
-  };
+function mapActionToProps(height) {
+  return { height };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
-  return {
-    fetchHeight: () => dispatch(fetchHeight())
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Blocks);
+export default compose(
+  withFetch(heightActions),
+  withData(heightActions, mapActionToProps)
+)(Blocks);

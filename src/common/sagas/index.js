@@ -1,11 +1,15 @@
-import { all } from "redux-saga/effects";
+import _ from "lodash";
+import { all, takeEvery } from "redux-saga/effects";
 
-import heightSaga from "./height";
-import blocksSaga from "./blocks";
+import actionSaga from "./actionSaga";
+import { ACTION_REQUEST } from "../values/api";
+
+function asyncAction(action) {
+  return _.get(action, "meta.type") === ACTION_REQUEST;
+}
 
 export default function* root() {
   yield all([
-    heightSaga(),
-    blocksSaga()
+    takeEvery(asyncAction, actionSaga)
   ]);
 }

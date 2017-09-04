@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React from "react";
+import { compose, setDisplayName, wrapDisplayName } from "recompose";
 
 export default function withoutProps(...propNames) {
   return (Component) => {

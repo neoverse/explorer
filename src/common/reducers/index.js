@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 
-import height from "./height";
-import blocks from "./blocks";
+import api from "./apiReducer";
 
-export default combineReducers({ height, blocks });
+export default combineReducers({ api });
