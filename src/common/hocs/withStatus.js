@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
 const { object, shape } = PropTypes;
 
-const withStatus = (statusCode) => (MyComponent) => {
-  class StatusComponent extends Component {
-    static displayName = `withStatus(${MyComponent.displayName || MyComponent.name})`;
+const withStatus = (statusCode) => (Component) => {
+  class StatusComponent extends React.Component {
+    static displayName = `withStatus(${Component.displayName || Component.name})`;
 
     static contextTypes = {
       router: shape({ staticContext: object }).isRequired
@@ -21,7 +21,7 @@ const withStatus = (statusCode) => (MyComponent) => {
     }
 
     render = () => {
-      return <MyComponent {...this.props} />;
+      return <Component {...this.props} />;
     }
   }
 

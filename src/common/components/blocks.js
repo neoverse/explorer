@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 const { number, func } = PropTypes;
 
-export default class Blocks extends Component {
+export default class Blocks extends React.Component {
   static propTypes = {
     height: number,
     fetchHeight: func.isRequired
