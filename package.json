@@ -46,6 +46,9 @@
     "webpack": "^3.4.1"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.6.1",
+    "eslint-plugin-react": "^7.3.0",
     "quick-local-ip": "^1.0.7",
     "razzle": "^0.8.2",
     "webpack-dev-server": "^2.6.1"
