@@ -5,8 +5,9 @@ import { compose, setDisplayName, wrapDisplayName } from "recompose";
 
 import withoutProps from "../withoutProps";
 import { ACTION_PROP } from "../../values/api";
+import { isServer } from "../../util/api/server";
 
-const { func } = PropTypes;
+const { bool, func } = PropTypes;
 
 function defaultMapPropsToAction(props) {
   return props;
@@ -24,12 +25,20 @@ export default function withFetch(action, mapPropsToAction = defaultMapPropsToAc
       static displayName = `ComponentWithFetch(${Component.displayName || Component.name})`;
 
       static propTypes = {
+        runOnServer: bool,
         [ACTION_PROP]: func.isRequired
-      }
+      };
+
+      static defaultProps = {
+        runOnServer: false
+      };
 
       componentWillMount = () => {
-        this.props[ACTION_PROP](mapPropsToAction(this.props));
-        this.Component = withoutProps(ACTION_PROP)(Component);
+        if (this.props.runOnServer || !isServer()) {
+          this.props[ACTION_PROP](mapPropsToAction(this.props));
+        }
+
+        this.Component = withoutProps("runOnServer", ACTION_PROP)(Component);
       }
 
       render = () => {
