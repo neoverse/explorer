@@ -3,9 +3,9 @@ import _ from "lodash";
 import createActionTypes from "./createActionTypes";
 import { ACTION_REQUEST, ACTION_RETRY, ACTION_CANCEL, ACTION_RESET } from "../../values/api";
 
-function convertArgs(fnArgs, args) {
-  if (_.isFunction(fnArgs)) {
-    return fnArgs(args);
+function convertArgs(args, props) {
+  if (_.isFunction(args)) {
+    return args(props);
   } else {
     return args;
   }
@@ -14,24 +14,24 @@ function convertArgs(fnArgs, args) {
 export default function createAsyncActions(id, fn, fnArgs = [], { runOnServer = false } = {}) {
   const actionTypes = createActionTypes(id);
 
-  const request = (...args) => ({
+  const request = (props) => ({
     type: actionTypes.REQUEST,
     meta: { type: ACTION_REQUEST, id, runOnServer },
-    payload: { fn, args: convertArgs(fnArgs, args) }
+    payload: { fn, args: convertArgs(fnArgs, props) }
   });
 
-  const retry = (...args) => ({
+  const retry = (props) => ({
     type: actionTypes.RETRY,
     meta: { type: ACTION_RETRY, id, runOnServer },
-    payload: { fn, args: convertArgs(fnArgs, args) }
+    payload: { fn, args: convertArgs(fnArgs, props) }
   });
 
-  const cancel = (...args) => ({
+  const cancel = () => ({
     type: actionTypes.CANCEL,
     meta: { type: ACTION_CANCEL, id, runOnServer }
   });
 
-  const reset = (...args) => ({
+  const reset = () => ({
     type: actionTypes.RESET,
     meta: { type: ACTION_RESET, id, runOnServer }
   });
