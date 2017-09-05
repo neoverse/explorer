@@ -1,6 +1,14 @@
-import { call, put, race } from "redux-saga/effects";
+import _ from "lodash";
+import { call, put, race, take } from "redux-saga/effects";
 
-import { ACTION_SUCCESS, ACTION_FAILURE } from "../values/api";
+import { actionMatcher } from "../util/api/matchers";
+import {
+  ACTION_SUCCESS,
+  ACTION_FAILURE,
+  ACTION_RETRY,
+  ACTION_RESET,
+  ACTION_CANCEL
+} from "../values/api";
 
 function createSagaActions(meta) {
   function* request(payload, actions) {
@@ -33,14 +41,21 @@ function createSagaActions(meta) {
   return { request, success, failure };
 }
 
+function retryAction(id) {
+  return (action) => {
+    return actionMatcher(ACTION_RETRY, id)(action);
+  };
+}
+
 export default function* saga(action) {
+  const id = _.get(action, "meta.id");
   const sagaActions = createSagaActions(action.meta);
 
   yield race({
-    request: call(sagaActions.request, action.payload, sagaActions)
-    // retry: call(...todo),
-    // cancel: call(...todo),
-    // reset: call(...todo)
+    request: call(sagaActions.request, action.payload, sagaActions),
+    retry: take(retryAction(id)),
+    cancel: take(actionMatcher(ACTION_CANCEL, id)),
+    reset: take(actionMatcher(ACTION_RESET, id))
   });
 
   return true;
