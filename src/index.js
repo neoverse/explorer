@@ -1,7 +1,12 @@
+/* eslint-disable no-console */
+
 import server from "./server";
+import { setServer } from "./common/util/api/server";
 
 const isProduction = process.env.NODE_ENV === "production";
 const port = process.env.PORT || 3000;
+
+setServer(true);
 
 if (module.hot) {
   module.hot.accept("./server", function() {
