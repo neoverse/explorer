@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-const { number } = PropTypes;
+import blockShape from "../shapes/blockShape";
+
+const { number, arrayOf } = PropTypes;
 
 export default class Blocks extends React.Component {
   static propTypes = {
-    height: number
+    height: number,
+    blocks: arrayOf(blockShape).isRequired
   };
 
   render = () => {
@@ -13,7 +17,18 @@ export default class Blocks extends React.Component {
       <div className="blocks-component">
         <h2>Blocks</h2>
         <p>Current height: {this.props.height}</p>
+        {this.renderBlocks()}
       </div>
     );
+  }
+
+  renderBlocks = () => {
+    return this.props.blocks.map((block) => {
+      return (
+        <p key={block.hash}>
+          <Link to={`/blocks/${block.hash}`}>#{block.hash}</Link>
+        </p>
+      );
+    });
   }
 }
