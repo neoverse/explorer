@@ -1,4 +1,5 @@
 export const ACTION_PROP = "__performAction__";
+export const PROGRESS_PROP = "__progress__";
 
 export const ACTION_REQUEST = "API/REQUEST";
 export const ACTION_RETRY = "API/RETRY";

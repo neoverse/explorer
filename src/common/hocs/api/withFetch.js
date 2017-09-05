@@ -22,7 +22,7 @@ export default function withFetch(action, mapPropsToAction = defaultMapPropsToAc
 
   return (Component) => {
     class ComponentWithFetch extends React.Component {
-      static displayName = `ComponentWithFetch(${Component.displayName || Component.name})`;
+      static displayName = "ComponentWithFetch";
 
       static propTypes = {
         runOnServer: bool,

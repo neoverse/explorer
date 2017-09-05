@@ -5,17 +5,17 @@ import { compose, setDisplayName, wrapDisplayName } from "recompose";
 import withoutProps from "../withoutProps";
 import { ACTION_PROP } from "../../values/api";
 
-const defaultMapActionToProps = (data) => data;
+const defaultMapDataToProps = (data) => data;
 
-export default function withData(actions, mapActionToProps = defaultMapActionToProps) {
-  const selectData = (state) => {
+export default function withData(actions, mapDataToProps = defaultMapDataToProps) {
+  const mapStateToProps = (state) => {
     const data = _.get(state, `api.${actions.id}.data`);
-    return mapActionToProps(data);
+    return mapDataToProps(data);
   };
 
   return (Component) => {
     return compose(
-      connect(selectData),
+      connect(mapStateToProps),
       withoutProps(ACTION_PROP),
       setDisplayName(wrapDisplayName("withData", Component))
     )(Component);
