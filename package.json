@@ -6,6 +6,11 @@
   "repository": "https://github.com/mhuggins/neo-explorer",
   "author": "Matt Huggins <matt.huggins@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "8.2.1",
+    "npm": "5.3.0",
+    "yarn": "0.27.5"
+  },
   "scripts": {
     "heroku-postbuild": "yarn run build",
     "build": "yarn run build:neo-api-js && razzle build",
