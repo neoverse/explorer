@@ -35,6 +35,7 @@
     "neo-api-js": "github:CityOfZion/neo-api-js",
     "node-sass": "^4.5.3",
     "prop-types": "^15.5.10",
+    "razzle": "^0.8.2",
     "razzle-heroku": "^2.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -53,7 +54,6 @@
     "eslint": "^4.6.1",
     "eslint-plugin-react": "^7.3.0",
     "quick-local-ip": "^1.0.7",
-    "razzle": "^0.8.2",
     "webpack-dev-server": "^2.6.1"
   }
 }
