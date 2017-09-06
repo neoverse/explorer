@@ -25,8 +25,8 @@ export default class Blocks extends React.Component {
   renderBlocks = () => {
     return this.props.blocks.map((block) => {
       return (
-        <p key={block.hash}>
-          <Link to={`/blocks/${block.hash}`}>#{block.hash}</Link>
+        <p key={block.index}>
+          <Link to={`/blocks/${block.index}`}>#{block.index}</Link>
         </p>
       );
     });

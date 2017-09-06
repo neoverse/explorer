@@ -7,7 +7,7 @@ const { string } = PropTypes;
 
 export default class Block extends React.Component {
   static propTypes = {
-    hash: string.isRequired,
+    index: string.isRequired,
     block: blockShape.isRequired
   };
 
@@ -16,7 +16,7 @@ export default class Block extends React.Component {
 
     return (
       <div className="block-component">
-        <h1>Block {this.props.hash}</h1>
+        <h1>Block #{this.props.index}</h1>
 
         <dl>
           <dt>Confirmations:</dt>

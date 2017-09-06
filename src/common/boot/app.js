@@ -28,7 +28,7 @@ export default class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/blocks" component={Blocks} />
-            <Route exact path="/blocks/:hash" component={Block} />
+            <Route exact path="/blocks/:index" component={Block} />
             <Route component={withStatus(404)(NoMatch)} />
           </Switch>
         </div>

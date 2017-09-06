@@ -21,7 +21,7 @@ function Failed(props) {
 }
 
 export default compose(
-  mapProps((props) => ({ ...props, hash: props.match.params.hash })),
+  mapProps((props) => ({ ...props, index: props.match.params.index })),
   withFetch(blockActions),
   withData(blockActions, mapBlockToProps),
   withProgressComponents(blockActions, {

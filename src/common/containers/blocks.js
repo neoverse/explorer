@@ -28,7 +28,7 @@ function Failed(props) {
 }
 
 const BlockContainer = compose(
-  mapProps((props) => ({ ...props, hash: props.height - 1 })),  // convert the height to the last block index
+  mapProps((props) => ({ ...props, index: props.height - 1 })),
   withFetch(blockActions),
   withData(blockActions, mapBlockToProps),
   withProgressComponents(blockActions, {
