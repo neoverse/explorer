@@ -54,7 +54,7 @@ export default class Block extends React.Component {
           <dt>Transactions:</dt>
           <dd>
             <ul>
-              {this.renderTransactions(block.tx)}
+              {this.renderTransactions()}
             </ul>
           </dd>
         </dl>
@@ -62,13 +62,16 @@ export default class Block extends React.Component {
     );
   }
 
-  renderTransactions = (transactions) => {
+  renderTransactions = () => {
+    const { block } = this.props;
+    const { tx: transactions } = block;
+
     return transactions.map((tx) => {
       return (
         <li key={tx.txid}>
-          <span>{tx.type} </span>
-          <span>{tx.txid} </span>
-          <span>({Object.keys(tx).map((key) => `${key} = ${tx[key]}`).join(", ")})</span>
+          <span>{tx.type}</span>{" "}
+          <span>{tx.txid}</span>{" "}
+          <span>{block.time}</span>
         </li>
       );
     });
