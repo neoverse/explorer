@@ -1,3 +1,4 @@
+const path = require("path");
 const autoprefixer = require("autoprefixer");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const razzleHeroku = require("razzle-heroku");
@@ -56,6 +57,10 @@ module.exports = {
     // needed for ES6 modules like neo-api-js
     appConfig.module.rules.push({
       test: /\.js$/,
+      include: [
+        path.resolve(__dirname, "src"),
+        path.resolve(__dirname, "node_modules/neo-api-js")
+      ],
       loader: "babel-loader"
     });
 
