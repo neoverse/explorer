@@ -29,7 +29,7 @@ export default class Block extends React.Component {
           <dd>{block.confirmations}</dd>
 
           <dt>Size:</dt>
-          <dd>{block.size} bytes</dd>
+          <dd>{block.size.toLocaleString()} bytes</dd>
 
           <dt>Version:</dt>
           <dd>{block.version}</dd>
