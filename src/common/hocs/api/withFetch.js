@@ -39,7 +39,7 @@ export default function withFetch(action, mapPropsToAction = defaultMapPropsToAc
 
     return compose(
       connect(null, mapDispatchToProps),
-      setDisplayName(wrapDisplayName("withFetch", Component))
+      setDisplayName(wrapDisplayName(Component, "withFetch"))
     )(ComponentWithFetch);
   };
 }

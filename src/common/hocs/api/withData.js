@@ -17,7 +17,7 @@ export default function withData(actions, mapDataToProps = defaultMapDataToProps
     return compose(
       connect(mapStateToProps),
       withoutProps(ACTION_PROP),
-      setDisplayName(wrapDisplayName("withData", Component))
+      setDisplayName(wrapDisplayName(Component, "withData"))
     )(Component);
   };
 }

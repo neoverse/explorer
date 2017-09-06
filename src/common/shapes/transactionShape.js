@@ -19,6 +19,8 @@ const voutShape = shape({
 export default shape({
   txid: string.isRequired,
   attributes: array.isRequired,
+  blockhash: string,
+  blocktime: number,
   net_fee: string.isRequired,
   nonce: number,
   scripts: arrayOf(scriptShape).isRequired,

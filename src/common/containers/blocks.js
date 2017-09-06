@@ -1,4 +1,4 @@
-import { mapProps, compose } from "recompose";
+import { compose, mapProps, setDisplayName } from "recompose";
 
 import Blocks from "../components/blocks/blocks";
 import Loading from "../components/blocks/loading";
@@ -27,7 +27,8 @@ const BlocksContainer = compose(
   withProgressComponents(blockActions, {
     [LOADING]: Loading,
     [FAILED]: Failed
-  })
+  }),
+  setDisplayName("BlocksContainer")
 )(Blocks);
 
 export default compose(
@@ -36,5 +37,6 @@ export default compose(
   withProgressComponents(heightActions, {
     [LOADING]: Loading,
     [FAILED]: Failed
-  })
+  }),
+  setDisplayName("BlocksContainerContainer")
 )(BlocksContainer);

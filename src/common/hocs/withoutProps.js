@@ -10,7 +10,7 @@ export default function withoutProps(...propNames) {
     };
 
     return compose(
-      setDisplayName(wrapDisplayName("withoutProps", Component))
+      setDisplayName(wrapDisplayName(Component, "withoutProps"))
     )(ComponentWithoutProps);
   };
 }

@@ -7,7 +7,7 @@ const { object, shape } = PropTypes;
 
 const withStatus = (statusCode) => (Component) => {
   class StatusComponent extends React.Component {
-    static displayName = wrapDisplayName("withStatus", Component);
+    static displayName = wrapDisplayName(Component, "withStatus");
 
     static contextTypes = {
       router: shape({ staticContext: object }).isRequired

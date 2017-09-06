@@ -1,5 +1,8 @@
-import { mapProps } from "recompose";
+import { compose, mapProps, setDisplayName } from "recompose";
 
 import Block from "./block";
 
-export default mapProps((props) => ({ ...props, index: props.match.params.index }))(Block);
+export default compose(
+  mapProps((props) => ({ ...props, index: props.match.params.index })),
+  setDisplayName("BlockByIndexContainer")
+)(Block);

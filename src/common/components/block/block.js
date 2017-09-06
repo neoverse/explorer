@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import Transaction from "./transaction";
 import blockShape from "../../shapes/blockShape";
 
 export default class Block extends React.Component {
+  static displayName = "Block";
+
   static propTypes = {
     block: blockShape.isRequired
   };
@@ -64,14 +67,11 @@ export default class Block extends React.Component {
 
   renderTransactions = () => {
     const { block } = this.props;
-    const { tx: transactions } = block;
 
-    return transactions.map((tx) => {
+    return block.tx.map((tx) => {
       return (
         <li key={tx.txid}>
-          <span>{tx.type}</span>{" "}
-          <span>{tx.txid}</span>{" "}
-          <span>{block.time}</span>
+          <Transaction transaction={{ ...tx, blocktime: block.time }} />
         </li>
       );
     });

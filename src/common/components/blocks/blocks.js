@@ -7,6 +7,8 @@ import blockShape from "../../shapes/blockShape";
 const { number, arrayOf } = PropTypes;
 
 export default class Blocks extends React.Component {
+  static displayName = "Blocks";
+
   static propTypes = {
     height: number,
     blocks: arrayOf(blockShape).isRequired

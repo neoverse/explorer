@@ -1,4 +1,4 @@
-import { compose } from "recompose";
+import { compose, setDisplayName } from "recompose";
 
 import Block from "../components/block/block";
 import Loading from "../components/block/loading";
@@ -19,5 +19,6 @@ export default compose(
   withProgressComponents(blockActions, {
     [LOADING]: Loading,
     [FAILED]: Failed
-  })
+  }),
+  setDisplayName("BlockContainer")
 )(Block);

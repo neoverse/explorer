@@ -29,7 +29,7 @@ export default function withProgressComponents(actions, mapping = {}) {
 
     return compose(
       withProgressProp(actions),
-      setDisplayName(wrapDisplayName("withProgressComponents", Component))
+      setDisplayName(wrapDisplayName(Component, "withProgressComponents"))
     )(ComponentWithProgressComponents);
   };
 }

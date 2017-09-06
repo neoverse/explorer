@@ -16,7 +16,7 @@ export default function withProgressProp(actions, propName = PROGRESS_PROP) {
   return (Component) => {
     return compose(
       connect(mapStateToProps),
-      setDisplayName(wrapDisplayName("withProgressProp", Component))
+      setDisplayName(wrapDisplayName(Component, "withProgressProp"))
     )(Component);
   };
 }
