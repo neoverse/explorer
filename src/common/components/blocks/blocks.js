@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import blockShape from "../shapes/blockShape";
+import blockShape from "../../shapes/blockShape";
 
 const { number, arrayOf } = PropTypes;
 
@@ -26,7 +26,7 @@ export default class Blocks extends React.Component {
     return this.props.blocks.map((block) => {
       return (
         <p key={block.index}>
-          <Link to={`/blocks/${block.index}`}>#{block.index}</Link>
+          <Link to={`/blocks/height/${block.index}`}>#{block.index}</Link>
         </p>
       );
     });

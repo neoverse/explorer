@@ -1,7 +1,8 @@
-import React from "react";
-import { mapProps, compose } from "recompose";
+import { compose } from "recompose";
 
-import Block from "../components/block";
+import Block from "../components/block/block";
+import Loading from "../components/block/loading";
+import Failed from "../components/block/failed";
 import blockActions from "../actions/block";
 import withFetch from "../hocs/api/withFetch";
 import withData from "../hocs/api/withData";
@@ -12,16 +13,7 @@ function mapBlockToProps(block) {
   return { block };
 }
 
-function Loading(props) {
-  return <div>Loading...</div>;
-}
-
-function Failed(props) {
-  return <div>Failed</div>;
-}
-
 export default compose(
-  mapProps((props) => ({ ...props, index: props.match.params.index })),
   withFetch(blockActions),
   withData(blockActions, mapBlockToProps),
   withProgressComponents(blockActions, {

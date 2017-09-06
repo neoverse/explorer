@@ -4,7 +4,8 @@ import { Route, Switch, NavLink } from "react-router-dom";
 import "../styles/app.scss";
 import Home from "../containers/home";
 import Blocks from "../containers/blocks";
-import Block from "../containers/block";
+import BlockByHash from "../containers/blockByHash";
+import BlockByIndex from "../containers/blockByIndex";
 import withStatus from "../hocs/withStatus";
 
 const NoMatch = () => {
@@ -28,7 +29,8 @@ export default class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/blocks" component={Blocks} />
-            <Route exact path="/blocks/:index" component={Block} />
+            <Route exact path="/blocks/hash/:hash" component={BlockByHash} />
+            <Route exact path="/blocks/height/:index" component={BlockByIndex} />
             <Route component={withStatus(404)(NoMatch)} />
           </Switch>
         </div>

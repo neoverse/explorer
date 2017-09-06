@@ -1,13 +1,9 @@
 import PropTypes from "prop-types";
 
+import scriptShape from "./scriptShape";
 import transactionShape from "./transactionShape";
 
 const { shape, string, number, arrayOf } = PropTypes;
-
-const scriptShape = shape({
-  invocation: string.isRequired,
-  verification: string.isRequired
-});
 
 export default shape({
   hash: string.isRequired,
