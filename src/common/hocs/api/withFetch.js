@@ -29,7 +29,7 @@ export default function withFetch(action, mapPropsToAction = defaultMapPropsToAc
 
       componentWillMount = () => {
         this.props[ACTION_PROP](mapPropsToAction(this.props));
-        this.Component = withoutProps("runOnServer", ACTION_PROP)(Component);
+        this.Component = withoutProps(ACTION_PROP)(Component);
       }
 
       render = () => {
