@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import scriptShape from "./scriptShape";
 
-const { shape, string, number, array, arrayOf } = PropTypes;
+const { shape, string, number, arrayOf } = PropTypes;
 
 const vinShape = shape({
   txid: string.isRequired,
@@ -16,11 +16,15 @@ const voutShape = shape({
   value: string.isRequired
 });
 
+const attributeShape = shape({
+  data: string.isRequired,
+  usage: string.isRequired
+});
+
 export default shape({
   txid: string.isRequired,
-  attributes: array.isRequired,
-  blockhash: string,
-  blocktime: number,
+  blockhash: string.isRequired,
+  blocktime: string.isRequired,
   net_fee: string.isRequired,
   nonce: number,
   scripts: arrayOf(scriptShape).isRequired,
@@ -28,6 +32,7 @@ export default shape({
   sys_fee: string.isRequired,
   type: string.isRequired,
   version: number.isRequired,
+  attributes: arrayOf(attributeShape).isRequired,
   vin: arrayOf(vinShape).isRequired,
   vout: arrayOf(voutShape).isRequired
 });

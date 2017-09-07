@@ -1,25 +1,48 @@
-import { compose, mapProps, setDisplayName } from "recompose";
+import { gql } from "react-apollo";
+import { compose, setDisplayName } from "recompose";
 
+import withGraphQuery from "../hocs/graphql/withGraphQuery";
+import withGraphProgress from "../hocs/graphql/withGraphProgress";
 import Transaction from "../components/transaction/transaction";
 import Loading from "../components/transaction/loading";
 import Failed from "../components/transaction/failed";
-import transactionActions from "../actions/transaction";
-import withFetch from "../hocs/api/withFetch";
-import withData from "../hocs/api/withData";
-import withProgressComponents from "../hocs/api/withProgressComponents";
-import { LOADING, FAILED } from "../values/state";
 
-function mapTransactionToProps(transaction) {
-  return { transaction };
-}
+const query = gql`
+  query ($txid: String!) {
+    transaction(txid: $txid) {
+      txid
+      type
+      size
+      nonce
+      version
+      blockhash
+      blocktime
+      sys_fee
+      net_fee
+      vin {
+        txid
+        vout
+      }
+      vout {
+        address
+        asset
+        n
+        value
+      }
+      attributes {
+        data
+        usage
+      }
+      scripts {
+        invocation
+        verification
+      }
+    }
+  }
+`;
 
 export default compose(
-  mapProps((props) => ({ ...props, id: props.match.params.id })),
-  withFetch(transactionActions),
-  withData(transactionActions, mapTransactionToProps),
-  withProgressComponents(transactionActions, {
-    [LOADING]: Loading,
-    [FAILED]: Failed
-  }),
+  withGraphQuery(query, { options: ({ match }) => ({ variables: { txid: match.params.txid } }) }),
+  withGraphProgress({ Loading, Failed }),
   setDisplayName("TransactionContainer")
 )(Transaction);

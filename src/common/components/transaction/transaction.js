@@ -24,7 +24,7 @@ export default class Transaction extends React.Component {
 
         <dl>
           <dt>Block:</dt>
-          <dd><Link to={`/blocks/hash/${transaction.blockhash}`}>{transaction.blockhash}</Link></dd>
+          <dd><Link to={`/blocks/${transaction.blockhash}`}>{transaction.blockhash}</Link></dd>
         </dl>
 
         <dl>
