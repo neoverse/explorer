@@ -1,21 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { ApolloProvider } from "react-apollo";
 
 import App from "../common/boot/app";
-import configureStore from "../common/boot/configureStore";
-
-const store = configureStore(window.__PRELOADED_STATE__);
-
-delete window.__PRELOADED_STATE__;
+import client from "../common/boot/client";
 
 ReactDOM.render((
-  <Provider store={store}>
+  <ApolloProvider client={client}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>
+  </ApolloProvider>
 ), document.getElementById("app"));
 
 if (module.hot) {

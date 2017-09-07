@@ -2,24 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import blockShape from "../../shapes/blockShape";
+import blockSummaryShape from "../../shapes/blockSummaryShape";
 
-const { number, arrayOf } = PropTypes;
+const { arrayOf } = PropTypes;
 
 export default class Blocks extends React.Component {
   static displayName = "Blocks";
 
   static propTypes = {
-    height: number,
-    blocks: arrayOf(blockShape).isRequired
+    blocks: arrayOf(blockSummaryShape).isRequired
   };
 
   render = () => {
     return (
       <div className="blocks-component">
         <h2>Blocks</h2>
-        <p>Current height: {this.props.height}</p>
-        {this.renderBlocks()}
+        <ul>
+          {this.renderBlocks()}
+        </ul>
       </div>
     );
   }
@@ -27,9 +27,9 @@ export default class Blocks extends React.Component {
   renderBlocks = () => {
     return this.props.blocks.map((block) => {
       return (
-        <p key={block.index}>
-          <Link to={`/blocks/height/${block.index}`}>#{block.index}</Link>
-        </p>
+        <li key={block.index}>
+          <Link to={`/blocks/${block.hash}`}>{block.hash}</Link>
+        </li>
       );
     });
   }

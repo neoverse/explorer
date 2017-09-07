@@ -1,12 +1,10 @@
 /* eslint-disable no-console */
 
 import server from "./server";
-import { setServer } from "./common/util/api/server";
+import database from "./server/database";
 
 const isProduction = process.env.NODE_ENV === "production";
 const port = process.env.PORT || 3000;
-
-setServer(true);
 
 if (module.hot) {
   module.hot.accept("./server", function() {
@@ -15,15 +13,22 @@ if (module.hot) {
   console.info("✅  Server-side HMR Enabled!");
 }
 
-server.listen(port, (err) => {
-  if (err) {
-    console.error(err);
-  } else if (isProduction) {
-    console.log(`Server running on port ${port}`);
-  } else {
-    const myip = require("quick-local-ip");
-    console.log(`Server running on network address ${myip.getLocalIP4()}:${port}`);
-  }
-});
+async function listen() {
+  await database.authenticate();
+  await database.sync();  // TODO: remove this in favor of running a migration before the app starts
+
+  server.listen(port, (err) => {
+    if (err) {
+      console.error(err);
+    } else if (isProduction) {
+      console.log(`Server running on port ${port}`);
+    } else {
+      const myip = require("quick-local-ip");
+      console.log(`Server running on network address ${myip.getLocalIP4()}:${port}`);
+    }
+  });
+}
+
+listen();
 
 export default server;

@@ -16,11 +16,11 @@ export default class Block extends React.Component {
 
     return (
       <div className="block-component">
-        <h1>Block #{block.index.toLocaleString()}</h1>
+        <h1>Block {block.hash}</h1>
 
         <dl>
-          <dt>Hash:</dt>
-          <dd>{block.hash}</dd>
+          <dt>Index:</dt>
+          <dd>{block.index.toLocaleString()}</dd>
 
           <dt>Time:</dt>
           <dd>{block.time}</dd>
@@ -44,9 +44,7 @@ export default class Block extends React.Component {
           <dd>{block.merkleroot}</dd>
 
           <dt>Previous Block:</dt>
-          <dd>
-            <Link to={`/blocks/hash/${block.previousblockhash}`}>{block.previousblockhash}</Link>
-          </dd>
+          <dd><Link to={`/blocks/${block.previousblockhash}`}>{block.previousblockhash}</Link></dd>
 
           <dt>Invocation Script:</dt>
           <dd>{block.script.invocation}</dd>
@@ -68,10 +66,10 @@ export default class Block extends React.Component {
   renderTransactions = () => {
     const { block } = this.props;
 
-    return block.tx.map((tx) => {
+    return block.transactions.map((transaction) => {
       return (
-        <li key={tx.txid}>
-          <Transaction transaction={{ ...tx, blocktime: block.time }} />
+        <li key={transaction.txid}>
+          <Transaction transaction={transaction} />
         </li>
       );
     });

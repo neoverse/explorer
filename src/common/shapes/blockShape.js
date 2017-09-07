@@ -10,12 +10,12 @@ export default shape({
   index: number.isRequired,
   confirmations: number.isRequired,
   merkleroot: string.isRequired,
-  nextconsensus: string.isRequired,
+  nextconsensus: string,
   nonce: string,
-  previousblockhash: string.isRequired,
+  previousblockhash: string,
   script: scriptShape.isRequired,
   size: number.isRequired,
-  time: number.isRequired,
-  tx: arrayOf(transactionShape).isRequired,
-  version: number.isRequired
+  time: string.isRequired,
+  version: number.isRequired,
+  transactions: arrayOf(transactionShape).isRequired
 });
