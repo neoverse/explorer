@@ -1,6 +1,12 @@
 import _ from "lodash";
 
-import { ACTION_REQUEST, ACTION_SUCCESS, ACTION_FAILURE } from "../values/api";
+import {
+  ACTION_REQUEST,
+  ACTION_SUCCESS,
+  ACTION_FAILURE,
+  ACTION_RESET,
+  ACTION_CANCEL
+} from "../values/api";
 import { INITIAL, LOADING, LOADED, FAILED } from "../values/state";
 
 const initialState = {
@@ -14,11 +20,15 @@ function reduceRequest(state = initialState, action) {
 
   switch (requestType) {
     case ACTION_REQUEST:
-      return { ...state, state: LOADING };
+      return { ...state, state: LOADING, rollbackState: state.state };
     case ACTION_SUCCESS:
-      return { ...state, state: LOADED, data: action.payload };
+      return { ...state, state: LOADED, rollbackState: LOADED, data: action.payload };
     case ACTION_FAILURE:
-      return { ...state, state: FAILED, error: action.payload };
+      return { ...state, state: FAILED, rollbackState: FAILED, error: action.payload };
+    case ACTION_RESET:
+      return { ...state, ...initialState };
+    case ACTION_CANCEL:
+      return { ...state, state: state.previousState };
     default:
       return state;
   }
