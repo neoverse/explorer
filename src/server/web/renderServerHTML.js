@@ -1,4 +1,5 @@
 import serialize from "serialize-javascript";
+import defaultTitle from "../../common/values/defaultTitle";
 
 const isProduction = process.env.NODE_ENV === "production";
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
@@ -15,14 +16,14 @@ function getAssetsJS() {
   return `<script src="${assets.client.js}" defer${isProduction ? " defer" : ""}></script>`;
 }
 
-export default function renderServerHTML({ html = "", state = {} } = {}) {
+export default function renderServerHTML({ html = "", state = {}, title = defaultTitle } = {}) {
   return `
     <!DOCTYPE html>
     <html>
       <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>NEO Blockchain Explorer</title>
+        <title>${title}</title>
         <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
         ${getAssetsCSS()}
         ${getAssetsJS()}

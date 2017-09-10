@@ -2,10 +2,12 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import { ApolloProvider, getDataFromTree } from "react-apollo";
+import DocumentTitle from "react-document-title";
 import "isomorphic-fetch";
 
 import App from "../../common/boot/app";
 import client from "../../common/boot/client";
+import defaultTitle from "../../common/values/defaultTitle";
 import renderServerHTML from "./renderServerHTML";
 
 export default function handleRequest(req, res) {
@@ -26,8 +28,9 @@ export default function handleRequest(req, res) {
     getDataFromTree(app).then(() => {
       const html = renderToString(app);
       const state = { [client.reduxRootKey || "apollo"]: client.getInitialState() };
+      const title = DocumentTitle.rewind() || defaultTitle;
 
-      res.status(status).type("html").end(renderServerHTML({ html, state }));
+      res.status(status).type("html").end(renderServerHTML({ html, state, title }));
     });
   }
 }
