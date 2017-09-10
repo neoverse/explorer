@@ -53,6 +53,7 @@
     "razzle-heroku": "^2.0.0",
     "react": "^15.6.1",
     "react-apollo": "^1.4.15",
+    "react-document-title": "^2.0.3",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2",
     "recompose": "^0.25.0",
