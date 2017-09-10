@@ -6,11 +6,7 @@ import Home from "../containers/home";
 import Blocks from "../containers/blocks";
 import Block from "../containers/block";
 import Transaction from "../containers/transaction";
-import withStatus from "../hocs/withStatus";
-
-const NoMatch = () => {
-  return <div>Not found</div>;
-};
+import NotFound from "../containers/notFound";
 
 export default class App extends React.Component {
   render = () => {
@@ -31,7 +27,7 @@ export default class App extends React.Component {
             <Route exact path="/blocks" component={Blocks} />
             <Route exact path="/blocks/:hash" component={Block} />
             <Route exact path="/transactions/:txid" component={Transaction} />
-            <Route component={withStatus(404)(NoMatch)} />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </div>
