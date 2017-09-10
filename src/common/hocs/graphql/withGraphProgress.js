@@ -18,7 +18,14 @@ const dataShape = shape({
   subscribeToMore: func.isRequired
 });
 
-const withGraphProgress = ({ Loading, Failed }) => (Component) => {
+const DefaultNotFound = () => <div>Not Found</div>;
+
+const withGraphProgress = ({
+  Loading,
+  Failed,
+  NotFound = DefaultNotFound,
+  required = []
+}) => (Component) => {
   return class ComponentWithProgress extends React.Component {
     static displayName = wrapDisplayName(Component, "withGraphProgress");
 
@@ -37,6 +44,8 @@ const withGraphProgress = ({ Loading, Failed }) => (Component) => {
         return <Loading {...passDownProps} />;
       } else if (data.error) {
         return <Failed {...passDownProps} />;
+      } else if (_.some(passDownData, (data, key) => _.includes(required, key) && _.isNull(data))) {
+        return <NotFound />;
       } else {
         return <Component {...passDownProps} {...passDownData} />;
       }

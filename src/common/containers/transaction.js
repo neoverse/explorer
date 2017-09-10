@@ -6,6 +6,7 @@ import withGraphProgress from "../hocs/graphql/withGraphProgress";
 import Transaction from "../components/transaction/transaction";
 import Loading from "../components/transaction/loading";
 import Failed from "../components/transaction/failed";
+import NotFound from "./notFound";
 
 const query = gql`
   query ($txid: String!) {
@@ -43,6 +44,6 @@ const query = gql`
 
 export default compose(
   withGraphQuery(query, { options: ({ match }) => ({ variables: { txid: match.params.txid } }) }),
-  withGraphProgress({ Loading, Failed }),
+  withGraphProgress({ Loading, Failed, NotFound, required: ["transaction"] }),
   setDisplayName("TransactionContainer")
 )(Transaction);
