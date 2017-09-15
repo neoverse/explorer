@@ -51,7 +51,8 @@ export const Transaction = sequelize.define("transactions", {
 }, {
   underscored: true,
   indexes: [
-    { fields: ["txid"], unique: true }
+    { fields: ["txid"], unique: true },
+    { fields: ["blockhash"] }
   ]
 });
 
