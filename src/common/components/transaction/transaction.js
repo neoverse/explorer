@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TimeAgo from "react-timeago";
 
 import transactionShape from "../../shapes/transactionShape";
 
@@ -29,7 +30,7 @@ export default class Transaction extends React.Component {
 
         <dl>
           <dt>Time:</dt>
-          <dd>{transaction.blocktime}</dd>
+          <dd><TimeAgo date={transaction.blocktime} /></dd>
         </dl>
 
         <dl>

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import TimeAgo from "react-timeago";
 
 import blockSummaryShape from "../../shapes/blockSummaryShape";
 
@@ -17,9 +18,19 @@ export default class Blocks extends React.Component {
     return (
       <div className="blocks-component">
         <h2>Blocks</h2>
-        <ul>
-          {this.renderBlocks()}
-        </ul>
+        <table width="100%">
+          <thead>
+            <tr>
+              <td>Index</td>
+              <td>Time</td>
+              <td>Confirmations</td>
+              <td>Size</td>
+            </tr>
+          </thead>
+          <tbody>
+            {this.renderBlocks()}
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -27,9 +38,12 @@ export default class Blocks extends React.Component {
   renderBlocks = () => {
     return this.props.blocks.map((block) => {
       return (
-        <li key={block.index}>
-          <Link to={`/blocks/${block.hash}`}>{block.hash}</Link>
-        </li>
+        <tr key={block.index}>
+          <td><Link to={`/blocks/${block.hash}`}>{block.index}</Link></td>
+          <td><TimeAgo date={block.time} /></td>
+          <td>{block.confirmations}</td>
+          <td>{block.size}</td>
+        </tr>
       );
     });
   }

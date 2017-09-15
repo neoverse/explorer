@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TimeAgo from "react-timeago";
 
 import Transaction from "./transaction";
 import blockShape from "../../shapes/blockShape";
@@ -23,7 +24,7 @@ export default class Block extends React.Component {
           <dd>{block.index.toLocaleString()}</dd>
 
           <dt>Time:</dt>
-          <dd>{block.time}</dd>
+          <dd><TimeAgo date={block.time} /></dd>
 
           <dt>Validator:</dt>
           <dd>{block.nextconsensus}</dd>
