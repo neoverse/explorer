@@ -22,9 +22,9 @@ export default class Blocks extends React.Component {
           <thead>
             <tr>
               <td>Index</td>
-              <td>Time</td>
               <td>Confirmations</td>
               <td>Size</td>
+              <td>Time</td>
             </tr>
           </thead>
           <tbody>
@@ -40,9 +40,9 @@ export default class Blocks extends React.Component {
       return (
         <tr key={block.index}>
           <td><Link to={`/blocks/${block.hash}`}>{block.index}</Link></td>
-          <td><TimeAgo date={block.time} /></td>
           <td>{block.confirmations}</td>
-          <td>{block.size}</td>
+          <td>{block.size.toLocaleString()} bytes</td>
+          <td><TimeAgo date={block.time} /></td>
         </tr>
       );
     });

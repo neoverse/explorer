@@ -1,7 +1,7 @@
 import { GraphQLString, GraphQLInt, GraphQLList, GraphQLNonNull } from "graphql";
 
 import TransactionSchema from "./transactionSchema";
-import { Transaction } from "../../../database";
+import { Transaction, Block } from "../../../database";
 import { PAGE_SIZE } from "../../values";
 
 export default {
@@ -23,7 +23,8 @@ export default {
       return Transaction.findAll({
         offset: (Math.min(1, page || 1) - 1) * PAGE_SIZE,
         limit: PAGE_SIZE,
-        order: [["index", "desc"]]
+        order: [[Block, "index", "desc"]],
+        include: Block
       });
     }
   }

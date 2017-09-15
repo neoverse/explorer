@@ -55,7 +55,7 @@ export default class Transaction extends React.Component {
 
         <dl>
           <dt>Size:</dt>
-          <dd>{transaction.size}</dd>
+          <dd>{transaction.size.toLocaleString()} bytes</dd>
         </dl>
 
         <dl>
