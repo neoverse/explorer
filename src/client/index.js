@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
 
 import App from "../common/boot/app";
-import client from "../common/boot/client";
+import client from "./client";
 
 ReactDOM.render((
   <ApolloProvider client={client}>

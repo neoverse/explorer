@@ -6,9 +6,9 @@ import DocumentTitle from "react-document-title";
 import "isomorphic-fetch";
 
 import App from "../../common/boot/app";
-import client from "../../common/boot/client";
 import defaultTitle from "../../common/values/defaultTitle";
 import renderServerHTML from "./renderServerHTML";
+import client from "./client";
 
 export default function handleRequest(req, res) {
   const context = {};
