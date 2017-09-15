@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import "babel-polyfill";
 import _ from "lodash";
 import * as neo from "neo-api-js";
@@ -11,7 +13,7 @@ async function createBlock(block, options = {}) {
   const attrs = _.pick(block, "hash", "index", "confirmations", "merkleroot", "nextconsensus",
     "nonce", "previousblockhash", "script", "size", "time", "version");
 
-  return Block.create(attrs, options);
+  return Block.create({ ...attrs, time: block.time * 1000 }, options);
 }
 
 async function createTransactions(transactions, block, options = {}) {
@@ -19,7 +21,7 @@ async function createTransactions(transactions, block, options = {}) {
     const attrs = _.pick(tx, "txid", "type", "size", "nonce", "sys_fee", "net_fee", "scripts",
       "version", "vin", "vout");
 
-    return { ...attrs, attrs: tx.attributes, blockhash: block.hash, blocktime: block.time };
+    return { ...attrs, attrs: tx.attributes, blockhash: block.hash, blocktime: block.time * 1000 };
   }), options);
 }
 
@@ -55,7 +57,7 @@ async function run() {
 
         success = true;
       } catch (err) {
-        console.error(err);  // eslint-disable-line no-console
+        console.error(err);
         await transaction.rollback();
       }
     }
