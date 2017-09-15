@@ -45,6 +45,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "foreman": "^2.0.0",
     "graphql": "^0.11.3",
+    "graphql-bigint": "^1.0.0",
     "graphql-iso-date": "^3.3.0",
     "is-heroku": "^1.0.1",
     "isomorphic-fetch": "^2.2.1",

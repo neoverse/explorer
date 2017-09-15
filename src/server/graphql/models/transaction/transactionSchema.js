@@ -1,5 +1,6 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList, GraphQLNonNull } from "graphql";
 import { GraphQLDateTime } from "graphql-iso-date";
+import GraphQLBigInt from "graphql-bigint";
 
 import AttributeSchema from "../attribute/attributeSchema";
 import ScriptSchema from "../script/scriptSchema";
@@ -35,7 +36,7 @@ export default new GraphQLObjectType({
       description: "System fee"
     },
     nonce: {
-      type: GraphQLInt,
+      type: GraphQLBigInt,
       description: "Nonce"
     },
     size: {

@@ -2,8 +2,7 @@ import { GraphQLString, GraphQLInt, GraphQLList, GraphQLNonNull } from "graphql"
 
 import TransactionSchema from "./transactionSchema";
 import { Transaction } from "../../../database";
-
-const PAGE_SIZE = 50;
+import { PAGE_SIZE } from "../../values";
 
 export default {
   transaction: {

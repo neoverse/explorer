@@ -2,8 +2,7 @@ import { GraphQLInt, GraphQLString, GraphQLList, GraphQLNonNull } from "graphql"
 
 import BlockSchema from "./blockSchema";
 import { Block, Transaction } from "../../../database";
-
-const PAGE_SIZE = 50;
+import { PAGE_SIZE } from "../../values";
 
 export default {
   block: {

@@ -41,7 +41,7 @@ export const Transaction = sequelize.define("transactions", {
   blocktime: { type: Sequelize.DATE, allowNull: false },
   net_fee: { type: Sequelize.STRING, allowNull: false },
   sys_fee: { type: Sequelize.STRING, allowNull: false },
-  nonce: { type: Sequelize.STRING, allowNull: true },
+  nonce: { type: Sequelize.BIGINT, allowNull: true },
   size: { type: Sequelize.INTEGER, allowNull: false },
   version: { type: Sequelize.INTEGER, allowNull: false },
   attrs: { type: Sequelize.JSON, allowNull: false },  // TODO: this should be named "attributes"
