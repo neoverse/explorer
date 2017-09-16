@@ -24,7 +24,9 @@ export default {
         offset: (Math.min(1, page || 1) - 1) * PAGE_SIZE,
         limit: PAGE_SIZE,
         order: [[Block, "index", "desc"]],
-        include: Block
+        include: [{ model: Block, required: true }],
+        // Prevent `include` model fields from being selected (https://github.com/sequelize/sequelize/issues/5481):
+        includeIgnoreAttributes: false
       });
     }
   }
