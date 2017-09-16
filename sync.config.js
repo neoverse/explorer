@@ -24,10 +24,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      include: [
-        path.resolve(__dirname, "src"),
-        path.resolve(__dirname, "node_modules/neo-api")
-      ],
+      exclude: /node_modules/,
       loader: "babel-loader"
     }]
   }
