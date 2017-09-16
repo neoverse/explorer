@@ -44,7 +44,7 @@ export default class Syncer {
     await this._compareBlockHeight();
     if (this.queue.length() > 0) return;
 
-    this.clock = setTimeout(async () => {
+    this.clock = setInterval(async () => {
       await this._compareBlockHeight();
 
       if (this.queue.length() > 0) {
