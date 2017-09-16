@@ -48,7 +48,7 @@ export default class Syncer {
       await this._compareBlockHeight();
 
       if (this.queue.length() > 0) {
-        this.clearInterval(this.clock);
+        clearInterval(this.clock);
       }
     }, this.pollInterval);
   }
