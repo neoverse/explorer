@@ -2,7 +2,7 @@
 
 import _ from "lodash";
 import async from "async";
-import * as neo from "neo-api-js";
+import * as neo from "neo-api";
 
 import database, { Block, Transaction } from "../server/database";
 import findBestNode from "./findBestNode";

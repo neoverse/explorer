@@ -5,7 +5,7 @@ module.exports = (config, { target, dev }, webpack) => {
     test: /\.js$/,
     include: [
       path.resolve(__dirname, "../src"),
-      path.resolve(__dirname, "../node_modules/neo-api-js")
+      path.resolve(__dirname, "../node_modules/neo-api")
     ],
     loader: "babel-loader"
   });

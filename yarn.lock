@@ -4718,9 +4718,9 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-"neo-api-js@github:CityOfZion/neo-api-js":
+neo-api@^1.0.0:
   version "1.0.0"
-  resolved "https://codeload.github.com/CityOfZion/neo-api-js/tar.gz/bb4e6713808e9d5d28f2bc5821fcf3a131fd3d64"
+  resolved "https://registry.yarnpkg.com/neo-api/-/neo-api-1.0.0.tgz#1ef929e3a654811a6453f3c1bc8abaf8c0114617"
   dependencies:
     axios "^0.16.2"
 
