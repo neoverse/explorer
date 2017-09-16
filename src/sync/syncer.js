@@ -58,13 +58,17 @@ export default class Syncer {
     const nextIndex = await this._getNextIndex();
     const maxIndex = nextIndex + Math.min(height - nextIndex, this.queueSize) - 1;
 
-    console.log(`Enqueueing fetches for blocks ${nextIndex} to ${maxIndex}...`);
+    if (nextIndex > maxIndex) {
+      console.log("Waiting for new blocks...");
+    } else {
+      console.log(`Enqueueing fetches for blocks ${nextIndex} to ${maxIndex}...`);
 
-    for (let index = nextIndex; index <= maxIndex; index++) {
-      this._enqueue({ index, height });
+      for (let index = nextIndex; index <= maxIndex; index++) {
+        this._enqueue({ index, height });
+      }
+
+      console.log("Enqueued.");
     }
-
-    console.log("Enqueued.");
   }
 
   _enqueue = ({ index, height }, priority = PRIORITY_DEFAULT) => {
