@@ -57,7 +57,7 @@ export default class Syncer {
   }
 
   _compareBlockHeight = async () => {
-    const height = await this.client.getBlockCount();
+    const height = await this._getBlockCount();
     const nextIndex = await this._getNextIndex();
     const maxIndex = nextIndex + Math.min(height - nextIndex, this.queueSize) - 1;
 
@@ -90,8 +90,7 @@ export default class Syncer {
     try {
       console.log(`Fetching block #${index}...`);
 
-      // TODO: if the below call fails, we should recreate the client with new best node
-      const block = await this.client.getBlockByHeight(index, VERBOSE);
+      const block = await this._getBlockByHeight(index);
 
       await this._createBlock(block, { transaction });
       await this._createTransactions(block.tx, block, { transaction });
@@ -126,5 +125,22 @@ export default class Syncer {
 
       return { ...attrs, attrs: tx.attributes, blockhash: block.hash, blocktime: block.time * 1000 };
     }), options);
+  }
+
+  _getBlockCount = async () => {
+    return this._ensureWorkingClient(() => this.client.getBlockCount());
+  }
+
+  _getBlockByHeight = async (index) => {
+    return this._ensureWorkingClient(() => this.client.getBlockByHeight(index, VERBOSE));
+  }
+
+  _ensureWorkingClient = async (callback) => {
+    try {
+      return callback();
+    } catch (err) {
+      this.client = await this._createClient();
+      return this._ensureWorkingClient(callback);
+    }
   }
 }
