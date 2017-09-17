@@ -14,6 +14,7 @@ const PRIORITY_IMMEDIATE = 0;
 export default class Syncer {
   constructor({ concurrency = 1, pollInterval = 1000, queueSize = 1000 } = {}) {
     this.client = null;
+    this.paused = false;
     this.pollInterval = pollInterval;
     this.queueSize = queueSize;
     this.queue = async.priorityQueue(this._processIndex, concurrency);
@@ -25,10 +26,18 @@ export default class Syncer {
       this.client = await this._createClient();
     }
 
+    if (this.paused) {
+      this.paused = false;
+      this.queue.resume();
+    }
+
     await this._poll();
   }
 
   stop = () => {
+    this.paused = true;
+    this.queue.pause();
+
     if (this.clock) {
       clearInterval(this.clock);
       delete this.clock;
@@ -44,13 +53,7 @@ export default class Syncer {
     await this._compareBlockHeight();
     if (this.queue.length() > 0) return;
 
-    this.clock = setInterval(async () => {
-      await this._compareBlockHeight();
-
-      if (this.queue.length() > 0) {
-        clearInterval(this.clock);
-      }
-    }, this.pollInterval);
+    this.clock = setTimeout(this._poll, this.pollInterval);
   }
 
   _compareBlockHeight = async () => {
