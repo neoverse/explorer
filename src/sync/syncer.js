@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 
-import _ from "lodash";
 import async from "async";
 import * as neo from "neo-api";
 
-import database, { Block, Transaction } from "../server/database";
-import findBestNode from "./findBestNode";
+import Updater from "./updater";
+import findBestNode from "./helpers/findBestNode";
+import getNextIndex from "./helpers/getNextIndex";
 
 const VERBOSE = 1;
 const PRIORITY_DEFAULT = 5;
@@ -17,6 +17,7 @@ export default class Syncer {
     this.paused = false;
     this.pollInterval = pollInterval;
     this.queueSize = queueSize;
+    this.updater = new Updater();
     this.queue = async.priorityQueue(this._processIndex, concurrency);
     this.queue.drain = async () => { await this._poll(); };
   }
@@ -58,7 +59,7 @@ export default class Syncer {
 
   _compareBlockHeight = async () => {
     const height = await this._getBlockCount();
-    const nextIndex = await this._getNextIndex();
+    const nextIndex = await getNextIndex();
     const maxIndex = nextIndex + Math.min(height - nextIndex, this.queueSize) - 1;
 
     if (nextIndex > maxIndex) {
@@ -85,46 +86,18 @@ export default class Syncer {
   }
 
   _processIndex = async ({ index, height }, callback) => {
-    const transaction = await database.transaction();
+    console.log(`Fetching block #${index}...`);
+    const block = await this._getBlockByHeight(index);
 
     try {
-      console.log(`Fetching block #${index}...`);
-
-      const block = await this._getBlockByHeight(index);
-
-      await this._createBlock(block, { transaction });
-      await this._createTransactions(block.tx, block, { transaction });
-      await transaction.commit();
-
+      await this.updater.update(block);
       console.log(`Saved block #${block.index} (${block.hash})`);
     } catch (err) {
       console.error("Error saving block:", err);
-      await transaction.rollback();
       this._retry({ index, height });
     }
 
     callback();
-  }
-
-  _getNextIndex = async () => {
-    const lastBlock = await Block.findOne({ order: [["index", "desc"]] });
-    return lastBlock ? lastBlock.index + 1 : 0;
-  }
-
-  _createBlock = async (block, options = {}) => {
-    const attrs = _.pick(block, "hash", "index", "confirmations", "merkleroot", "nextconsensus",
-      "nonce", "previousblockhash", "script", "size", "time", "version");
-
-    return Block.create({ ...attrs, time: block.time * 1000 }, options);
-  }
-
-  _createTransactions = async (transactions, block, options = {}) => {
-    return Transaction.bulkCreate(transactions.map((tx) => {
-      const attrs = _.pick(tx, "txid", "type", "size", "nonce", "sys_fee", "net_fee", "scripts",
-        "version", "vin", "vout");
-
-      return { ...attrs, attrs: tx.attributes, blockhash: block.hash, blocktime: block.time * 1000 };
-    }), options);
   }
 
   _getBlockCount = async () => {
