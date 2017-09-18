@@ -2,10 +2,12 @@ import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLList, GraphQLNonNu
 import { GraphQLDateTime } from "graphql-iso-date";
 import GraphQLBigInt from "graphql-bigint";
 
+import AssetSchema from "../asset/assetSchema";
 import AttributeSchema from "../attribute/attributeSchema";
 import ScriptSchema from "../script/scriptSchema";
 import VinSchema from "../vin/vinSchema";
 import VoutSchema from "../vout/voutSchema";
+import { Asset } from "../../../database";
 
 export default new GraphQLObjectType({
   name: "Transaction",
@@ -63,6 +65,11 @@ export default new GraphQLObjectType({
     vout: {
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(VoutSchema))),
       description: "TODO"
+    },
+    asset: {
+      type: AssetSchema,
+      description: "Transaction asset",
+      resolve: (transaction) => Asset.findOne({ where: { txid: transaction.txid } })
     }
   }
 });

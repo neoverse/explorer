@@ -40,6 +40,13 @@ const query = gql`
         invocation
         verification
       }
+      asset {
+        txid
+        name {
+          name
+          lang
+        }
+      }
     }
   }
 `;
