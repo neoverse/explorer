@@ -46,6 +46,7 @@ export const Transaction = sequelize.define("transactions", {
   version: { type: Sequelize.INTEGER, allowNull: false },
   attrs: { type: Sequelize.JSON, allowNull: false },  // TODO: this should be named "attributes"
   scripts: { type: Sequelize.JSON, allowNull: false },
+  asset: { type: Sequelize.JSON, allowNull: true },
   vin: { type: Sequelize.JSON, allowNull: false },
   vout: { type: Sequelize.JSON, allowNull: false }
 }, {
@@ -56,7 +57,71 @@ export const Transaction = sequelize.define("transactions", {
   ]
 });
 
-Block.hasMany(Transaction, { foreignKey: "blockhash", sourceKey: "hash" });
-Transaction.belongsTo(Block, { foreignKey: "blockhash", targetKey: "hash" });
+export const Address = sequelize.define("addresses", {
+  address: { type: Sequelize.STRING, allowNull: false },
+  balances: { type: Sequelize.JSON, allowNull: false },
+  claimed: { type: Sequelize.JSON, allowNull: false }
+}, {
+  underscored: true,
+  indexes: [
+    { fields: ["address"], unique: true }
+  ]
+});
+
+export const AddressTransaction = sequelize.define("addresses_transactions", {
+  address_id: { type: Sequelize.INTEGER, allowNull: false },
+  transaction_id: { type: Sequelize.INTEGER, allowNull: false }
+}, {
+  underscored: true,
+  indexes: [
+    { fields: ["address_id", "transaction_id"], unique: true }
+  ]
+});
+
+export const Asset = sequelize.define("assets", {
+  txid: { type: Sequelize.STRING, allowNull: false },
+  name: { type: Sequelize.JSON, allowNull: false },
+  type: { type: Sequelize.STRING, allowNull: false },
+  precision: { type: Sequelize.INTEGER, allowNull: false },
+  issued: { type: Sequelize.DECIMAL, allowNull: false },
+  amount: { type: Sequelize.DECIMAL, allowNull: false },
+  admin: { type: Sequelize.STRING, allowNull: false },
+  owner: { type: Sequelize.STRING, allowNull: false }
+}, {
+  underscored: true,
+  indexes: [
+    { fields: ["txid"], unique: true }
+  ]
+});
+
+export const AssetTransaction = sequelize.define("assets_transactions", {
+  asset_id: { type: Sequelize.INTEGER, allowNull: false },
+  transaction_id: { type: Sequelize.INTEGER, allowNull: false }
+}, {
+  underscored: true,
+  indexes: [
+    { fields: ["asset_id", "transaction_id"], unique: true }
+  ]
+});
+
+Block.hasMany(Transaction, {
+  foreignKey: "blockhash",
+  sourceKey: "hash"
+});
+
+Transaction.belongsTo(Block, {
+  foreignKey: "blockhash",
+  targetKey: "hash"
+});
+
+Address.belongsToMany(Transaction, {
+  foreignKey: "address_id",
+  through: { model: AddressTransaction, unique: true }
+});
+
+Asset.belongsToMany(Transaction, {
+  foreignKey: "asset_id",
+  through: { model: AssetTransaction, unique: true }
+});
 
 export default sequelize;
