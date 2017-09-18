@@ -2,7 +2,7 @@ import { GraphQLObjectType, GraphQLInt, GraphQLFloat, GraphQLString, GraphQLList
 import { GraphQLDateTime } from "graphql-iso-date";
 
 const NameSchema = new GraphQLObjectType({
-  name: "Name",
+  name: "AssetName",
   description: "Asset name by language",
   fields: {
     name: {

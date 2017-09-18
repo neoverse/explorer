@@ -4,10 +4,11 @@ import GraphQLBigInt from "graphql-bigint";
 
 import AssetSchema from "../asset/assetSchema";
 import AttributeSchema from "../attribute/attributeSchema";
+import ContractSchema from "../contract/contractSchema";
 import ScriptSchema from "../script/scriptSchema";
 import VinSchema from "../vin/vinSchema";
 import VoutSchema from "../vout/voutSchema";
-import { Asset } from "../../../database";
+import { Asset, Contract } from "../../../database";
 
 export default new GraphQLObjectType({
   name: "Transaction",
@@ -70,6 +71,11 @@ export default new GraphQLObjectType({
       type: AssetSchema,
       description: "Transaction asset",
       resolve: (transaction) => Asset.findOne({ where: { txid: transaction.txid } })
+    },
+    contract: {
+      type: ContractSchema,
+      description: "Transaction contract",
+      resolve: (transaction) => Contract.findOne({ where: { tx: transaction.txid } })
     }
   }
 });

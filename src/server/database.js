@@ -46,9 +46,9 @@ export const Transaction = sequelize.define("transactions", {
   version: { type: Sequelize.INTEGER, allowNull: false },
   attrs: { type: Sequelize.JSON, allowNull: false },  // TODO: this should be named "attributes"
   scripts: { type: Sequelize.JSON, allowNull: false },
-  asset: { type: Sequelize.JSON, allowNull: true },
   vin: { type: Sequelize.JSON, allowNull: false },
-  vout: { type: Sequelize.JSON, allowNull: false }
+  vout: { type: Sequelize.JSON, allowNull: false },
+  data: { type: Sequelize.JSON, allowNull: true }
 }, {
   underscored: true,
   indexes: [
@@ -105,6 +105,25 @@ export const AssetTransaction = sequelize.define("assets_transactions", {
   ]
 });
 
+export const Contract = sequelize.define("contracts", {
+  txid: { type: Sequelize.STRING, allowNull: false },
+  hash: { type: Sequelize.STRING, allowNull: false },
+  name: { type: Sequelize.STRING, allowNull: false },
+  code: { type: Sequelize.JSON, allowNull: false },
+  version: { type: Sequelize.STRING, allowNull: false },
+  needstorage: { type: Sequelize.BOOLEAN, allowNull: false },
+  author: { type: Sequelize.STRING, allowNull: false },
+  email: { type: Sequelize.STRING, allowNull: false },
+  description: { type: Sequelize.STRING, allowNull: false },
+  registered: { type: Sequelize.DATE, allowNull: false }
+}, {
+  underscored: true,
+  indexes: [
+    { fields: ["txid"], unique: true },
+    { fields: ["hash"], unique: true }
+  ]
+});
+
 Block.hasMany(Transaction, {
   foreignKey: "blockhash",
   sourceKey: "hash"
@@ -115,14 +134,24 @@ Transaction.belongsTo(Block, {
   targetKey: "hash"
 });
 
-Address.belongsToMany(Transaction, {
-  foreignKey: "address_id",
-  through: { model: AddressTransaction, unique: true }
+// Address.belongsToMany(Transaction, {
+//   foreignKey: "address_id",
+//   through: { model: AddressTransaction, unique: true }
+// });
+
+Asset.belongsTo(Transaction, {
+  foreignKey: "txid",
+  targetKey: "txid"
 });
 
-Asset.belongsToMany(Transaction, {
-  foreignKey: "asset_id",
-  through: { model: AssetTransaction, unique: true }
+// Asset.belongsToMany(Transaction, {
+//   foreignKey: "asset_id",
+//   through: { model: AssetTransaction, unique: true }
+// });
+
+Contract.belongsTo(Transaction, {
+  foreignKey: "txid",
+  targetKey: "txid"
 });
 
 export default sequelize;
