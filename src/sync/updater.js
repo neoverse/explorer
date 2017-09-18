@@ -3,10 +3,7 @@
 import _ from "lodash";
 
 import database, { Block, Transaction, Asset /* Address */ } from "../server/database";
-
-const TRANSACTION_TYPE_REGISTER = "RegisterTransaction";
-const TRANSACTION_TYPE_ISSUE = "IssueTransaction";
-const TRANSACTION_TYPE_MINER = "MinerTransaction";
+import { REGISTER_TRANSACTION } from "../common/values/transactions";
 
 export default class Updater {
   update = async (block) => {
@@ -43,7 +40,7 @@ export default class Updater {
   _createAssociations = async (transactions, block, options = {}) => {
     await Promise.all(transactions.map(async (transaction) => {
       switch (transaction.type) {
-        case TRANSACTION_TYPE_REGISTER:
+        case REGISTER_TRANSACTION:
           await this._createAsset(transaction.asset, transaction.txid, block.time * 1000, options);
           break;
       }
