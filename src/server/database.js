@@ -86,7 +86,8 @@ export const Asset = sequelize.define("assets", {
   issued: { type: Sequelize.DECIMAL, allowNull: false },
   amount: { type: Sequelize.DECIMAL, allowNull: false },
   admin: { type: Sequelize.STRING, allowNull: false },
-  owner: { type: Sequelize.STRING, allowNull: false }
+  owner: { type: Sequelize.STRING, allowNull: false },
+  registered: { type: Sequelize.DATE, allowNull: false }
 }, {
   underscored: true,
   indexes: [

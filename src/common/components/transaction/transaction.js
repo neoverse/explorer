@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
+import getAssetName from "../../helpers/getAssetName";
 import transactionShape from "../../shapes/transactionShape";
 
 export default class Transaction extends React.Component {
@@ -77,6 +78,8 @@ export default class Transaction extends React.Component {
           <dt>Scripts:</dt>
           <dd><ul>{this.renderScripts(transaction.scripts)}</ul></dd>
         </dl>
+
+        {this.renderAsset(transaction.asset)}
       </div>
     );
   }
@@ -102,5 +105,16 @@ export default class Transaction extends React.Component {
         </li>
       );
     });
+  }
+
+  renderAsset = (asset) => {
+    if (asset) {
+      return (
+        <dl>
+          <dt>Asset:</dt>
+          <dd><Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link></dd>
+        </dl>
+      );
+    }
   }
 }

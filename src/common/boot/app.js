@@ -7,6 +7,8 @@ import Blocks from "../containers/blocks";
 import Block from "../containers/block";
 import Transactions from "../containers/transactions";
 import Transaction from "../containers/transaction";
+import Assets from "../containers/assets";
+import Asset from "../containers/asset";
 import NotFound from "../containers/notFound";
 
 export default class App extends React.Component {
@@ -20,6 +22,7 @@ export default class App extends React.Component {
             <li><NavLink to="/" exact>Home</NavLink></li>
             <li><NavLink to="/blocks">Blocks</NavLink></li>
             <li><NavLink to="/transactions">Transactions</NavLink></li>
+            <li><NavLink to="/assets">Assets</NavLink></li>
           </ul>
         </div>
 
@@ -30,6 +33,8 @@ export default class App extends React.Component {
             <Route exact path="/blocks/:hash" component={Block} />
             <Route exact path="/transactions" component={Transactions} />
             <Route exact path="/transactions/:txid" component={Transaction} />
+            <Route exact path="/assets" component={Assets} />
+            <Route exact path="/assets/:txid" component={Asset} />
             <Route component={NotFound} />
           </Switch>
         </div>
