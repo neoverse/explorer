@@ -39,7 +39,7 @@ export default class Blocks extends React.Component {
     return this.props.blocks.map((block) => {
       return (
         <tr key={block.index}>
-          <td><Link to={`/blocks/${block.hash}`}>{block.index}</Link></td>
+          <td><Link to={`/blocks/${block.hash}`}>{block.index.toLocaleString()}</Link></td>
           <td>{block.confirmations}</td>
           <td>{block.size.toLocaleString()} bytes</td>
           <td><TimeAgo date={block.time} /></td>
