@@ -9,6 +9,8 @@ import Transactions from "../containers/transactions";
 import Transaction from "../containers/transaction";
 import Assets from "../containers/assets";
 import Asset from "../containers/asset";
+import Contracts from "../containers/contracts";
+import Contract from "../containers/contract";
 import NotFound from "../containers/notFound";
 
 export default class App extends React.Component {
@@ -23,6 +25,7 @@ export default class App extends React.Component {
             <li><NavLink to="/blocks">Blocks</NavLink></li>
             <li><NavLink to="/transactions">Transactions</NavLink></li>
             <li><NavLink to="/assets">Assets</NavLink></li>
+            <li><NavLink to="/contracts">Contracts</NavLink></li>
           </ul>
         </div>
 
@@ -35,6 +38,8 @@ export default class App extends React.Component {
             <Route exact path="/transactions/:txid" component={Transaction} />
             <Route exact path="/assets" component={Assets} />
             <Route exact path="/assets/:txid" component={Asset} />
+            <Route exact path="/contracts" component={Contracts} />
+            <Route exact path="/contracts/:hash" component={Contract} />
             <Route component={NotFound} />
           </Switch>
         </div>
