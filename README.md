@@ -5,8 +5,9 @@ NEO Blockchain Explorer provides insight into the NEO blockchain.
 ## Getting Started
 
 1. Run `yarn install`
-2. Run `yarn run start`
-3. Navigate to http://localhost:3000
+2. Run `yarn run migrate:up`
+3. Run `yarn run start`
+4. Navigate to http://localhost:3000
 
 ## GraphQL
 

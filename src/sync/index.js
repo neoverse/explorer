@@ -11,9 +11,7 @@ const syncer = new Syncer({
 
 async function run() {
   await database.authenticate();
-  await database.sync();  // TODO: remove this in favor of running a migration before the app starts
-
-  syncer.start();
+  await syncer.start();
 }
 
 process.on("SIGINT", () => {
