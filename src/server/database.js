@@ -44,7 +44,7 @@ export const Transaction = sequelize.define("transactions", {
   nonce: { type: Sequelize.BIGINT, allowNull: true },
   size: { type: Sequelize.INTEGER, allowNull: false },
   version: { type: Sequelize.INTEGER, allowNull: false },
-  attrs: { type: Sequelize.JSON, allowNull: false },  // TODO: this should be named "attributes"
+  attrs: { type: Sequelize.JSON, allowNull: false },
   scripts: { type: Sequelize.JSON, allowNull: false },
   vin: { type: Sequelize.JSON, allowNull: false },
   vout: { type: Sequelize.JSON, allowNull: false },

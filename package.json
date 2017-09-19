@@ -22,7 +22,9 @@
     "start:web": "razzle start",
     "start:sync": "node sync.start.js",
     "start:web:prod": "NODE_ENV=production node build/server.js",
-    "start:sync:prod": "NODE_ENV=production node ./build/sync.js"
+    "start:sync:prod": "NODE_ENV=production node ./build/sync.js",
+    "migrate:up": "./scripts/migrate.js up",
+    "migrate:down": "./scripts/migrate.js down"
   },
   "dependencies": {
     "apollo-local-query": "^0.3.0",
@@ -68,6 +70,7 @@
     "sass-loader": "^6.0.6",
     "sequelize": "^4.8.2",
     "serialize-javascript": "^1.4.0",
+    "umzug": "^2.0.1",
     "webpack": "^3.4.1"
   },
   "devDependencies": {

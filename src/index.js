@@ -15,7 +15,6 @@ if (module.hot) {
 
 async function listen() {
   await database.authenticate();
-  await database.sync();  // TODO: remove this in favor of running a migration before the app starts
 
   server.listen(port, (err) => {
     if (err) {
