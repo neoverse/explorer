@@ -1,9 +1,12 @@
-/* eslint-disable no-console */
-
 import _ from "lodash";
+import BigNumber from "bignumber.js";
 
-import database, { Block, Transaction, Vout, Asset, Contract } from "../server/database";
-import { REGISTER_TRANSACTION, PUBLISH_TRANSACTION } from "../common/values/transactions";
+import database, { Block, Transaction, Vout, Asset, Address, Contract } from "../server/database";
+import {
+  CLAIM_TRANSACTION,
+  REGISTER_TRANSACTION,
+  PUBLISH_TRANSACTION
+} from "../common/values/transactions";
 
 export default class Updater {
   update = async (block) => {
@@ -13,6 +16,7 @@ export default class Updater {
       await this._createBlock(block, { transaction });
       await this._createTransactions(block.tx, block, { transaction });
       await this._createVouts(block.tx, { transaction });
+      await this._createAddresses(block.tx, { transaction });
       await this._createAssociations(block.tx, block, { transaction });
 
       await transaction.commit();
@@ -22,14 +26,14 @@ export default class Updater {
     }
   }
 
-  _createBlock = async (block, options = {}) => {
+  _createBlock = async (block, options) => {
     const attrs = _.pick(block, "hash", "index", "confirmations", "merkleroot", "nextconsensus",
       "nonce", "previousblockhash", "script", "size", "time", "version");
 
     return Block.create({ ...attrs, time: block.time * 1000 }, options);
   }
 
-  _createTransactions = async (transactions, block, options = {}) => {
+  _createTransactions = async (transactions, block, options) => {
     return Transaction.bulkCreate(transactions.map((tx) => {
       const attrs = _.pick(tx, "txid", "type", "size", "nonce", "sys_fee", "net_fee", "scripts",
         "version", "vin", "vout");
@@ -44,14 +48,71 @@ export default class Updater {
     }), options);
   }
 
-  _createVouts = async (transactions, options = {}) => {
+  _createVouts = async (transactions, options) => {
     return Vout.bulkCreate(_.flatMap(transactions, (tx) => tx.vout.map((vout) => {
       const attrs = _.pick(vout, "address", "asset", "n", "value");
       return { ...attrs, txid: tx.txid };
     })), options);
   }
 
-  _createAssociations = async (transactions, block, options = {}) => {
+  _createAddresses = async (transactions, options) => {
+    await Promise.all(transactions.map(async (tx) => {
+      const vinVouts = await this._getVouts(tx.vin, options);
+      const claimVouts = await this._getVouts(tx.claims, options);
+      const vouts = [...tx.vout, ...vinVouts, ...claimVouts];
+
+      const existingAddresses = await this._getAddresses(vouts, options);
+      const existingAddressList = _.map(existingAddresses, "address");
+
+      await this._createAddressesFromVouts(_.filter(tx.vout, (vout) => {
+        return !_.includes(existingAddressList, vout.address);
+      }), options);
+
+      await this._updateAddressesFromVouts(_.filter(tx.vout, (vout) => {
+        return _.includes(existingAddressList, vout.address);
+      }), existingAddresses, options);
+
+      await this._updateAddressesFromVins(vinVouts, existingAddresses, options);
+
+      await this._updateAddressesFromClaims(claimVouts, existingAddresses, options);
+    }));
+  }
+
+  _createAddressesFromVouts = async (vouts, options) => {
+    return Address.bulkCreate(vouts.map((vout) => ({
+      address: vout.address,
+      balance: { [vout.asset]: vout.value },
+      claimed: {}
+    })), options);
+  }
+
+  _updateAddressesFromVins = async (vins, addresses, options) => {
+    await this._updateAddresses(vins, addresses, options, (balance, diff) => balance.minus(diff));
+  }
+
+  _updateAddressesFromVouts = async (vouts, addresses, options) => {
+    await this._updateAddresses(vouts, addresses, options, (balance, diff) => balance.plus(diff));
+  }
+
+  _updateAddressesFromClaims = async (claims, addresses, options) => {
+    await this._updateAddresses(claims, addresses, options, (balance, diff) => balance.plus(diff));
+  }
+
+  _updateAddresses = async (vouts, addresses, options, callback) => {
+    await Promise.all(vouts.map(async (vout) => {
+      const address = _.find(addresses, { address: vout.address });
+      const balance = { ...address.balance };
+
+      balance[vout.asset] = callback(
+        new BigNumber(balance[vout.asset] || 0),
+        new BigNumber(vout.value)
+      );
+
+      await address.update({ balance }, { where: { address: vout.address } }, options);
+    }));
+  }
+
+  _createAssociations = async (transactions, block, options) => {
     await Promise.all(transactions.map(async (transaction) => {
       switch (transaction.type) {
         case REGISTER_TRANSACTION:
@@ -64,12 +125,12 @@ export default class Updater {
     }));
   }
 
-  _createAsset = async (asset, txid, registered, options = {}) => {
+  _createAsset = async (asset, txid, registered, options) => {
     const attrs = _.pick(asset, "name", "type", "precision", "amount", "admin", "owner");
     return Asset.create({ ...attrs, txid, registered, issued: asset.amount }, options);
   }
 
-  _createContract = async (contract, txid, registered, options = {}) => {
+  _createContract = async (contract, txid, registered, options) => {
     const attrs = _.pick(contract, "name", "version", "code", "needstorage", "author", "email",
       "description");
 
@@ -78,6 +139,8 @@ export default class Updater {
 
   _getTransactionData = (transaction) => {
     switch (transaction.type) {
+      case CLAIM_TRANSACTION:
+        return _.pick(transaction, "claims");
       case REGISTER_TRANSACTION:
         return _.pick(transaction, "asset");
       case PUBLISH_TRANSACTION:
@@ -85,5 +148,25 @@ export default class Updater {
       default:
         return null;
     }
+  }
+
+  _getVouts = async (vinsArray, options) => {
+    const vins = vinsArray || [];
+
+    if (vins.length === 0) {
+      return [];
+    } else {
+      const createQueryItems = (objects) => objects.map((obj) => ({
+        txid: obj.txid,
+        n: obj.vout
+      }));
+
+      return Vout.findAll({ where: { $or: createQueryItems(vins) } }, options);
+    }
+  }
+
+  _getAddresses = async (vouts, options) => {
+    const recipientAddresses = _.map(vouts, "address");
+    return Address.findAll({ where: { address: { $in: recipientAddresses } } }, options);
   }
 }

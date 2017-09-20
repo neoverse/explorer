@@ -72,22 +72,12 @@ export const Vout = sequelize.define("vouts", {
 
 export const Address = sequelize.define("addresses", {
   address: { type: Sequelize.STRING, allowNull: false },
-  balances: { type: Sequelize.JSON, allowNull: false },
+  balance: { type: Sequelize.JSON, allowNull: false },
   claimed: { type: Sequelize.JSON, allowNull: false }
 }, {
   underscored: true,
   indexes: [
     { fields: ["address"], unique: true }
-  ]
-});
-
-export const AddressTransaction = sequelize.define("addresses_transactions", {
-  address_id: { type: Sequelize.INTEGER, allowNull: false },
-  transaction_id: { type: Sequelize.INTEGER, allowNull: false }
-}, {
-  underscored: true,
-  indexes: [
-    { fields: ["address_id", "transaction_id"], unique: true }
   ]
 });
 
@@ -105,16 +95,6 @@ export const Asset = sequelize.define("assets", {
   underscored: true,
   indexes: [
     { fields: ["txid"], unique: true }
-  ]
-});
-
-export const AssetTransaction = sequelize.define("assets_transactions", {
-  asset_id: { type: Sequelize.INTEGER, allowNull: false },
-  transaction_id: { type: Sequelize.INTEGER, allowNull: false }
-}, {
-  underscored: true,
-  indexes: [
-    { fields: ["asset_id", "transaction_id"], unique: true }
   ]
 });
 
@@ -137,49 +117,12 @@ export const Contract = sequelize.define("contracts", {
   ]
 });
 
-Block.hasMany(Transaction, {
-  foreignKey: "blockhash",
-  sourceKey: "hash"
-});
-
-Transaction.belongsTo(Block, {
-  foreignKey: "blockhash",
-  targetKey: "hash"
-});
-
-// Address.belongsToMany(Transaction, {
-//   foreignKey: "address_id",
-//   through: { model: AddressTransaction, unique: true }
-// });
-
-Vout.belongsTo(Transaction, {
-  foreignKey: "txid",
-  targetKey: "txid"
-});
-
-// Vout.belongsTo(Asset, {
-//   foreignKey: "asset",
-//   targetKey: "asset"
-// });
-//
-// Vout.belongsTo(Address, {
-//   foreignKey: "address",
-//   targetKey: "address"
-// });
-
-Asset.belongsTo(Transaction, {
-  foreignKey: "txid",
-  targetKey: "txid"
-});
-
-// Asset.belongsToMany(Transaction, {
-//   foreignKey: "asset_id",
-//   through: { model: AssetTransaction, unique: true }
-// });
-
-Contract.belongsTo(Transaction, {
-  foreignKey: "txid",
-  targetKey: "txid"
-});
+Block.hasMany(Transaction, { foreignKey: "blockhash", sourceKey: "hash" });
+Transaction.belongsTo(Block, { foreignKey: "blockhash", targetKey: "hash" });
+Vout.belongsTo(Transaction, { foreignKey: "txid", targetKey: "txid" });
+Vout.belongsTo(Asset, { foreignKey: "asset", targetKey: "txid", as: "vout_asset" });
+Vout.belongsTo(Address, { foreignKey: "address", targetKey: "address", as: "vout_address" });
+Asset.belongsTo(Transaction, { foreignKey: "txid", targetKey: "txid" });
+Contract.belongsTo(Transaction, { foreignKey: "txid", targetKey: "txid" });
 
 export default sequelize;
