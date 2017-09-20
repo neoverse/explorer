@@ -10,7 +10,7 @@ export default {
     args: {
       txid: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (source, { txid }) => {
+    resolve: (_source, { txid }) => {
       return Transaction.findOne({ where: { txid } });
     }
   },
@@ -19,7 +19,7 @@ export default {
     args: {
       page: { type: GraphQLInt }
     },
-    resolve: (source, { page }) => {
+    resolve: (_source, { page }) => {
       return Transaction.findAll({
         offset: (Math.min(1, page || 1) - 1) * PAGE_SIZE,
         limit: PAGE_SIZE,

@@ -21,6 +21,6 @@ exports.up = (db, Sequelize) => {
   });
 };
 
-exports.down = (db, Sequelize) => {
+exports.down = (db, _Sequelize) => {
   return db.dropTable("blocks");
 };

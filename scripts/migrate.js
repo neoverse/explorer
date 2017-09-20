@@ -22,7 +22,7 @@ const umzug = new Umzug({
 });
 
 function generateLogger(eventName) {
-  return (name, migration) => {
+  return (name, _migration) => {
     console.log(`${name} ${eventName}`);
   };
 }
