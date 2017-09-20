@@ -17,6 +17,6 @@ exports.up = (db, Sequelize) => {
   });
 };
 
-exports.down = (db, Sequelize, done) => {
+exports.down = (db, _Sequelize) => {
   return db.dropTable("assets");
 };

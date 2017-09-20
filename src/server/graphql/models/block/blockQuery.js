@@ -10,7 +10,7 @@ export default {
     args: {
       hash: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (source, { hash }) => {
+    resolve: (_source, { hash }) => {
       return Block.findOne({ where: { hash }, include: [Transaction] });
     }
   },
@@ -19,7 +19,7 @@ export default {
     args: {
       page: { type: GraphQLInt }
     },
-    resolve: (source, { page }) => {
+    resolve: (_source, { page }) => {
       return Block.findAll({
         offset: (Math.min(1, page || 1) - 1) * PAGE_SIZE,
         limit: PAGE_SIZE,
