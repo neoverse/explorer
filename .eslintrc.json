@@ -19,6 +19,7 @@
   "rules": {
     "handle-callback-err": [2, "^(err|error)$" ],
     "accessor-pairs": "error",
+    "array-bracket-spacing": ["warn", "never"],
     "arrow-spacing": ["error", { "before": true, "after": true }],
     "block-spacing": ["error", "always"],
     "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
@@ -137,6 +138,7 @@
     "no-var": "error",
     "no-whitespace-before-property": "error",
     "no-with": "error",
+    "object-curly-spacing": ["warn", "always"],
     "object-property-newline": ["error", { "allowMultiplePropertiesPerLine": true }],
     "one-var": ["error", { "initialized": "never" }],
     "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }],
