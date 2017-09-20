@@ -2,7 +2,7 @@
 
 import _ from "lodash";
 
-import database, { Block, Transaction, Asset, Contract /* Address */ } from "../server/database";
+import database, { Block, Transaction, Vout, Asset, Contract } from "../server/database";
 import { REGISTER_TRANSACTION, PUBLISH_TRANSACTION } from "../common/values/transactions";
 
 export default class Updater {
@@ -12,6 +12,7 @@ export default class Updater {
     try {
       await this._createBlock(block, { transaction });
       await this._createTransactions(block.tx, block, { transaction });
+      await this._createVouts(block.tx, { transaction });
       await this._createAssociations(block.tx, block, { transaction });
 
       await transaction.commit();
@@ -41,6 +42,13 @@ export default class Updater {
         data: this._getTransactionData(tx)
       };
     }), options);
+  }
+
+  _createVouts = async (transactions, options = {}) => {
+    return Vout.bulkCreate(_.flatMap(transactions, (tx) => tx.vout.map((vout) => {
+      const attrs = _.pick(vout, "address", "asset", "n", "value");
+      return { ...attrs, txid: tx.txid };
+    })), options);
   }
 
   _createAssociations = async (transactions, block, options = {}) => {

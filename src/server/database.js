@@ -57,6 +57,19 @@ export const Transaction = sequelize.define("transactions", {
   ]
 });
 
+export const Vout = sequelize.define("vouts", {
+  txid: { type: Sequelize.STRING, allowNull: false },
+  address: { type: Sequelize.STRING, allowNull: false },
+  asset: { type: Sequelize.STRING, allowNull: false },
+  n: { type: Sequelize.INTEGER, allowNull: false },
+  value: { type: Sequelize.DECIMAL, allowNull: false }
+}, {
+  underscored: true,
+  indexes: [
+    { fields: ["txid"] }
+  ]
+});
+
 export const Address = sequelize.define("addresses", {
   address: { type: Sequelize.STRING, allowNull: false },
   balances: { type: Sequelize.JSON, allowNull: false },
@@ -137,6 +150,21 @@ Transaction.belongsTo(Block, {
 // Address.belongsToMany(Transaction, {
 //   foreignKey: "address_id",
 //   through: { model: AddressTransaction, unique: true }
+// });
+
+Vout.belongsTo(Transaction, {
+  foreignKey: "txid",
+  targetKey: "txid"
+});
+
+// Vout.belongsTo(Asset, {
+//   foreignKey: "asset",
+//   targetKey: "asset"
+// });
+//
+// Vout.belongsTo(Address, {
+//   foreignKey: "address",
+//   targetKey: "address"
 // });
 
 Asset.belongsTo(Transaction, {
