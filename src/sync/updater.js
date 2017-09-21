@@ -79,11 +79,25 @@ export default class Updater {
   }
 
   _createAddressesFromVouts = async (vouts, options) => {
-    return Address.bulkCreate(vouts.map((vout) => ({
-      address: vout.address,
-      balance: { [vout.asset]: vout.value },
-      claimed: {}
-    })), options);
+    // An address may appear multiple times in the vout array, so we need to group by address here
+    // and work some simple math magic to ensure we don't try to insert an address twice.
+    const groupedVouts = _.groupBy(vouts, "address");
+
+    const addresses = _.map(groupedVouts, (vouts, address) => {
+      const voutBalances = vouts.map((vout) => ({ [vout.asset]: vout.value }));
+
+      const balance = _.reduce(voutBalances, (accumulator, balance) => {
+        _.each(balance, (value, asset) => {
+          accumulator[asset] = new BigNumber(accumulator[asset] || 0).plus(value);
+        });
+
+        return accumulator;
+      }, {});
+
+      return { address, balance, claimed: {} };
+    });
+
+    return Address.bulkCreate(addresses, options);
   }
 
   _updateAddressesFromVins = async (vins, addresses, options) => {
