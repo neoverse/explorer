@@ -6,7 +6,7 @@ import Syncer from "./syncer";
 import database from "../server/database";
 
 const syncer = new Syncer({
-  concurrency: Number(process.env.SYNC_CONCURRENCY || 5)
+  concurrency: Number(process.env.SYNC_CONCURRENCY || 1)
 });
 
 async function run() {
