@@ -42,7 +42,7 @@ export default class Assets extends React.Component {
         <tr key={asset.txid}>
           <td><Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link></td>
           <td>{asset.type}</td>
-          <td>{asset.amount.toLocaleString()} bytes</td>
+          <td>{asset.amount.toLocaleString()}</td>
           <td><TimeAgo date={asset.registered} /></td>
         </tr>
       );
