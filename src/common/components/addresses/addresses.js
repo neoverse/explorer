@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import TimeAgo from "react-timeago";
+// import TimeAgo from "react-timeago";
 
 import addressShape from "../../shapes/addressShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
@@ -44,8 +44,8 @@ export default class Addresses extends React.Component {
       return (
         <tr key={address.address}>
           <td><Link to={`/addresses/${address.address}`}>{address.address}</Link></td>
-          <td><TimeAgo date={address.created} /></td>
-          <td>{address.lastTransactionTimestamp}</td>
+          {/* <td><TimeAgo date={address.created} /></td> */}
+          {/* <td>{address.lastTransactionTimestamp}</td> */}
           <td>{this.renderBalances(address.balance)}</td>
         </tr>
       );
@@ -58,7 +58,7 @@ export default class Addresses extends React.Component {
 
       return (
         <div key={balance.asset}>
-          {balance.value}{" "}
+          {balance.value.toLocaleString()}{" "}
           <Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link>
         </div>
       );
