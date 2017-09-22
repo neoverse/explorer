@@ -11,11 +11,17 @@ const PRIORITY_DEFAULT = 5;
 // const PRIORITY_IMMEDIATE = 0;
 
 export default class FetchQueue {
-  constructor(callback, { concurrency = 1, pollInterval = 1000, queueSize = 1000 } = {}) {
+  constructor(callback, {
+    concurrency = 1,
+    pollInterval = 1000,
+    queueSize = 1000,
+    canFetch = () => true
+  } = {}) {
     this.callback = callback;
     this.client = null;
     this.paused = false;
     this.pollInterval = pollInterval;
+    this.canFetch = canFetch;
     this.queueSize = queueSize;
     this.queue = async.priorityQueue(this._process, concurrency);
     this.queue.drain = async () => { await this._poll(); };
@@ -61,7 +67,9 @@ export default class FetchQueue {
     const nextIndex = await getNextIndex();
     const maxIndex = nextIndex + Math.min(height - nextIndex, this.queueSize) - 1;
 
-    if (nextIndex > maxIndex) {
+    if (!this.canFetch()) {
+      console.log("Waiting for permission to fetch...");
+    } if (nextIndex > maxIndex) {
       console.log("Waiting for new blocks...");
     } else {
       console.log(`Enqueueing fetches for blocks ${nextIndex} to ${maxIndex}...`);
