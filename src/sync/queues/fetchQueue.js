@@ -78,6 +78,7 @@ export default class FetchQueue {
       console.log(`Enqueueing fetches for blocks ${nextIndex} to ${maxIndex}...`);
 
       for (let index = nextIndex; index <= maxIndex; index++) {
+        // TODO: there will still be double fetching if an index has already been enqueued but not fetched yet
         if (!this._isPending(index)) this._enqueue(index);
       }
 
