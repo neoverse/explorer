@@ -2,20 +2,20 @@
 
 import "babel-polyfill";
 
-import Syncer from "./syncer";
+import QueueManager from "./queueManager";
 import database from "../server/database";
 
-const syncer = new Syncer({
-  concurrency: Number(process.env.SYNC_CONCURRENCY || 1)
+const manager = new QueueManager({
+  concurrency: Number(process.env.SYNC_CONCURRENCY || 5)
 });
 
 async function run() {
   await database.authenticate();
-  await syncer.start();
+  await manager.start();
 }
 
 process.on("SIGINT", () => {
-  syncer.stop();
+  manager.stop();
   process.exit();
 });
 

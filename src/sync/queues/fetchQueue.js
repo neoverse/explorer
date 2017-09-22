@@ -3,22 +3,21 @@
 import async from "async";
 import * as neo from "neo-api";
 
-import Updater from "./updater";
-import findBestNode from "./helpers/findBestNode";
-import getNextIndex from "./helpers/getNextIndex";
+import findBestNode from "../helpers/findBestNode";
+import getNextIndex from "../helpers/getNextIndex";
 
 const VERBOSE = 1;
 const PRIORITY_DEFAULT = 5;
-const PRIORITY_IMMEDIATE = 0;
+// const PRIORITY_IMMEDIATE = 0;
 
-export default class Syncer {
-  constructor({ concurrency = 1, pollInterval = 1000, queueSize = 1000 } = {}) {
+export default class FetchQueue {
+  constructor(callback, { concurrency = 1, pollInterval = 1000, queueSize = 1000 } = {}) {
+    this.callback = callback;
     this.client = null;
     this.paused = false;
     this.pollInterval = pollInterval;
     this.queueSize = queueSize;
-    this.updater = new Updater();
-    this.queue = async.priorityQueue(this._processIndex, concurrency);
+    this.queue = async.priorityQueue(this._process, concurrency);
     this.queue.drain = async () => { await this._poll(); };
   }
 
@@ -51,7 +50,7 @@ export default class Syncer {
   }
 
   _poll = async () => {
-    await this._compareBlockHeight();
+    await this._compareBlockHeight();  // TODO: drop the _ensureWorkingClient function and retry here
     if (this.queue.length() > 0) return;
 
     this.clock = setTimeout(this._poll, this.pollInterval);
@@ -68,36 +67,26 @@ export default class Syncer {
       console.log(`Enqueueing fetches for blocks ${nextIndex} to ${maxIndex}...`);
 
       for (let index = nextIndex; index <= maxIndex; index++) {
-        this._enqueue({ index, height });
+        this._enqueue(index);
       }
 
       console.log("Enqueued.");
     }
   }
 
-  _enqueue = ({ index, height }, priority = PRIORITY_DEFAULT) => {
-    if (index < height) {
-      this.queue.push({ index, height }, priority);
-    }
+  _enqueue = (index, priority = PRIORITY_DEFAULT) => {
+    this.queue.push(index, priority, this.callback);
   }
 
-  _retry = ({ index, height }) => {
-    this._enqueue({ index, height }, PRIORITY_IMMEDIATE);
-  }
+  // _retry = async (index) => {
+  //   this._enqueue(index, PRIORITY_IMMEDIATE);
+  // }
 
-  _processIndex = async ({ index, height }, callback) => {
+  _process = async (index, callback) => {
     console.log(`Fetching block #${index}...`);
-    const block = await this._getBlockByHeight(index);
 
-    try {
-      await this.updater.update(block);
-      console.log(`Saved block #${block.index} (${block.hash})`);
-    } catch (err) {
-      console.error("Error saving block:", err);
-      this._retry({ index, height });
-    }
-
-    callback();
+    // TODO: wrap this in a try/catch and retry by enqueueing
+    callback(await this._getBlockByHeight(index));
   }
 
   _getBlockCount = async () => {
