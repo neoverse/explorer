@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 
+import _ from "lodash";
 import async from "async";
 import * as neo from "neo-api";
 
@@ -14,15 +15,15 @@ export default class FetchQueue {
   constructor(callback, {
     concurrency = 1,
     pollInterval = 1000,
-    queueSize = 1000,
-    canFetch = () => true
+    queueSize = 1000
   } = {}) {
     this.callback = callback;
-    this.client = null;
-    this.paused = false;
     this.pollInterval = pollInterval;
-    this.canFetch = canFetch;
     this.queueSize = queueSize;
+    this.client = null;
+    this.currentIndex = null;
+    this.blocks = {};
+    this.paused = false;
     this.queue = async.priorityQueue(this._process, concurrency);
     this.queue.drain = async () => { await this._poll(); };
   }
@@ -67,8 +68,10 @@ export default class FetchQueue {
     const nextIndex = await getNextIndex();
     const maxIndex = nextIndex + Math.min(height - nextIndex, this.queueSize) - 1;
 
-    if (!this.canFetch()) {
-      console.log("Waiting for permission to fetch...");
+    this.currentIndex || (this.currentIndex = nextIndex);
+
+    if (_.keys(this.blocks).length >= this.queueSize) {
+      console.log("Waiting for blocks to process before fetching...");
     } if (nextIndex > maxIndex) {
       console.log("Waiting for new blocks...");
     } else {
@@ -83,7 +86,17 @@ export default class FetchQueue {
   }
 
   _enqueue = (index, priority = PRIORITY_DEFAULT) => {
-    this.queue.push(index, priority, this.callback);
+    this.queue.push(index, priority, this._addBlock);
+  }
+
+  _addBlock = (block) => {
+    this.blocks[block.index] = block;
+
+    while (this.blocks[this.currentIndex]) {
+      this.callback(this.blocks[this.currentIndex]);
+      delete this.blocks[this.currentIndex];
+      this.currentIndex++;
+    }
   }
 
   // _retry = async (index) => {
