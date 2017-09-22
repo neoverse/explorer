@@ -56,17 +56,22 @@ export default class Updater {
   }
 
   _createAddresses = async (transactions, options) => {
-    await Promise.all(transactions.map(async (tx) => {
+    for (let i = 0; i < transactions.length; i++) {
+      const tx = transactions[i];
+
       const vinVouts = await this._getVouts(tx.vin, options);
       const claimVouts = await this._getVouts(tx.claims, options);
-      const vouts = [...tx.vout, ...vinVouts, ...claimVouts];
+      const allVouts = [...tx.vout, ...vinVouts, ...claimVouts];
 
-      const existingAddresses = await this._getAddresses(vouts, options);
+      const existingAddresses = await this._getAddresses(allVouts, options);
       const existingAddressList = _.map(existingAddresses, "address");
 
-      await this._createAddressesFromVouts(_.filter(tx.vout, (vout) => {
+      const addedAddresses = await this._createAddressesFromVouts(_.filter(tx.vout, (vout) => {
         return !_.includes(existingAddressList, vout.address);
       }), options);
+
+      existingAddresses.push(...addedAddresses);
+      existingAddressList.push(..._.map(addedAddresses, "address"));
 
       await this._updateAddressesFromVouts(_.filter(tx.vout, (vout) => {
         return _.includes(existingAddressList, vout.address);
@@ -75,7 +80,7 @@ export default class Updater {
       await this._updateAddressesFromVins(vinVouts, existingAddresses, options);
 
       await this._updateAddressesFromClaims(claimVouts, existingAddresses, options);
-    }));
+    }
   }
 
   _createAddressesFromVouts = async (vouts, options) => {
@@ -122,7 +127,7 @@ export default class Updater {
         new BigNumber(vout.value)
       );
 
-      await address.update({ balance }, { where: { address: vout.address } }, options);
+      await address.update({ balance }, { ...options, where: { address: vout.address } });
     }));
   }
 
@@ -175,12 +180,12 @@ export default class Updater {
         n: obj.vout
       }));
 
-      return Vout.findAll({ where: { $or: createQueryItems(vins) } }, options);
+      return Vout.findAll({ ...options, where: { $or: createQueryItems(vins) } });
     }
   }
 
   _getAddresses = async (vouts, options) => {
-    const recipientAddresses = _.map(vouts, "address");
-    return Address.findAll({ where: { address: { $in: recipientAddresses } } }, options);
+    const recipientAddresses = _.uniq(_.map(vouts, "address"));
+    return Address.findAll({ ...options, where: { address: { $in: recipientAddresses } } });
   }
 }
