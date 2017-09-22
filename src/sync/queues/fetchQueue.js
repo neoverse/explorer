@@ -66,7 +66,7 @@ export default class FetchQueue {
   _compareBlockHeight = async () => {
     const height = await this._getBlockCount();
     const nextIndex = await getNextIndex();
-    const maxIndex = nextIndex + Math.min(height - nextIndex, this.queueSize) - 1 - this._getPendingBlockCount();
+    const maxIndex = nextIndex + Math.min(height - nextIndex, this.queueSize) - 1;
 
     this.currentIndex || (this.currentIndex = nextIndex);
 
@@ -78,7 +78,7 @@ export default class FetchQueue {
       console.log(`Enqueueing fetches for blocks ${nextIndex} to ${maxIndex}...`);
 
       for (let index = nextIndex; index <= maxIndex; index++) {
-        this._enqueue(index);
+        if (!this._isPending(index)) this._enqueue(index);
       }
 
       console.log("Enqueued.");
@@ -108,6 +108,10 @@ export default class FetchQueue {
 
     // TODO: wrap this in a try/catch and retry by enqueueing
     callback(await this._getBlockByHeight(index));
+  }
+
+  _isPending = (index) => {
+    return !!this.blocks[index];
   }
 
   _getPendingBlockCount = () => {
