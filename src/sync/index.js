@@ -1,4 +1,4 @@
-/* eslint-disable no-process-exit */
+/* eslint-disable no-process-exit, no-console */
 
 import "babel-polyfill";
 
@@ -17,6 +17,11 @@ async function run() {
 process.on("SIGINT", () => {
   manager.stop();
   process.exit();
+});
+
+process.on("unhandledRejection", (reason, p) => {
+  console.log("Unhandled rejection at:", p, "reason:", reason);
+  process.exit(1);
 });
 
 run();
