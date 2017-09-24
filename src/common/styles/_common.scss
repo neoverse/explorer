@@ -1,0 +1,52 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  color: $text;
+  background: $gray-light;
+}
+
+a {
+  color: $link;
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $heading;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  tr {
+    margin: 0;
+    padding: 0;
+  }
+
+  td, th {
+    margin: 0;
+    padding: 8px 4px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  thead {
+    td, th {
+      border-bottom: 1px solid rgba($gray-dark, 0.15);
+    }
+
+    th {
+      font-weight: 600;
+    }
+  }
+
+  tbody {
+    td, th {
+      border-bottom: 1px solid rgba($gray-dark, 0.15);
+    }
+  }
+}

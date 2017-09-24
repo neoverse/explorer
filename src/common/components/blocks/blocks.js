@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
 import blockSummaryShape from "../../shapes/blockSummaryShape";
+import Panel from "../shared/panel";
 
 const { arrayOf } = PropTypes;
 
@@ -18,19 +19,22 @@ export default class Blocks extends React.Component {
     return (
       <div className="blocks-component">
         <h2>Blocks</h2>
-        <table width="100%">
-          <thead>
-            <tr>
-              <td>Index</td>
-              <td>Confirmations</td>
-              <td>Size</td>
-              <td>Time</td>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderBlocks()}
-          </tbody>
-        </table>
+
+        <Panel>
+          <table width="100%">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th>Confirmations</th>
+                <th>Size</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderBlocks()}
+            </tbody>
+          </table>
+        </Panel>
       </div>
     );
   }

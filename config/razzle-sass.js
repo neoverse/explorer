@@ -1,7 +1,7 @@
 const autoprefixer = require("autoprefixer");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-module.exports = (config, { target, dev }, webpack) => {
+module.exports = (config, { target, dev }, _webpack) => {
   const isServer = target !== "web";
 
   const postCssLoader = {
@@ -23,7 +23,7 @@ module.exports = (config, { target, dev }, webpack) => {
 
   config.module.rules.push({
     test: /\.scss$/,
-    use: isServer ? "css-loader" : (
+    use: isServer ? ["css-loader", "sass-loader"] : (
       dev ? [
         "style-loader",
         {

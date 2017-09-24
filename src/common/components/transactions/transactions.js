@@ -21,10 +21,10 @@ export default class Transactions extends React.Component {
         <table width="100%">
           <thead>
             <tr>
-              <td>Type</td>
-              <td>ID</td>
-              <td>Size</td>
-              <td>Time</td>
+              <th>Type</th>
+              <th>ID</th>
+              <th>Size</th>
+              <th>Time</th>
             </tr>
           </thead>
           <tbody>

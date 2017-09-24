@@ -22,10 +22,10 @@ export default class Assets extends React.Component {
         <table width="100%">
           <thead>
             <tr>
-              <td>Name</td>
-              <td>Type</td>
-              <td>Amount</td>
-              <td>Registered</td>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Registered</th>
             </tr>
           </thead>
           <tbody>

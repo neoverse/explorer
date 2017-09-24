@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, NavLink } from "react-router-dom";
 
-import "../styles/app.scss";
+import "../styles/index.scss";
 import Home from "../containers/home";
 import Blocks from "../containers/blocks";
 import Block from "../containers/block";

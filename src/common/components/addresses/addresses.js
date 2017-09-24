@@ -25,10 +25,10 @@ export default class Addresses extends React.Component {
         <table width="100%">
           <thead>
             <tr>
-              <td>Address</td>
-              {/* <td>Created</td> */}
-              {/* <td>Last Transaction</td> */}
-              <td>Balance</td>
+              <th>Address</th>
+              {/* <th>Created</th> */}
+              {/* <th>Last Transaction</th> */}
+              <th>Balance</th>
             </tr>
           </thead>
           <tbody>

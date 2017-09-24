@@ -1,24 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
-* {
-  font-family: 'Open Sans', sans-serif;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-}
-
 .app-component {
   .header {
     display: flex;
-    background-color: #8bc34a;
-    box-shadow: 0 1px 2px rgba(#666, 0.25);
+    background-color: $green-light;
 
     h1 {
       flex: 0 0 auto;
       margin: 0;
       padding: 0 20px;
+      color: $gray-light;
       line-height: 60px;
       font-size: 24px;
       font-weight: 600;
@@ -42,13 +31,13 @@ body {
           height: 100%;
           padding: 0 20px;
           line-height: 60px;
-          color: white;
+          color: $gray-light;
           text-decoration: none;
 
           &:hover,
           &:focus,
           &.active {
-            background-color: rgba(#666, 0.1);
+            box-shadow: inset 0 -6px 0 $green-dark;
           }
         }
       }

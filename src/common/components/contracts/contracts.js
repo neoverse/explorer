@@ -21,10 +21,10 @@ export default class Contracts extends React.Component {
         <table width="100%">
           <thead>
             <tr>
-              <td>Hash</td>
-              <td>Name</td>
-              <td>Author</td>
-              <td>Registered</td>
+              <th>Hash</th>
+              <th>Name</th>
+              <th>Author</th>
+              <th>Registered</th>
             </tr>
           </thead>
           <tbody>
