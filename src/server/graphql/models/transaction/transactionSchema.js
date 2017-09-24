@@ -75,7 +75,7 @@ export default new GraphQLObjectType({
     contract: {
       type: ContractSchema,
       description: "Transaction contract",
-      resolve: (transaction) => Contract.findOne({ where: { tx: transaction.txid } })
+      resolve: (transaction) => Contract.findOne({ where: { txid: transaction.txid } })
     }
   }
 });
