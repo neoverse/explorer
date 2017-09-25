@@ -1,7 +1,13 @@
 .app-component {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
   .header {
+    flex: 0 0 auto;
     display: flex;
     background-color: $green-light;
+    -webkit-font-smoothing: antialiased;
 
     h1 {
       flex: 0 0 auto;
@@ -45,10 +51,34 @@
   }
 
   .content {
+    flex: 1 0 auto;
     padding: 20px;
 
     h2 {
       margin: 0 0 10px;
+    }
+  }
+
+  .footer {
+    padding: 24px;
+    color: $gray-light;
+    background-color: $green-light;
+    font-size: 13.5px;
+    -webkit-font-smoothing: antialiased;
+
+    h5 {
+      margin: 12px 0;
+      color: $gray-light;
+      font-size: 24.6px;
+      font-weight: normal;
+    }
+
+    p {
+      line-height: 1.5em;
+    }
+
+    a {
+      color: $gray-light;
     }
   }
 }

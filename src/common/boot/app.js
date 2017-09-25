@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, NavLink } from "react-router-dom";
+import { Route, Switch, NavLink, Link } from "react-router-dom";
 
 import "../styles/index.scss";
 import Home from "../containers/home";
@@ -47,6 +47,38 @@ export default class App extends React.Component {
             <Route exact path="/contracts/:hash" component={Contract} />
             <Route component={NotFound} />
           </Switch>
+        </div>
+
+        <div className="footer">
+          <div className="column">
+            <h5>Help NEOverse Grow</h5>
+            <p>
+              The <a href="http://neoverse.io">NEOverse.io</a> domain is managed by one developer
+              in his spare time. If you would like to help the site going, please consider donating
+              NEO or GAS at the address below.
+            </p>
+            <p>
+              Donate:{" "}
+              <Link to="/addresses/APEo8vB7TnYbzmCJ49wSrFktdcGdojov11">
+                APEo8vB7TnYbzmCJ49wSrFktdcGdojov11
+              </Link>
+            </p>
+          </div>
+
+          <div className="column">
+            <h5>Social</h5>
+            <ul>
+              <li>
+                <a href="http://blog.neoverse.io" target="_blank" rel="noopener noreferrer">Blog</a>
+                {" "}(coming soon!)
+              </li>
+              <li>
+                <a href="https://twitter.com/NEOverse_io" target="_blank" rel="noopener noreferrer">
+                  @NEOverse_io
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     );
