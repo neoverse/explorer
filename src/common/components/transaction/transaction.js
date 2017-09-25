@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
+import Panel from "../shared/panel";
 import getAssetName from "../../helpers/getAssetName";
 import transactionShape from "../../shapes/transactionShape";
 
@@ -19,67 +20,69 @@ export default class Transaction extends React.Component {
       <div className="block-component">
         <h1>Transaction {transaction.txid}</h1>
 
-        <dl>
-          <dt>Type:</dt>
-          <dd>{transaction.type}</dd>
-        </dl>
+        <Panel>
+          <dl>
+            <dt>Type:</dt>
+            <dd>{transaction.type}</dd>
+          </dl>
 
-        <dl>
-          <dt>Block:</dt>
-          <dd><Link to={`/blocks/${transaction.blockhash}`}>{transaction.blockhash}</Link></dd>
-        </dl>
+          <dl>
+            <dt>Block:</dt>
+            <dd><Link to={`/blocks/${transaction.blockhash}`}>{transaction.blockhash}</Link></dd>
+          </dl>
 
-        <dl>
-          <dt>Time:</dt>
-          <dd><TimeAgo date={transaction.blocktime} /></dd>
-        </dl>
+          <dl>
+            <dt>Time:</dt>
+            <dd><TimeAgo date={transaction.blocktime} /></dd>
+          </dl>
 
-        <dl>
-          <dt>Attributes:</dt>
-          <dd>{transaction.attributes}</dd>
-        </dl>
+          <dl>
+            <dt>Attributes:</dt>
+            <dd>{transaction.attributes}</dd>
+          </dl>
 
-        <dl>
-          <dt>Nonce:</dt>
-          <dd>{transaction.nonce}</dd>
-        </dl>
+          <dl>
+            <dt>Nonce:</dt>
+            <dd>{transaction.nonce}</dd>
+          </dl>
 
-        <dl>
-          <dt>Network Fee:</dt>
-          <dd>{transaction.net_fee} GAS</dd>
-        </dl>
+          <dl>
+            <dt>Network Fee:</dt>
+            <dd>{transaction.net_fee} GAS</dd>
+          </dl>
 
-        <dl>
-          <dt>System Fee:</dt>
-          <dd>{transaction.sys_fee} GAS</dd>
-        </dl>
+          <dl>
+            <dt>System Fee:</dt>
+            <dd>{transaction.sys_fee} GAS</dd>
+          </dl>
 
-        <dl>
-          <dt>Size:</dt>
-          <dd>{transaction.size.toLocaleString()} bytes</dd>
-        </dl>
+          <dl>
+            <dt>Size:</dt>
+            <dd>{transaction.size.toLocaleString()} bytes</dd>
+          </dl>
 
-        <dl>
-          <dt>Version:</dt>
-          <dd>{transaction.version}</dd>
-        </dl>
+          <dl>
+            <dt>Version:</dt>
+            <dd>{transaction.version}</dd>
+          </dl>
 
-        <dl>
-          <dt>In:</dt>
-          <dd><ul>{this.renderVins(transaction.vin)}</ul></dd>
-        </dl>
+          <dl>
+            <dt>In:</dt>
+            <dd><ul>{this.renderVins(transaction.vin)}</ul></dd>
+          </dl>
 
-        <dl>
-          <dt>Out:</dt>
-          <dd><ul>{this.renderVouts(transaction.vout)}</ul></dd>
-        </dl>
+          <dl>
+            <dt>Out:</dt>
+            <dd><ul>{this.renderVouts(transaction.vout)}</ul></dd>
+          </dl>
 
-        <dl>
-          <dt>Scripts:</dt>
-          <dd><ul>{this.renderScripts(transaction.scripts)}</ul></dd>
-        </dl>
+          <dl>
+            <dt>Scripts:</dt>
+            <dd><ul>{this.renderScripts(transaction.scripts)}</ul></dd>
+          </dl>
 
-        {this.renderAsset(transaction.asset)}
+          {this.renderAsset(transaction.asset)}
+        </Panel>
       </div>
     );
   }

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 // import TimeAgo from "react-timeago";
 
+import Panel from "../shared/panel";
 import addressShape from "../../shapes/addressShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
 import getAssetName from "../../helpers/getAssetName";
@@ -22,19 +23,22 @@ export default class Addresses extends React.Component {
     return (
       <div className="addresses-component">
         <h2>Addresses</h2>
-        <table width="100%">
-          <thead>
-            <tr>
-              <th>Address</th>
-              {/* <th>Created</th> */}
-              {/* <th>Last Transaction</th> */}
-              <th>Balance</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderAddresses()}
-          </tbody>
-        </table>
+
+        <Panel>
+          <table width="100%">
+            <thead>
+              <tr>
+                <th>Address</th>
+                {/* <th>Created</th> */}
+                {/* <th>Last Transaction</th> */}
+                <th>Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderAddresses()}
+            </tbody>
+          </table>
+        </Panel>
       </div>
     );
   }

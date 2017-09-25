@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
-import blockSummaryShape from "../../shapes/blockSummaryShape";
 import Panel from "../shared/panel";
+import blockSummaryShape from "../../shapes/blockSummaryShape";
 
 const { arrayOf } = PropTypes;
 

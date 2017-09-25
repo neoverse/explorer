@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
+import Panel from "../shared/panel";
 import contractShape from "../../shapes/contractShape";
 
 const { arrayOf } = PropTypes;
@@ -18,19 +19,22 @@ export default class Contracts extends React.Component {
     return (
       <div className="contracts-component">
         <h2>Contracts</h2>
-        <table width="100%">
-          <thead>
-            <tr>
-              <th>Hash</th>
-              <th>Name</th>
-              <th>Author</th>
-              <th>Registered</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderContracts()}
-          </tbody>
-        </table>
+
+        <Panel>
+          <table width="100%">
+            <thead>
+              <tr>
+                <th>Hash</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Registered</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderContracts()}
+            </tbody>
+          </table>
+        </Panel>
       </div>
     );
   }
