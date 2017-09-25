@@ -20,11 +20,12 @@
     "test": "razzle test --env=jsdom",
     "start": "nf start --procfile Procfile.dev",
     "start:web": "razzle start",
-    "start:sync": "node sync.start.js",
+    "start:sync": "node runner.js ./src/sync/index.js",
     "start:web:prod": "NODE_ENV=production node build/server.js",
     "start:sync:prod": "NODE_ENV=production node ./build/sync.js",
-    "migrate:up": "./scripts/migrate.js up",
-    "migrate:down": "./scripts/migrate.js down"
+    "script": "node runner.js",
+    "migrate:up": "node runner.js ./scripts/migrate.js up",
+    "migrate:down": "node runner.js ./scripts/migrate.js down"
   },
   "dependencies": {
     "apollo-local-query": "^0.3.0",

@@ -1,10 +1,8 @@
-#!/usr/bin/env node
-
 /* eslint-disable no-console, no-process-exit */
 
-const _ = require("lodash");
-const Sequelize = require("sequelize");
-const Umzug = require("umzug");
+import _ from "lodash";
+import Sequelize from "sequelize";
+import Umzug from "umzug";
 
 const sequelize = new Sequelize(process.env.DATABASE_URL);
 
@@ -43,7 +41,7 @@ function execute(command) {
   }
 }
 
-const command = _.trim(process.argv[2]);
+const command = _.trim(process.argv[3]);
 const result = execute(command);
 
 result
