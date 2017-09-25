@@ -1,16 +1,22 @@
+import _ from "lodash";
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
 import Panel from "../shared/panel";
 import getAssetName from "../../helpers/getAssetName";
 import transactionShape from "../../shapes/transactionShape";
+import assetSummaryShape from "../../shapes/assetSummaryShape";
+
+const { arrayOf } = PropTypes;
 
 export default class Transaction extends React.Component {
   static displayName = "Transaction";
 
   static propTypes = {
-    transaction: transactionShape.isRequired
+    transaction: transactionShape.isRequired,
+    assets: arrayOf(assetSummaryShape).isRequired
   };
 
   render = () => {
@@ -94,9 +100,15 @@ export default class Transaction extends React.Component {
   }
 
   renderVouts = (vouts) => {
-    return vouts.map((vout, i) => {
-      return <li key={i}>{vout.value} {vout.asset} => {vout.address}</li>;
-    });
+    return vouts.map((vout, i) => (
+      <li key={i}>
+        {vout.value}
+        {" "}
+        <Link to={`/assets/${vout.asset}`}>{this.getAssetName(vout.asset, "en")}</Link>
+        {" => "}
+        <Link to={`/addresses/${vout.address}`}>{vout.address}</Link>
+      </li>
+    ));
   }
 
   renderScripts = (scripts) => {
@@ -119,5 +131,10 @@ export default class Transaction extends React.Component {
         </dl>
       );
     }
+  }
+
+  getAssetName = (assetTxid) => {
+    const asset = _.find(this.props.assets, { txid: assetTxid });
+    return asset ? getAssetName(asset, "en") : assetTxid;
   }
 }

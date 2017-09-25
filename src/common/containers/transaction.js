@@ -48,6 +48,14 @@ const query = gql`
         }
       }
     }
+
+    assets {
+      txid
+      name {
+        name
+        lang
+      }
+    }
   }
 `;
 
