@@ -1,5 +1,6 @@
 import React from "react";
 import TimeAgo from "react-timeago";
+import { Link } from "react-router-dom";
 
 import Panel from "../shared/panel";
 import getAssetName from "../../helpers/getAssetName";
@@ -37,7 +38,7 @@ export default class Asset extends React.Component {
             <dd>{asset.amount.toLocaleString()}</dd>
 
             <dt>Admin:</dt>
-            <dd>{asset.admin}</dd>
+            <dd><Link to={`/addresses/${asset.admin}`}>{asset.admin}</Link></dd>
 
             <dt>Owner:</dt>
             <dd>{asset.owner}</dd>
