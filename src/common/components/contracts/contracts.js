@@ -45,7 +45,7 @@ export default class Contracts extends React.Component {
         <tr key={contract.hash}>
           <td><Link to={`/contracts/${contract.hash}`}>{contract.hash}</Link></td>
           <td>{contract.name}</td>
-          <td>{contract.author} bytes</td>
+          <td>{contract.author}</td>
           <td><TimeAgo date={contract.registered} /></td>
         </tr>
       );
