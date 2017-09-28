@@ -99,6 +99,11 @@ export default class AddressProcessor {
 
   _getAddresses = async (vouts, options) => {
     const recipientAddresses = _.uniq(_.map(vouts, "address"));
-    return Address.findAll({ ...options, where: { address: { $in: recipientAddresses } } });
+
+    if (recipientAddresses.length === 0) {
+      return [];
+    } else {
+      return Address.findAll({ ...options, where: { address: { $in: recipientAddresses } } });
+    }
   }
 }
