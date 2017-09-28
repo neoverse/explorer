@@ -2,7 +2,7 @@
 
 import async from "async";
 
-import Updater from "../updater";
+import Processor from "../processor";
 
 const PRIORITY_DEFAULT = 5;
 const PRIORITY_IMMEDIATE = 0;
@@ -10,7 +10,7 @@ const PRIORITY_IMMEDIATE = 0;
 export default class ProcessQueue {
   constructor() {
     this.queue = async.priorityQueue(this._process);
-    this.updater = new Updater();
+    this.processor = new Processor();
   }
 
   start = async () => {
@@ -41,7 +41,7 @@ export default class ProcessQueue {
     console.log(`Processing block #${block.index}...`);
 
     try {
-      await this.updater.update(block);
+      await this.processor.process(block);
       console.log(`Finished processing block #${block.index}.`);
     } catch (err) {
       console.error(`Error processing block ${block.index}:`, err);
