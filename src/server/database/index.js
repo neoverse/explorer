@@ -2,6 +2,12 @@
 
 import Sequelize from "sequelize";
 
+import batch from "./batch";
+import iterator from "./iterator";
+
+Sequelize.Model.batch = batch;
+Sequelize.Model.iterator = iterator;
+
 const isProduction = process.env.NODE_ENV === "production";
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
