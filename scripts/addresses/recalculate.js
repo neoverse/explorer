@@ -12,8 +12,8 @@ function formatTransaction(transaction) {
   return { ...transactionData, ...extraData };
 }
 
-async function execute(processor) {
-  const transaction = await db.transaction();
+async function execute(processor, { transactional = false } = {}) {
+  const transaction = transactional ? await db.transaction() : null;
 
   try {
     await Address.destroy({ truncate: true, transaction });
@@ -28,14 +28,16 @@ async function execute(processor) {
       await processor.process(transactions.map(formatTransaction), { transaction });
     }
 
-    await transaction.commit();
+    if (transaction) await transaction.commit();
   } catch (err) {
-    await transaction.rollback();
+    if (transaction) await transaction.rollback();
     throw err;
   }
 }
 
-execute(new AddressProcessor())
+const transactional = process.argv[3] === "--transactional";
+
+execute(new AddressProcessor(), { transactional })
   .then(() => {
     console.log("Done recalculating address balances.");
     process.exit();
