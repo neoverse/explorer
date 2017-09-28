@@ -12,8 +12,7 @@ export default class AddressProcessor {
 
   _processTransaction = async (transaction, options) => {
     const vinVouts = await this._getVouts(transaction.vin, options);
-    const claimVouts = await this._getVouts(transaction.claims, options);
-    const allVouts = [...transaction.vout, ...vinVouts, ...claimVouts];
+    const allVouts = [...transaction.vout, ...vinVouts];
 
     const existingAddresses = await this._getAddresses(allVouts, options);
     const existingAddressList = _.map(existingAddresses, "address");
@@ -22,16 +21,11 @@ export default class AddressProcessor {
       return !_.includes(existingAddressList, vout.address);
     }), options);
 
-    // existingAddresses.push(...addedAddresses);
-    // existingAddressList.push(..._.map(addedAddresses, "address"));
-
     await this._updateAddressesFromVouts(_.filter(transaction.vout, (vout) => {
       return _.includes(existingAddressList, vout.address);
     }), existingAddresses, options);
 
     await this._updateAddressesFromVins(vinVouts, existingAddresses, options);
-
-    await this._updateAddressesFromClaims(claimVouts, existingAddresses, options);
   }
 
   _createAddressesFromVouts = async (vouts, options) => {
@@ -62,10 +56,6 @@ export default class AddressProcessor {
 
   _updateAddressesFromVouts = async (vouts, addresses, options) => {
     await this._updateAddresses(vouts, addresses, options, (balance, diff) => balance.plus(diff));
-  }
-
-  _updateAddressesFromClaims = async (claims, addresses, options) => {
-    await this._updateAddresses(claims, addresses, options, (balance, diff) => balance.plus(diff));
   }
 
   _updateAddresses = async (vouts, addresses, options, callback) => {
