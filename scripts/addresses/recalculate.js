@@ -1,27 +1,46 @@
-/* eslint-disable no-console */
+/* eslint-disable no-process-exit, no-console */
 
-import db, { Transaction, Address } from "../src/server/database";
+import _ from "lodash";
 
-async function execute() {
+import db, { Block, Transaction, Address } from "../../src/server/database";
+import AddressProcessor from "../../src/sync/processors/addressProcessor";
+
+function formatTransaction(transaction) {
+  const transactionData = _.omit(transaction.dataValues, "id", "data", "created_at", "updated_at");
+  const extraData = transaction.data || {};
+
+  return { ...transactionData, ...extraData };
+}
+
+async function execute(processor) {
   const transaction = await db.transaction();
 
   try {
     await Address.destroy({ truncate: true, transaction });
 
-    // TODO: need to limit/offset the result set and loop over it
-    const transactions = await Transaction.findAll({ transaction });
+    for await (const block of Block.batch({ order: [["index", "asc"]], batchSize: 10000, transaction })) {
+      const transactions = await Transaction.findAll({
+        where: { blockhash: block.hash },
+        order: [["id", "asc"]],
+        transaction
+      });
 
-    for (let i = 0; i < transactions.length; i++) {
-      const tx = transactions[i];
-      // TODO: refactor updater so that I can reuse address creator/updater code here
+      await processor.process(transactions.map(formatTransaction), { transaction });
     }
 
     await transaction.commit();
-    console.log("Done recalculating address balances.");
   } catch (err) {
     await transaction.rollback();
-    console.log("Error:", err.message);
+    throw err;
   }
 }
 
-execute().then(process.exit);
+execute(new AddressProcessor())
+  .then(() => {
+    console.log("Done recalculating address balances.");
+    process.exit();
+  })
+  .catch((err) => {
+    console.error("Error:", err.message);
+    process.exit(1);
+  });

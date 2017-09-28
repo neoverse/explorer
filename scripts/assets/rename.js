@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
+/* eslint-disable no-process-exit, no-console */
 
-import db, { Asset } from "../src/server/database";
+import db, { Asset } from "../../src/server/database";
 
 async function execute() {
   const transaction = await db.transaction();
@@ -21,11 +21,18 @@ async function execute() {
     });
 
     await transaction.commit();
-    console.log("Done renaming NEO & GAS assets.");
   } catch (err) {
     await transaction.rollback();
-    console.log("Error:", err.message);
+    throw err;
   }
 }
 
-execute().then(process.exit);
+execute()
+  .then(() => {
+    console.log("Done renaming NEO & GAS assets.");
+    process.exit();
+  })
+  .catch((err) => {
+    console.log("Error:", err.message);
+    process.exit(1);
+  });
