@@ -22,7 +22,7 @@ export default class Assets extends React.Component {
         <h2>Assets</h2>
 
         <Panel>
-          <table width="100%">
+          <table>
             <thead>
               <tr>
                 <th>Name</th>

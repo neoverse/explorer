@@ -21,7 +21,7 @@ export default class Contracts extends React.Component {
         <h2>Contracts</h2>
 
         <Panel>
-          <table width="100%">
+          <table>
             <thead>
               <tr>
                 <th>Hash</th>

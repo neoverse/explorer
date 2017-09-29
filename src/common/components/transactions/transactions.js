@@ -21,7 +21,7 @@ export default class Transactions extends React.Component {
         <h2>Transactions</h2>
 
         <Panel>
-          <table width="100%">
+          <table>
             <thead>
               <tr>
                 <th>Type</th>
@@ -43,7 +43,7 @@ export default class Transactions extends React.Component {
     return this.props.transactions.map((transaction) => {
       return (
         <tr key={transaction.txid}>
-          <td>{transaction.type}</td>
+          <td>{transaction.type.replace(/Transaction$/, "")}</td>
           <td><Link to={`/transactions/${transaction.txid}`}>{transaction.txid}</Link></td>
           <td>{transaction.size.toLocaleString()} bytes</td>
           <td><TimeAgo date={transaction.blocktime} /></td>

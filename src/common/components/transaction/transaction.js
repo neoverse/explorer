@@ -29,7 +29,7 @@ export default class Transaction extends React.Component {
         <Panel>
           <dl>
             <dt>Type:</dt>
-            <dd>{transaction.type}</dd>
+            <dd>{transaction.type.replace(/Transaction$/, "")}</dd>
           </dl>
 
           <dl>
@@ -54,12 +54,18 @@ export default class Transaction extends React.Component {
 
           <dl>
             <dt>Network Fee:</dt>
-            <dd>{transaction.net_fee} GAS</dd>
+            <dd>
+              {transaction.net_fee}{" "}
+              {this.renderAssetName("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7")}
+            </dd>
           </dl>
 
           <dl>
             <dt>System Fee:</dt>
-            <dd>{transaction.sys_fee} GAS</dd>
+            <dd>
+              {transaction.sys_fee}{" "}
+              {this.renderAssetName("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7")}
+            </dd>
           </dl>
 
           <dl>
@@ -104,7 +110,7 @@ export default class Transaction extends React.Component {
       <li key={i}>
         {vout.value}
         {" "}
-        <Link to={`/assets/${vout.asset}`}>{this.getAssetName(vout.asset, "en")}</Link>
+        {this.renderAssetName(vout.asset)}
         {" => "}
         <Link to={`/addresses/${vout.address}`}>{vout.address}</Link>
       </li>
@@ -127,14 +133,16 @@ export default class Transaction extends React.Component {
       return (
         <dl>
           <dt>Asset:</dt>
-          <dd><Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link></dd>
+          <dd>{this.renderAssetName(asset.txid)}</dd>
         </dl>
       );
     }
   }
 
-  getAssetName = (assetTxid) => {
-    const asset = _.find(this.props.assets, { txid: assetTxid });
-    return asset ? getAssetName(asset, "en") : assetTxid;
+  renderAssetName = (txid) => {
+    const asset = _.find(this.props.assets, { txid });
+    const name = asset ? getAssetName(asset, "en") : txid;
+
+    return <Link to={`/assets/${txid}`}>{name}</Link>;
   }
 }

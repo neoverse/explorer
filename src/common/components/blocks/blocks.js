@@ -21,7 +21,7 @@ export default class Blocks extends React.Component {
         <h2>Blocks</h2>
 
         <Panel>
-          <table width="100%">
+          <table>
             <thead>
               <tr>
                 <th>Index</th>

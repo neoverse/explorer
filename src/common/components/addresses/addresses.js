@@ -25,7 +25,7 @@ export default class Addresses extends React.Component {
         <h2>Addresses</h2>
 
         <Panel>
-          <table width="100%">
+          <table>
             <thead>
               <tr>
                 <th>Address</th>
