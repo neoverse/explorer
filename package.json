@@ -43,6 +43,7 @@
     "babel-preset-stage-1": "^6.24.1",
     "babel-register": "^6.24.1",
     "bignumber.js": "^4.0.4",
+    "classnames": "^2.2.5",
     "compression": "^1.7.0",
     "express": "^4.15.3",
     "express-graphql": "^0.6.11",
