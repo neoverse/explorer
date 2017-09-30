@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-// import { Route, Switch, NavLink, Link } from "react-router-dom";
+
+import menuSvg from "../../icons/menu.svg";
 
 const { string, node, arrayOf } = PropTypes;
 
@@ -32,9 +33,11 @@ export default class Navbar extends React.Component {
             {this.renderLinks()}
           </ul>
 
-          <button className="nav-toggle" type="button" onClick={this.handleToggleNav}>
-            Menu
-          </button>
+          <button
+            className="nav-toggle"
+            type="button"
+            onClick={this.handleToggleNav}
+            dangerouslySetInnerHTML={{ __html: menuSvg }} />
         </div>
 
         <ul className={classNames("nav-drawer", { open: this.state.open })}>

@@ -73,6 +73,7 @@
     "sass-loader": "^6.0.6",
     "sequelize": "^4.8.2",
     "serialize-javascript": "^1.4.0",
+    "svg-inline-loader": "^0.8.0",
     "umzug": "^2.0.1",
     "webpack": "^3.4.1"
   },

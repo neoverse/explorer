@@ -74,10 +74,19 @@
     color: $gray-light;
     background: transparent;
     font-size: 16px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: $gray-light;
+      vertical-align: middle;
+    }
   }
 
   .nav-drawer {
     display: none;
+    margin: 0;
+    padding: 0;
 
     &.open {
       display: block;
@@ -85,6 +94,10 @@
 
     .nav-link {
       text-align: center;
+
+      a {
+        line-height: 40px;
+      }
     }
   }
 }
