@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import Panel from "../shared/panel";
+import Attribute from "../shared/attribute";
 import addressShape from "../../shapes/addressShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
 import getAssetName from "../../helpers/getAssetName";
@@ -27,10 +28,13 @@ export default class Address extends React.Component {
         <h1>Address {address.address}</h1>
 
         <Panel>
-          <dl>
-            <dt>Balance:</dt>
-            <dd>{this.renderBalances(address.balance)}</dd>
-          </dl>
+          <Attribute label="Address">
+            {address.address}
+          </Attribute>
+
+          <Attribute label="Balance">
+            {this.renderBalances(address.balance)}
+          </Attribute>
         </Panel>
       </div>
     );

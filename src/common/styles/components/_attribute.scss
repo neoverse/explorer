@@ -1,0 +1,20 @@
+.attribute-component {
+  display: flex;
+  padding: 8px 4px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba($gray-dark, 0.15);
+
+  .label {
+    flex: 0 0 auto;
+    width: 125px;
+    font-weight: 600;
+    color: $black;
+  }
+
+  .value {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

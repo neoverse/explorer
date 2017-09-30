@@ -3,6 +3,7 @@ import TimeAgo from "react-timeago";
 import { Link } from "react-router-dom";
 
 import Panel from "../shared/panel";
+import Attribute from "../shared/attribute";
 import getAssetName from "../../helpers/getAssetName";
 import assetShape from "../../shapes/assetShape";
 
@@ -21,31 +22,37 @@ export default class Asset extends React.Component {
         <h1>Asset {asset.txid}</h1>
 
         <Panel>
-          <dl>
-            <dt>Name:</dt>
-            <dd>{getAssetName(asset, "en")}</dd>
+          <Attribute label="Name">
+            {getAssetName(asset, "en")}
+          </Attribute>
 
-            <dt>Type:</dt>
-            <dd>{asset.type}</dd>
+          <Attribute label="Type">
+            {asset.type}
+          </Attribute>
 
-            <dt>Precision:</dt>
-            <dd>{asset.precision}</dd>
+          <Attribute label="Precision">
+            {asset.precision}
+          </Attribute>
 
-            <dt>Issued:</dt>
-            <dd>{asset.issued.toLocaleString()}</dd>
+          <Attribute label="Issued">
+            {asset.issued.toLocaleString()}
+          </Attribute>
 
-            <dt>Amount:</dt>
-            <dd>{asset.amount.toLocaleString()}</dd>
+          <Attribute label="Amount">
+            {asset.amount.toLocaleString()}
+          </Attribute>
 
-            <dt>Admin:</dt>
-            <dd><Link to={`/addresses/${asset.admin}`}>{asset.admin}</Link></dd>
+          <Attribute label="Admin">
+            <Link to={`/addresses/${asset.admin}`}>{asset.admin}</Link>
+          </Attribute>
 
-            <dt>Owner:</dt>
-            <dd>{asset.owner}</dd>
+          <Attribute label="Owner">
+            {asset.owner}
+          </Attribute>
 
-            <dt>Registered:</dt>
-            <dd><TimeAgo date={asset.registered} /></dd>
-          </dl>
+          <Attribute label="Registered">
+            <TimeAgo date={asset.registered} />
+          </Attribute>
         </Panel>
       </div>
     );

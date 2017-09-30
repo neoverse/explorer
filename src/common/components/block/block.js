@@ -4,6 +4,7 @@ import TimeAgo from "react-timeago";
 
 import Transaction from "./transaction";
 import Panel from "../shared/panel";
+import Attribute from "../shared/attribute";
 import blockShape from "../../shapes/blockShape";
 
 export default class Block extends React.Component {
@@ -21,47 +22,55 @@ export default class Block extends React.Component {
         <h1>Block {block.hash}</h1>
 
         <Panel>
-          <dl>
-            <dt>Index:</dt>
-            <dd>{block.index.toLocaleString()}</dd>
+          <Attribute label="Index">
+            {block.index.toLocaleString()}
+          </Attribute>
 
-            <dt>Time:</dt>
-            <dd><TimeAgo date={block.time} /></dd>
+          <Attribute label="Time">
+            <TimeAgo date={block.time} />
+          </Attribute>
 
-            <dt>Validator:</dt>
-            <dd>{block.nextconsensus}</dd>
+          <Attribute label="Validator">
+            <Link to={`/addresses/${block.nextconsensus}`}>{block.nextconsensus}</Link>
+          </Attribute>
 
-            <dt>Confirmations:</dt>
-            <dd>{block.confirmations}</dd>
+          <Attribute label="Confirmations">
+            {block.confirmations}
+          </Attribute>
 
-            <dt>Size:</dt>
-            <dd>{block.size.toLocaleString()} bytes</dd>
+          <Attribute label="Size">
+            {block.size.toLocaleString()} bytes
+          </Attribute>
 
-            <dt>Version:</dt>
-            <dd>{block.version}</dd>
+          <Attribute label="Version">
+            {block.version}
+          </Attribute>
 
-            <dt>Nonce:</dt>
-            <dd>{block.nonce}</dd>
+          <Attribute label="Nonce">
+            {block.nonce}
+          </Attribute>
 
-            <dt>Merkle Root:</dt>
-            <dd>{block.merkleroot}</dd>
+          <Attribute label="Merkle Root">
+            {block.merkleroot}
+          </Attribute>
 
-            <dt>Previous Block:</dt>
-            <dd><Link to={`/blocks/${block.previousblockhash}`}>{block.previousblockhash}</Link></dd>
+          <Attribute label="Previous Block">
+            <Link to={`/blocks/${block.previousblockhash}`}>{block.previousblockhash}</Link>
+          </Attribute>
 
-            <dt>Invocation Script:</dt>
-            <dd>{block.script.invocation}</dd>
+          <Attribute label="Invocation Script">
+            {block.script.invocation}
+          </Attribute>
 
-            <dt>Verification Script:</dt>
-            <dd>{block.script.verification}</dd>
+          <Attribute label="Verification Script">
+            {block.script.verification}
+          </Attribute>
 
-            <dt>Transactions:</dt>
-            <dd>
-              <ul>
-                {this.renderTransactions()}
-              </ul>
-            </dd>
-          </dl>
+          <Attribute label="Transactions">
+            <ul>
+              {this.renderTransactions()}
+            </ul>
+          </Attribute>
         </Panel>
       </div>
     );

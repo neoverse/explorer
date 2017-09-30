@@ -2,6 +2,7 @@ import React from "react";
 import TimeAgo from "react-timeago";
 
 import Panel from "../shared/panel";
+import Attribute from "../shared/attribute";
 import contractShape from "../../shapes/contractShape";
 
 export default class Contract extends React.Component {
@@ -19,22 +20,25 @@ export default class Contract extends React.Component {
         <h1>Contract {contract.hash}</h1>
 
         <Panel>
-          <dl>
-            <dt>Name:</dt>
-            <dd>{contract.name}</dd>
+          <Attribute label="Name">
+            {contract.name}
+          </Attribute>
 
-            <dt>Description:</dt>
-            <dd>{contract.description}</dd>
+          <Attribute label="Description">
+            {contract.description}
+          </Attribute>
 
-            <dt>Version:</dt>
-            <dd>{contract.version}</dd>
+          <Attribute label="Version">
+            {contract.version}
+          </Attribute>
 
-            <dt>Author:</dt>
-            <dd>{contract.author}</dd>
+          <Attribute label="Author">
+            {contract.author} (<a href={`mailto:${contract.email}`}>{contract.email}</a>)
+          </Attribute>
 
-            <dt>Registered:</dt>
-            <dd><TimeAgo date={contract.registered} /></dd>
-          </dl>
+          <Attribute label="Registered">
+            <TimeAgo date={contract.registered} />
+          </Attribute>
         </Panel>
       </div>
     );

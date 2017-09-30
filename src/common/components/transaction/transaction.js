@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
 import Panel from "../shared/panel";
+import Attribute from "../shared/attribute";
 import getAssetName from "../../helpers/getAssetName";
 import transactionShape from "../../shapes/transactionShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
@@ -27,71 +28,51 @@ export default class Transaction extends React.Component {
         <h1>Transaction {transaction.txid}</h1>
 
         <Panel>
-          <dl>
-            <dt>Type:</dt>
-            <dd>{transaction.type.replace(/Transaction$/, "")}</dd>
-          </dl>
+          <Attribute label="Type">
+            {transaction.type.replace(/Transaction$/, "")}
+          </Attribute>
 
-          <dl>
-            <dt>Block:</dt>
-            <dd><Link to={`/blocks/${transaction.blockhash}`}>{transaction.blockhash}</Link></dd>
-          </dl>
+          <Attribute label="Block">
+            <Link to={`/blocks/${transaction.blockhash}`}>{transaction.blockhash}</Link>
+          </Attribute>
 
-          <dl>
-            <dt>Time:</dt>
-            <dd><TimeAgo date={transaction.blocktime} /></dd>
-          </dl>
+          <Attribute label="Time">
+            <TimeAgo date={transaction.blocktime} />
+          </Attribute>
 
-          <dl>
-            <dt>Attributes:</dt>
-            <dd>{transaction.attributes}</dd>
-          </dl>
+          <Attribute label="Nonce">
+            {transaction.nonce || "N/A"}
+          </Attribute>
 
-          <dl>
-            <dt>Nonce:</dt>
-            <dd>{transaction.nonce}</dd>
-          </dl>
+          <Attribute label="Network Fee">
+            {transaction.net_fee}{" "}
+            {this.renderAssetName("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7")}
+          </Attribute>
 
-          <dl>
-            <dt>Network Fee:</dt>
-            <dd>
-              {transaction.net_fee}{" "}
-              {this.renderAssetName("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7")}
-            </dd>
-          </dl>
+          <Attribute label="System Fee">
+            {transaction.sys_fee}{" "}
+            {this.renderAssetName("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7")}
+          </Attribute>
 
-          <dl>
-            <dt>System Fee:</dt>
-            <dd>
-              {transaction.sys_fee}{" "}
-              {this.renderAssetName("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7")}
-            </dd>
-          </dl>
+          <Attribute label="Size">
+            {transaction.size.toLocaleString()} bytes
+          </Attribute>
 
-          <dl>
-            <dt>Size:</dt>
-            <dd>{transaction.size.toLocaleString()} bytes</dd>
-          </dl>
+          <Attribute label="Version">
+            {transaction.version}
+          </Attribute>
 
-          <dl>
-            <dt>Version:</dt>
-            <dd>{transaction.version}</dd>
-          </dl>
+          <Attribute label="In">
+            <ul>{this.renderVins(transaction.vin)}</ul>
+          </Attribute>
 
-          <dl>
-            <dt>In:</dt>
-            <dd><ul>{this.renderVins(transaction.vin)}</ul></dd>
-          </dl>
+          <Attribute label="Out">
+            <ul>{this.renderVouts(transaction.vout)}</ul>
+          </Attribute>
 
-          <dl>
-            <dt>Out:</dt>
-            <dd><ul>{this.renderVouts(transaction.vout)}</ul></dd>
-          </dl>
-
-          <dl>
-            <dt>Scripts:</dt>
-            <dd><ul>{this.renderScripts(transaction.scripts)}</ul></dd>
-          </dl>
+          <Attribute label="Scripts">
+            <ul>{this.renderScripts(transaction.scripts)}</ul>
+          </Attribute>
 
           {this.renderAsset(transaction.asset)}
         </Panel>
@@ -131,10 +112,9 @@ export default class Transaction extends React.Component {
   renderAsset = (asset) => {
     if (asset) {
       return (
-        <dl>
-          <dt>Asset:</dt>
-          <dd>{this.renderAssetName(asset.txid)}</dd>
-        </dl>
+        <Attribute label="Asset">
+          {this.renderAssetName(asset.txid)}
+        </Attribute>
       );
     }
   }

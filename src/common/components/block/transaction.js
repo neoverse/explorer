@@ -16,7 +16,7 @@ export default class Transaction extends React.Component {
 
     return (
       <div className="block-transaction-component">
-        <span>{transaction.type}</span>{" "}
+        <span>{transaction.type.replace(/Transaction$/, "")}</span>{" "}
         <span><Link to={`/transactions/${transaction.txid}`}>{transaction.txid}</Link></span>{" "}
         <span><TimeAgo date={transaction.blocktime} /></span>
       </div>
