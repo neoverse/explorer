@@ -25,7 +25,6 @@ export default class App extends React.Component {
     return (
       <div className="app-component">
         <Navbar className="header" title="NEOverse Explorer" links={[
-          <NavLink to="/" exact>Home</NavLink>,
           <NavLink to="/blocks">Blocks</NavLink>,
           <NavLink to="/transactions">Transactions</NavLink>,
           <NavLink to="/addresses">Addresses</NavLink>,

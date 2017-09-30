@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 
 import SvgIcon from "./svgIcon";
@@ -28,7 +29,7 @@ export default class Navbar extends React.Component {
     return (
       <div className={classNames("navbar-component", this.props.className)}>
         <div className="nav-topbar">
-          <h1>{this.props.title}</h1>
+          <h1><Link to="/">{this.props.title}</Link></h1>
 
           <ul className="nav-links">
             {this.renderLinks()}
