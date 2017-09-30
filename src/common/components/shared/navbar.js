@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
+import SvgIcon from "./svgIcon";
 import menuSvg from "../../icons/menu.svg";
 
 const { string, node, arrayOf } = PropTypes;
@@ -33,11 +34,9 @@ export default class Navbar extends React.Component {
             {this.renderLinks()}
           </ul>
 
-          <button
-            className="nav-toggle"
-            type="button"
-            onClick={this.handleToggleNav}
-            dangerouslySetInnerHTML={{ __html: menuSvg }} />
+          <button className="nav-toggle" type="button" onClick={this.handleToggleNav}>
+            <SvgIcon className="nav-toggle-icon" svg={menuSvg} />
+          </button>
         </div>
 
         <ul className={classNames("nav-drawer", { open: this.state.open })}>

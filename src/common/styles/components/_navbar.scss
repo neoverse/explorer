@@ -76,9 +76,7 @@
     font-size: 16px;
     cursor: pointer;
 
-    svg {
-      width: 24px;
-      height: 24px;
+    .nav-toggle-icon svg {
       fill: $gray-light;
       vertical-align: middle;
     }

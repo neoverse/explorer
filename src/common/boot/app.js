@@ -15,7 +15,10 @@ import Contracts from "../containers/contracts";
 import Contract from "../containers/contract";
 import NotFound from "../containers/notFound";
 import Navbar from "../components/shared/navbar";
+import SvgIcon from "../components/shared/svgIcon";
 import { Container, Row, Column } from "../components/shared/grid";
+import rssSvg from "../icons/rss.svg";
+import twitterSvg from "../icons/twitter.svg";
 
 export default class App extends React.Component {
   render = () => {
@@ -75,10 +78,14 @@ export default class App extends React.Component {
                 <h5>Social</h5>
                 <ul>
                   <li>
-                    <a href="http://blog.neoverse.io" target="_blank" rel="noopener noreferrer">Blog</a>
+                    <SvgIcon svg={rssSvg} />
+                    <a href="http://blog.neoverse.io" target="_blank" rel="noopener noreferrer">
+                      Blog
+                    </a>
                     {" "}(coming soon!)
                   </li>
                   <li>
+                    <SvgIcon svg={twitterSvg} />
                     <a href="https://twitter.com/NEOverse_io" target="_blank" rel="noopener noreferrer">
                       @NEOverse_io
                     </a>
