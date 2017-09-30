@@ -1,3 +1,4 @@
+// colors
 $green-dark: rgba(73, 132, 103, 1);
 $green-light: rgba(82, 183, 136, 1);
 $gray-light: rgba(239, 241, 237, 1);
@@ -10,3 +11,18 @@ $white: rgba(255, 255, 255, 1);
 $link: $blue;
 $text: $gray-dark;
 $heading: $gray-black;
+
+// screen sizes
+$small-screen-up: 601px !default;
+$medium-screen-up: 993px !default;
+$large-screen-up: 1201px !default;
+$small-screen: 600px !default;
+$medium-screen: 992px !default;
+$large-screen: 1200px !default;
+
+$medium-and-up: "only screen and (min-width : #{$small-screen-up})" !default;
+$large-and-up: "only screen and (min-width : #{$medium-screen-up})" !default;
+$extra-large-and-up: "only screen and (min-width : #{$large-screen-up})" !default;
+$small-and-down: "only screen and (max-width : #{$small-screen})" !default;
+$medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
+$medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
