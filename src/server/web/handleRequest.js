@@ -5,7 +5,7 @@ import { ApolloProvider, getDataFromTree } from "react-apollo";
 import DocumentTitle from "react-document-title";
 import "isomorphic-fetch";
 
-import App from "../../common/boot/app";
+import App from "../../common/containers/app";
 import defaultTitle from "../../common/values/defaultTitle";
 import renderServerHTML from "./renderServerHTML";
 import client from "./client";

@@ -1,7 +1,9 @@
 .svg-icon-component {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
 
   svg {
+    flex: 0 0 auto;
     width: 24px;
     height: 24px;
   }

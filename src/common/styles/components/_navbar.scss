@@ -23,6 +23,10 @@
 
     .nav-toggle {
       flex: 0 0 auto;
+
+      .nav-toggle-icon {
+        vertical-align: middle;
+      }
     }
   }
 
@@ -41,10 +45,15 @@
     padding: 0;
 
     .nav-link {
+      display: inline-block;
       height: 100%;
       margin: 0;
       padding: 0;
-      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .search-input {
+      margin: 0 12px;
     }
   }
 
@@ -102,6 +111,10 @@
       a {
         line-height: 40px;
       }
+    }
+
+    .search-input {
+      margin: 12px 0;
     }
   }
 }

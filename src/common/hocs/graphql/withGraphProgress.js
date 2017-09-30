@@ -45,7 +45,7 @@ const withGraphProgress = ({
       } else if (data.error) {
         return <Failed {...passDownProps} />;
       } else if (_.some(passDownData, (data, key) => _.includes(required, key) && _.isNull(data))) {
-        return <NotFound />;
+        return <NotFound {...passDownProps} />;
       } else {
         return <Component {...passDownProps} {...passDownData} />;
       }
