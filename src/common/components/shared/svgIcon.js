@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -12,8 +13,11 @@ export default class SvgIcon extends React.Component {
   };
 
   render = () => {
+    const passDownProps = _.omit(this.props, "svg");
+
     return (
-      <div
+      <span
+        {...passDownProps}
         className={classNames("svg-icon-component", this.props.className)}
         dangerouslySetInnerHTML={{ __html: this.props.svg }} />
     );

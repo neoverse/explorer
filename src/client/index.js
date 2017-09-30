@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
 
-import App from "../common/boot/app";
+import App from "../common/containers/app";
 import client from "./client";
 
 ReactDOM.render((

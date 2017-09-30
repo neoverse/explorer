@@ -13,15 +13,25 @@ import Addresses from "../containers/addresses";
 import Address from "../containers/address";
 import Contracts from "../containers/contracts";
 import Contract from "../containers/contract";
+import Search from "../containers/search";
 import NotFound from "../containers/notFound";
 import Navbar from "../components/shared/navbar";
 import SvgIcon from "../components/shared/svgIcon";
 import { Container, Row, Column } from "../components/shared/grid";
+import SearchInput from "../components/search/searchInput";
+import historyShape from "../shapes/historyShape";
+import getSearchPath from "../helpers/getSearchPath";
 import rssSvg from "../icons/rss.svg";
 import twitterSvg from "../icons/twitter.svg";
 import githubSvg from "../icons/github.svg";
 
 export default class App extends React.Component {
+  static displayName = "App";
+
+  static propTypes = {
+    history: historyShape.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = { navOpen: false };
@@ -40,7 +50,8 @@ export default class App extends React.Component {
             <NavLink to="/transactions" onClick={this.handleToggleNav}>Transactions</NavLink>,
             <NavLink to="/addresses" onClick={this.handleToggleNav}>Addresses</NavLink>,
             <NavLink to="/assets" onClick={this.handleToggleNav}>Assets</NavLink>,
-            <NavLink to="/contracts" onClick={this.handleToggleNav}>Contracts</NavLink>
+            <NavLink to="/contracts" onClick={this.handleToggleNav}>Contracts</NavLink>,
+            <SearchInput className="search-input" onSearch={this.handleSearch} />
           ]} />
 
         <div className="content">
@@ -59,6 +70,7 @@ export default class App extends React.Component {
                   <Route exact path="/assets/:txid" component={Asset} />
                   <Route exact path="/contracts" component={Contracts} />
                   <Route exact path="/contracts/:hash" component={Contract} />
+                  <Route exact path="/search/:term" component={Search} />
                   <Route component={NotFound} />
                 </Switch>
               </Column>
@@ -116,5 +128,11 @@ export default class App extends React.Component {
 
   handleToggleNav = () => {
     this.setState({ navOpen: !this.state.navOpen });
+  }
+
+  handleSearch = (term) => {
+    this.setState({ navOpen: false }, () => {
+      this.props.history.push(getSearchPath(term));
+    });
   }
 }
