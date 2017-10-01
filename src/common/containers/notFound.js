@@ -1,4 +1,4 @@
-import { compose } from "recompose";
+import { compose, mapProps } from "recompose";
 
 import withStatus from "../hocs/withStatus";
 import withTitle from "../hocs/withTitle";
@@ -7,5 +7,6 @@ import defaultTitle from "../values/defaultTitle";
 
 export default compose(
   withStatus(404),
-  withTitle(`Not Found | ${defaultTitle}`)
+  withTitle(`Not Found | ${defaultTitle}`),
+  mapProps((props) => ({ ...props, url: props.match.url }))
 )(NotFound);
