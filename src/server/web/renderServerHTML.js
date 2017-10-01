@@ -24,7 +24,6 @@ export default function renderServerHTML({ html = "", state = {}, title = defaul
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="google-site-verification" content="WnQTWW4Ou5zNc0BIsYEmVeTQXp4s05SGkf4JwoAizbs" />
         <title>${title}</title>
         <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107269744-1"></script>
