@@ -27,6 +27,13 @@ export default function renderServerHTML({ html = "", state = {}, title = defaul
         <meta name="msapplication-tap-highlight" content="no">
         <title>${title}</title>
         <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107269744-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+          gtag('config', 'UA-107269744-1');
+        </script>
         ${getAssetsCSS()}
         ${getAssetsJS()}
       </head>
