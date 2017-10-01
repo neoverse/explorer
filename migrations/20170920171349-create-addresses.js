@@ -3,7 +3,7 @@ exports.up = (db, Sequelize) => {
     id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
     address: { type: Sequelize.STRING, allowNull: false },
     balance: { type: Sequelize.JSON, allowNull: false },
-    claimed: { type: Sequelize.JSON, allowNull: false },
+    registered: { type: Sequelize.DATE, allowNull: false },
     created_at: { type: Sequelize.DATE, notNull: true },
     updated_at: { type: Sequelize.DATE, notNull: true }
   }).then(() => {

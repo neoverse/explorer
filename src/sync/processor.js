@@ -24,7 +24,7 @@ export default class Processor {
       await this.blockProcessor.process(block, { transaction });
       await this.transactionProcessor.process(block.tx, block, { transaction });
       await this.voutProcessor.process(block.tx, { transaction });
-      await this.addressProcessor.process(block.tx, { transaction });
+      await this.addressProcessor.process(block.tx, block, { transaction });
       await this._createAssociations(block.tx, block, { transaction });
 
       await transaction.commit();

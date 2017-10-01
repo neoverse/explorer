@@ -25,7 +25,7 @@ async function execute(processor, { transactional = false } = {}) {
         transaction
       });
 
-      await processor.process(transactions.map(formatTransaction), { transaction });
+      await processor.process(transactions.map(formatTransaction), block, { transaction });
     }
 
     if (transaction) await transaction.commit();

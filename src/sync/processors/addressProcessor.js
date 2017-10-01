@@ -5,13 +5,13 @@ import normalizeHex from "../../common/helpers/normalizeHex";
 import { Vout, Address } from "../../server/database";
 
 export default class AddressProcessor {
-  process = async (transactions, options = {}) => {
+  process = async (transactions, block, options = {}) => {
     for (let i = 0; i < transactions.length; i++) {
-      await this._processTransaction(transactions[i], options);
+      await this._processTransaction(transactions[i], block, options);
     }
   }
 
-  _processTransaction = async (transaction, options) => {
+  _processTransaction = async (transaction, block, options) => {
     const vinVouts = await this._getVouts(transaction.vin, options);
     const allVouts = [...transaction.vout, ...vinVouts];
 
@@ -20,7 +20,7 @@ export default class AddressProcessor {
 
     await this._createAddressesFromVouts(_.filter(transaction.vout, (vout) => {
       return !_.includes(existingAddressList, vout.address);
-    }), options);
+    }), block, options);
 
     await this._updateAddressesFromVouts(_.filter(transaction.vout, (vout) => {
       return _.includes(existingAddressList, vout.address);
@@ -29,7 +29,7 @@ export default class AddressProcessor {
     await this._updateAddressesFromVins(vinVouts, existingAddresses, options);
   }
 
-  _createAddressesFromVouts = async (vouts, options) => {
+  _createAddressesFromVouts = async (vouts, block, options) => {
     // An address may appear multiple times in the vout array, so we need to group by address here
     // and work some simple math magic to ensure we don't try to insert an address twice.
     const groupedVouts = _.groupBy(vouts, "address");
@@ -45,7 +45,7 @@ export default class AddressProcessor {
         return accumulator;
       }, {});
 
-      return { address, balance, claimed: {} };
+      return { address, balance, registered: block.time * 1000 };
     });
 
     return Address.bulkCreate(addresses, options);

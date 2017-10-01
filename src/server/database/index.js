@@ -79,7 +79,7 @@ export const Vout = sequelize.define("vouts", {
 export const Address = sequelize.define("addresses", {
   address: { type: Sequelize.STRING, allowNull: false },
   balance: { type: Sequelize.JSON, allowNull: false },
-  claimed: { type: Sequelize.JSON, allowNull: false }
+  registered: { type: Sequelize.DATE, allowNull: false }
 }, {
   underscored: true,
   indexes: [
