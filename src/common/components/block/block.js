@@ -26,6 +26,10 @@ export default class Block extends React.Component {
             {block.index.toLocaleString()}
           </Attribute>
 
+          <Attribute label="Hash">
+            {block.hash}
+          </Attribute>
+
           <Attribute label="Time">
             <TimeAgo date={block.time} />
           </Attribute>

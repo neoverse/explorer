@@ -32,6 +32,7 @@ h6 {
 
 table {
   width: 100%;
+  table-layout: fixed;
   border-spacing: 0;
   border-collapse: collapse;
   font-size: 14px;
@@ -47,6 +48,19 @@ table {
     padding: 8px 4px;
     text-align: left;
     vertical-align: top;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &.narrow {
+      width: 75px;
+    }
+
+    &.negligible {
+      @media #{$small-and-down} {
+        display: none;
+      }
+    }
   }
 
   thead {

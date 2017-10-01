@@ -26,8 +26,8 @@ export default class Assets extends React.Component {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Type</th>
-                <th>Amount</th>
+                <th className="negligible">Type</th>
+                <th className="negligible">Amount</th>
                 <th>Registered</th>
               </tr>
             </thead>
@@ -45,8 +45,8 @@ export default class Assets extends React.Component {
       return (
         <tr key={asset.txid}>
           <td><Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link></td>
-          <td>{asset.type}</td>
-          <td>{asset.amount.toLocaleString()}</td>
+          <td className="negligible">{asset.type}</td>
+          <td className="negligible">{asset.amount.toLocaleString()}</td>
           <td><TimeAgo date={asset.registered} /></td>
         </tr>
       );

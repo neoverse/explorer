@@ -24,10 +24,10 @@ export default class Transactions extends React.Component {
           <table>
             <thead>
               <tr>
-                <th>Type</th>
+                <th className="narrow negligible">Type</th>
                 <th>ID</th>
-                <th>Size</th>
-                <th>Time</th>
+                <th className="narrow negligible">Size</th>
+                <th className="narrow">Time</th>
               </tr>
             </thead>
             <tbody>
@@ -43,9 +43,9 @@ export default class Transactions extends React.Component {
     return this.props.transactions.map((transaction) => {
       return (
         <tr key={transaction.txid}>
-          <td>{transaction.type.replace(/Transaction$/, "")}</td>
+          <td className="negligible">{transaction.type.replace(/Transaction$/, "")}</td>
           <td><Link to={`/transactions/${transaction.txid}`}>{transaction.txid}</Link></td>
-          <td>{transaction.size.toLocaleString()} bytes</td>
+          <td className="negligible">{transaction.size.toLocaleString()} bytes</td>
           <td><TimeAgo date={transaction.blocktime} /></td>
         </tr>
       );

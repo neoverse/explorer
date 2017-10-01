@@ -31,7 +31,7 @@ export default class Addresses extends React.Component {
                 <th>Address</th>
                 {/* <th>Created</th> */}
                 {/* <th>Last Transaction</th> */}
-                <th>Balance</th>
+                <th className="narrow">Balance</th>
               </tr>
             </thead>
             <tbody>

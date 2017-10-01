@@ -24,10 +24,11 @@ export default class Blocks extends React.Component {
           <table>
             <thead>
               <tr>
-                <th>Index</th>
-                <th>Confirmations</th>
-                <th>Size</th>
-                <th>Time</th>
+                <th className="narrow">Index</th>
+                <th>Hash</th>
+                <th className="narrow negligible">Confirmations</th>
+                <th className="narrow negligible">Size</th>
+                <th className="narrow">Time</th>
               </tr>
             </thead>
             <tbody>
@@ -43,9 +44,10 @@ export default class Blocks extends React.Component {
     return this.props.blocks.map((block) => {
       return (
         <tr key={block.index}>
-          <td><Link to={`/blocks/${block.hash}`}>{block.index.toLocaleString()}</Link></td>
-          <td>{block.confirmations}</td>
-          <td>{block.size.toLocaleString()} bytes</td>
+          <td>{block.index.toLocaleString()}</td>
+          <td><Link to={`/blocks/${block.hash}`}>{block.hash}</Link></td>
+          <td className="negligible">{block.confirmations}</td>
+          <td className="negligible">{block.size.toLocaleString()} bytes</td>
           <td><TimeAgo date={block.time} /></td>
         </tr>
       );

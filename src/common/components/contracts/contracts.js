@@ -25,8 +25,8 @@ export default class Contracts extends React.Component {
             <thead>
               <tr>
                 <th>Hash</th>
-                <th>Name</th>
-                <th>Author</th>
+                <th className="negligible">Name</th>
+                <th className="negligible">Author</th>
                 <th>Registered</th>
               </tr>
             </thead>
@@ -44,8 +44,8 @@ export default class Contracts extends React.Component {
       return (
         <tr key={contract.hash}>
           <td><Link to={`/contracts/${contract.hash}`}>{contract.hash}</Link></td>
-          <td>{contract.name}</td>
-          <td>{contract.author}</td>
+          <td className="negligible">{contract.name}</td>
+          <td className="negligible">{contract.author}</td>
           <td><TimeAgo date={contract.registered} /></td>
         </tr>
       );
