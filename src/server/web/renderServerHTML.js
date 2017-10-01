@@ -1,7 +1,6 @@
 import serialize from "serialize-javascript";
 import defaultTitle from "../../common/values/defaultTitle";
 
-const isProduction = process.env.NODE_ENV === "production";
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 
 function getAssetsCSS() {
@@ -13,7 +12,7 @@ function getAssetsCSS() {
 }
 
 function getAssetsJS() {
-  return `<script src="${assets.client.js}" defer${isProduction ? " defer" : ""}></script>`;
+  return `<script src="${assets.client.js}" defer></script>`;
 }
 
 export default function renderServerHTML({ html = "", state = {}, title = defaultTitle } = {}) {
