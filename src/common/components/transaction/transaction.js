@@ -25,7 +25,7 @@ export default class Transaction extends React.Component {
 
     return (
       <div className="block-component">
-        <h1>Transaction {transaction.txid}</h1>
+        <h2>Transaction {transaction.txid}</h2>
 
         <Panel>
           <Attribute label="Type">

@@ -25,7 +25,7 @@ export default class Address extends React.Component {
 
     return (
       <div className="address-component">
-        <h1>Address {address.address}</h1>
+        <h2>Address {address.address}</h2>
 
         <Panel>
           <Attribute label="Address">

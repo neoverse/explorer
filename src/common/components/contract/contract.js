@@ -17,7 +17,7 @@ export default class Contract extends React.Component {
 
     return (
       <div className="asset-component">
-        <h1>Contract {contract.hash}</h1>
+        <h2>Contract {contract.hash}</h2>
 
         <Panel>
           <Attribute label="Name">

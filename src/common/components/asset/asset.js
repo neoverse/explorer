@@ -19,7 +19,7 @@ export default class Asset extends React.Component {
 
     return (
       <div className="asset-component">
-        <h1>Asset {asset.txid}</h1>
+        <h2>Asset {asset.txid}</h2>
 
         <Panel>
           <Attribute label="Name">

@@ -19,7 +19,7 @@ export default class Block extends React.Component {
 
     return (
       <div className="block-component">
-        <h1>Block {block.hash}</h1>
+        <h2>Block {block.hash}</h2>
 
         <Panel>
           <Attribute label="Index">
