@@ -8,6 +8,7 @@ import addressShape from "../../shapes/addressShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
 import findAsset from "../../helpers/findAsset";
 import getAssetName from "../../helpers/getAssetName";
+import normalizeDecimal from "../../helpers/normalizeDecimal";
 
 const { arrayOf } = PropTypes;
 
@@ -62,7 +63,7 @@ export default class Addresses extends React.Component {
 
       return (
         <div key={balance.asset}>
-          {balance.value.toFixed(asset.precision)}{" "}
+          {normalizeDecimal(balance.value, asset.precision)}{" "}
           <Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link>
         </div>
       );
