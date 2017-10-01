@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
 import Panel from "../shared/panel";
+import normalizeHex from "../../helpers/normalizeHex";
 import transactionSummaryShape from "../../shapes/transactionSummaryShape";
 
 const { arrayOf } = PropTypes;
@@ -44,7 +45,11 @@ export default class Transactions extends React.Component {
       return (
         <tr key={transaction.txid}>
           <td className="negligible">{transaction.type.replace(/Transaction$/, "")}</td>
-          <td><Link to={`/transactions/${transaction.txid}`}>{transaction.txid}</Link></td>
+          <td>
+            <Link to={`/transactions/${normalizeHex(transaction.txid)}`}>
+              {normalizeHex(transaction.txid)}
+            </Link>
+          </td>
           <td className="negligible">{transaction.size.toLocaleString()} bytes</td>
           <td><TimeAgo date={transaction.blocktime} /></td>
         </tr>

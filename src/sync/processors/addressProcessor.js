@@ -1,6 +1,7 @@
 import _ from "lodash";
 import BigNumber from "bignumber.js";
 
+import normalizeHex from "../../common/helpers/normalizeHex";
 import { Vout, Address } from "../../server/database";
 
 export default class AddressProcessor {
@@ -79,7 +80,7 @@ export default class AddressProcessor {
       return [];
     } else {
       const createQueryItems = (objects) => objects.map((obj) => ({
-        txid: obj.txid,
+        txid: normalizeHex(obj.txid),
         n: obj.vout
       }));
 

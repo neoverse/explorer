@@ -1,6 +1,8 @@
 import _ from "lodash";
 
+import normalizeHex from "../../helpers/normalizeHex";
+
 export default function findAsset(assets, txid) {
-  const normalizedId = txid.replace(/^0x/, "");
+  const normalizedId = normalizeHex(txid);
   return _.find(assets, { txid: normalizedId });
 }

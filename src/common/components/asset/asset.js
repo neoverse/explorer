@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Panel from "../shared/panel";
 import Attribute from "../shared/attribute";
 import getAssetName from "../../helpers/getAssetName";
+import normalizeHex from "../../helpers/normalizeHex";
 import assetShape from "../../shapes/assetShape";
 
 export default class Asset extends React.Component {
@@ -19,7 +20,7 @@ export default class Asset extends React.Component {
 
     return (
       <div className="asset-component">
-        <h2>Asset {asset.txid}</h2>
+        <h2>Asset {normalizeHex(asset.txid)}</h2>
 
         <Panel>
           <Attribute label="Name">

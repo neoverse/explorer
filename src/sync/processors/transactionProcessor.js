@@ -1,5 +1,6 @@
 import _ from "lodash";
 
+import normalizeHex from "../../common/helpers/normalizeHex";
 import { Transaction } from "../../server/database";
 import {
   CLAIM_TRANSACTION,
@@ -10,11 +11,12 @@ import {
 export default class BlockProcessor {
   process = async (transactions, block, options = {}) => {
     return Transaction.bulkCreate(transactions.map((tx) => {
-      const attrs = _.pick(tx, "txid", "type", "size", "nonce", "sys_fee", "net_fee", "scripts",
-        "version", "vin", "vout");
+      const attrs = _.pick(tx, "type", "size", "nonce", "sys_fee", "net_fee", "scripts", "version",
+        "vin", "vout");
 
       return {
         ...attrs,
+        txid: normalizeHex(tx.txid),
         attrs: tx.attributes,
         blockhash: block.hash,
         blocktime: block.time * 1000,
