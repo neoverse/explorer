@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -7,6 +6,7 @@ import { Link } from "react-router-dom";
 import Panel from "../shared/panel";
 import addressShape from "../../shapes/addressShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
+import findAsset from "../../helpers/findAsset";
 import getAssetName from "../../helpers/getAssetName";
 
 const { arrayOf } = PropTypes;
@@ -58,7 +58,7 @@ export default class Addresses extends React.Component {
 
   renderBalances = (balances) => {
     return balances.map((balance) => {
-      const asset = _.find(this.props.assets, { txid: balance.asset });
+      const asset = findAsset(this.props.assets, balance.asset);
 
       return (
         <div key={balance.asset}>

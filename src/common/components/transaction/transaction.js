@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -6,6 +5,7 @@ import TimeAgo from "react-timeago";
 
 import Panel from "../shared/panel";
 import Attribute from "../shared/attribute";
+import findAsset from "../../helpers/findAsset";
 import getAssetName from "../../helpers/getAssetName";
 import transactionShape from "../../shapes/transactionShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
@@ -120,7 +120,7 @@ export default class Transaction extends React.Component {
   }
 
   renderAssetName = (txid) => {
-    const asset = _.find(this.props.assets, { txid });
+    const asset = findAsset(this.props.assets, txid);
     const name = asset ? getAssetName(asset, "en") : txid;
 
     return <Link to={`/assets/${txid}`}>{name}</Link>;
