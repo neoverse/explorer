@@ -17,6 +17,7 @@ const query = gql`
         asset
         value
       }
+      registered
     }
 
     assets {

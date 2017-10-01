@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import TimeAgo from "react-timeago";
 import { Link } from "react-router-dom";
-// import TimeAgo from "react-timeago";
 
 import Panel from "../shared/panel";
 import addressShape from "../../shapes/addressShape";
@@ -31,9 +31,8 @@ export default class Addresses extends React.Component {
             <thead>
               <tr>
                 <th>Address</th>
-                {/* <th>Created</th> */}
-                {/* <th>Last Transaction</th> */}
                 <th className="narrow">Balance</th>
+                <th className="narrow negligible">Registered</th>
               </tr>
             </thead>
             <tbody>
@@ -50,9 +49,8 @@ export default class Addresses extends React.Component {
       return (
         <tr key={address.address}>
           <td><Link to={`/addresses/${address.address}`}>{address.address}</Link></td>
-          {/* <td><TimeAgo date={address.created} /></td> */}
-          {/* <td>{address.lastTransactionTimestamp}</td> */}
           <td>{this.renderBalances(address.balance)}</td>
+          <td className="negligible"><TimeAgo date={address.registered} /></td>
         </tr>
       );
     });

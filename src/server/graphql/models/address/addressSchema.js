@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { GraphQLObjectType, GraphQLFloat, GraphQLString, GraphQLList, GraphQLNonNull } from "graphql";
+import { GraphQLDateTime } from "graphql-iso-date";
 
 const BalanceSchema = new GraphQLObjectType({
   name: "AddressBalance",
@@ -28,6 +29,10 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(BalanceSchema))),
       description: "Address balance by asset",
       resolve: (address) => _.map(address.balance, (value, asset) => ({ asset, value }))
+    },
+    registered: {
+      type: new GraphQLNonNull(GraphQLDateTime),
+      description: "Address registered timestamp"
     }
   }
 });

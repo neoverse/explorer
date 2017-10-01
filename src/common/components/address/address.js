@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import TimeAgo from "react-timeago";
+import TimeAgo from "react-timeago";
 import { Link } from "react-router-dom";
 
 import Panel from "../shared/panel";
@@ -36,6 +36,10 @@ export default class Address extends React.Component {
 
           <Attribute label="Balance">
             {this.renderBalances(address.balance)}
+          </Attribute>
+
+          <Attribute label="Registered">
+            <TimeAgo date={address.registered} />
           </Attribute>
         </Panel>
       </div>
