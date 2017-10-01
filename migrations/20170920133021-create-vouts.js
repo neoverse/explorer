@@ -9,7 +9,7 @@ exports.up = (db, Sequelize) => {
     created_at: { type: Sequelize.DATE, notNull: true },
     updated_at: { type: Sequelize.DATE, notNull: true }
   }).then(() => {
-    return db.addIndex("vouts", ["txid"]);
+    return db.addIndex("vouts", ["txid", "n"]);
   });
 };
 
