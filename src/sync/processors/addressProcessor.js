@@ -84,7 +84,14 @@ export default class AddressProcessor {
         n: obj.vout
       }));
 
-      return Vout.findAll({ ...options, where: { $or: createQueryItems(vins) } });
+      const vouts = await Vout.findAll({ ...options, where: { $or: createQueryItems(vins) } });
+
+      if (vouts.length !== vins.length) {
+        const vinsString = _.map(vins, "txid").join(", ");
+        throw new Error(`Unable to find all vouts from transaction vins: ${vinsString}`);
+      }
+
+      return vouts;
     }
   }
 
