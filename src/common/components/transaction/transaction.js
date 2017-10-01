@@ -29,6 +29,10 @@ export default class Transaction extends React.Component {
         <h2>Transaction {normalizeHex(transaction.txid)}</h2>
 
         <Panel>
+          <Attribute label="ID">
+            {normalizeHex(transaction.txid)}
+          </Attribute>
+
           <Attribute label="Type">
             {transaction.type.replace(/Transaction$/, "")}
           </Attribute>
