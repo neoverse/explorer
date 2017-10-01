@@ -1,15 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-
-const { string } = PropTypes;
 
 export default class NotFound extends React.Component {
   static displayName = "NotFound";
-
-  static propTypes = {
-    url: string.isRequired
-  };
 
   render = () => {
     return (
