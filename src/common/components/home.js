@@ -7,7 +7,7 @@ export default class Home extends React.Component {
   render = () => {
     return (
       <div className="home-component">
-        <h1>Welcome</h1>
+        <h2>Welcome</h2>
         <p>
           Coming soon: interesting charts about blocks, transactions, addresses, etc.
         </p>
