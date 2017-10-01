@@ -26,6 +26,7 @@ const query = gql`
         name
         lang
       }
+      precision
     }
   }
 `;

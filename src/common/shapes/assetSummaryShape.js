@@ -2,9 +2,10 @@ import PropTypes from "prop-types";
 
 import assetNameShape from "./assetNameShape";
 
-const { shape, string, arrayOf } = PropTypes;
+const { shape, string, number, arrayOf } = PropTypes;
 
 export default shape({
   txid: string.isRequired,
-  name: arrayOf(assetNameShape).isRequired
+  name: arrayOf(assetNameShape).isRequired,
+  precision: number.isRequired
 });

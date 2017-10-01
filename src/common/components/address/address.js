@@ -46,7 +46,7 @@ export default class Address extends React.Component {
 
       return (
         <div key={balance.asset}>
-          {balance.value.toLocaleString()}{" "}
+          {balance.value.toFixed(asset.precision)}{" "}
           <Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link>
         </div>
       );
