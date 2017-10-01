@@ -8,6 +8,7 @@ import addressShape from "../../shapes/addressShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
 import findAsset from "../../helpers/findAsset";
 import getAssetName from "../../helpers/getAssetName";
+import normalizeHex from "../../helpers/normalizeHex";
 import normalizeDecimal from "../../helpers/normalizeDecimal";
 
 const { arrayOf } = PropTypes;
@@ -64,7 +65,7 @@ export default class Addresses extends React.Component {
       return (
         <div key={balance.asset}>
           {normalizeDecimal(balance.value, asset.precision)}{" "}
-          <Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link>
+          <Link to={`/assets/${normalizeHex(asset.txid)}`}>{getAssetName(asset, "en")}</Link>
         </div>
       );
     });

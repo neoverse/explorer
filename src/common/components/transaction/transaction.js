@@ -7,6 +7,7 @@ import Panel from "../shared/panel";
 import Attribute from "../shared/attribute";
 import findAsset from "../../helpers/findAsset";
 import getAssetName from "../../helpers/getAssetName";
+import normalizeHex from "../../helpers/normalizeHex";
 import transactionShape from "../../shapes/transactionShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
 
@@ -25,7 +26,7 @@ export default class Transaction extends React.Component {
 
     return (
       <div className="block-component">
-        <h2>Transaction {transaction.txid}</h2>
+        <h2>Transaction {normalizeHex(transaction.txid)}</h2>
 
         <Panel>
           <Attribute label="Type">
@@ -82,7 +83,11 @@ export default class Transaction extends React.Component {
 
   renderVins = (vins) => {
     return vins.map((vin, i) => {
-      return <li key={i}>{vin.txid}</li>;
+      return (
+        <li key={i}>
+          <Link to={`/transactions/${normalizeHex(vin.txid)}`}>{normalizeHex(vin.txid)}</Link>
+        </li>
+      );
     });
   }
 

@@ -6,6 +6,7 @@ import TimeAgo from "react-timeago";
 import Panel from "../shared/panel";
 import assetShape from "../../shapes/assetShape";
 import getAssetName from "../../helpers/getAssetName";
+import normalizeHex from "../../helpers/normalizeHex";
 
 const { arrayOf } = PropTypes;
 
@@ -44,7 +45,7 @@ export default class Assets extends React.Component {
     return this.props.assets.map((asset) => {
       return (
         <tr key={asset.txid}>
-          <td><Link to={`/assets/${asset.txid}`}>{getAssetName(asset, "en")}</Link></td>
+          <td><Link to={`/assets/${normalizeHex(asset.txid)}`}>{getAssetName(asset, "en")}</Link></td>
           <td className="negligible">{asset.type}</td>
           <td className="negligible">{asset.amount.toLocaleString()}</td>
           <td><TimeAgo date={asset.registered} /></td>

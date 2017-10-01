@@ -1,5 +1,6 @@
 import _ from "lodash";
 
+import normalizeHex from "../../common/helpers/normalizeHex";
 import { Asset } from "../../server/database";
 
 export default class AddressProcessor {
@@ -9,7 +10,7 @@ export default class AddressProcessor {
 
     return Asset.create({
       ...attrs,
-      txid: transaction.txid,
+      txid: normalizeHex(transaction.txid),
       registered: block.time * 1000,
       issued: asset.amount
     }, options);

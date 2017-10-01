@@ -1,5 +1,6 @@
 import _ from "lodash";
 
+import normalizeHex from "../../common/helpers/normalizeHex";
 import { Contract } from "../../server/database";
 
 export default class ContractProcessor {
@@ -10,7 +11,7 @@ export default class ContractProcessor {
 
     return Contract.create({
       ...attrs,
-      txid: transaction.txid,
+      txid: normalizeHex(transaction.txid),
       registered: block.time * 1000,
       hash: contract.code.hash
     }, options);
