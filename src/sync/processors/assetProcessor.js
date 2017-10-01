@@ -3,7 +3,7 @@ import _ from "lodash";
 import normalizeHex from "../../common/helpers/normalizeHex";
 import { Asset } from "../../server/database";
 
-export default class AddressProcessor {
+export default class AssetProcessor {
   process = async (transaction, block, options = {}) => {
     const { asset } = transaction;
     const attrs = _.pick(asset, "name", "type", "precision", "amount", "admin", "owner");
