@@ -88,10 +88,9 @@ export default class App extends React.Component {
                 <ul>
                   <li>
                     <SvgIcon svg={rssSvg} />
-                    <a href="http://blog.neoverse.io" target="_blank" rel="noopener noreferrer">
+                    <a href="https://steemit.com/@neoverse" target="_blank" rel="noopener noreferrer">
                       Blog
                     </a>
-                    {" "}(coming soon!)
                   </li>
                   <li>
                     <SvgIcon svg={twitterSvg} />
