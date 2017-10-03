@@ -21,16 +21,26 @@ import rssSvg from "../icons/rss.svg";
 import twitterSvg from "../icons/twitter.svg";
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { navOpen: false };
+  }
+
   render = () => {
     return (
       <div className="app-component">
-        <Navbar className="header" title="NEOverse Explorer" links={[
-          <NavLink to="/blocks">Blocks</NavLink>,
-          <NavLink to="/transactions">Transactions</NavLink>,
-          <NavLink to="/addresses">Addresses</NavLink>,
-          <NavLink to="/assets">Assets</NavLink>,
-          <NavLink to="/contracts">Contracts</NavLink>
-        ]} />
+        <Navbar
+          className="header"
+          title="NEOverse Explorer"
+          open={this.state.navOpen}
+          onToggle={this.handleToggleNav}
+          links={[
+            <NavLink to="/blocks" onClick={this.handleToggleNav}>Blocks</NavLink>,
+            <NavLink to="/transactions" onClick={this.handleToggleNav}>Transactions</NavLink>,
+            <NavLink to="/addresses" onClick={this.handleToggleNav}>Addresses</NavLink>,
+            <NavLink to="/assets" onClick={this.handleToggleNav}>Assets</NavLink>,
+            <NavLink to="/contracts" onClick={this.handleToggleNav}>Contracts</NavLink>
+          ]} />
 
         <div className="content">
           <Container>
@@ -96,5 +106,9 @@ export default class App extends React.Component {
         </div>
       </div>
     );
+  }
+
+  handleToggleNav = () => {
+    this.setState({ navOpen: !this.state.navOpen });
   }
 }

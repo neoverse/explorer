@@ -6,24 +6,23 @@ import classNames from "classnames";
 import SvgIcon from "./svgIcon";
 import menuSvg from "../../icons/menu.svg";
 
-const { string, node, arrayOf } = PropTypes;
+const { string, bool, func, node, arrayOf } = PropTypes;
 
 export default class Navbar extends React.Component {
   static displayName = "Navbar";
 
   static propTypes = {
     title: string.isRequired,
-    links: arrayOf(node)
+    links: arrayOf(node),
+    open: bool,
+    onToggle: func
   };
 
   static defaultProps = {
-    links: []
+    links: [],
+    open: false,
+    onToggle: () => {}
   };
-
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
-  }
 
   render = () => {
     return (
@@ -35,12 +34,12 @@ export default class Navbar extends React.Component {
             {this.renderLinks()}
           </ul>
 
-          <button className="nav-toggle" type="button" onClick={this.handleToggleNav}>
+          <button className="nav-toggle" type="button" onClick={this.props.onToggle}>
             <SvgIcon className="nav-toggle-icon" svg={menuSvg} />
           </button>
         </div>
 
-        <ul className={classNames("nav-drawer", { open: this.state.open })}>
+        <ul className={classNames("nav-drawer", { open: this.props.open })}>
           {this.renderLinks()}
         </ul>
       </div>
@@ -51,9 +50,5 @@ export default class Navbar extends React.Component {
     return this.props.links.map((link, i) => (
       <li key={i} className="nav-link">{link}</li>
     ));
-  }
-
-  handleToggleNav = () => {
-    this.setState({ open: !this.state.open });
   }
 }
