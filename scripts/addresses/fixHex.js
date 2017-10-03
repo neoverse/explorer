@@ -18,7 +18,7 @@ async function execute() {
         return accumulator;
       }, {});
 
-      address.update({ balance });
+      await address.update({ balance });
     }
 
     if (transaction) await transaction.commit();
