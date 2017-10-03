@@ -9,7 +9,6 @@ import Asset from "../components/asset/asset";
 import Loading from "../components/loading";
 import Failed from "../components/failed";
 import NotFound from "./notFound";
-import defaultTitle from "../values/defaultTitle";
 
 const query = gql`
   query ($txid: String!) {
@@ -33,6 +32,6 @@ const query = gql`
 export default compose(
   withGraphQuery(query, { options: ({ match }) => ({ variables: { txid: match.params.txid } }) }),
   withGraphProgress({ Loading, Failed, NotFound, required: ["asset"] }),
-  withTitle(({ asset }) => `${getAssetName(asset, "en")} | ${defaultTitle}`),
+  withTitle(({ asset }) => getAssetName(asset, "en")),
   setDisplayName("TransactionContainer")
 )(Asset);

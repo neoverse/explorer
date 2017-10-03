@@ -1,1 +1,1 @@
-export default "NEO Blockchain Explorer | NEOverse.io";
+export default "NEOverse Explorer";

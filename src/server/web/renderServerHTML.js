@@ -1,4 +1,5 @@
 import serialize from "serialize-javascript";
+
 import defaultTitle from "../../common/values/defaultTitle";
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
@@ -24,7 +25,7 @@ export default function renderServerHTML({ html = "", state = {}, title = defaul
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <title>${title}</title>
+        <title>${title === defaultTitle ? title : `${title} | ${defaultTitle}`}</title>
         <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107269744-1"></script>
         <script>

@@ -8,7 +8,6 @@ import Contract from "../components/contract/contract";
 import Loading from "../components/loading";
 import Failed from "../components/failed";
 import NotFound from "./notFound";
-import defaultTitle from "../values/defaultTitle";
 
 const query = gql`
   query ($hash: String!) {
@@ -35,6 +34,6 @@ const query = gql`
 export default compose(
   withGraphQuery(query, { options: ({ match }) => ({ variables: { hash: match.params.hash } }) }),
   withGraphProgress({ Loading, Failed, NotFound, required: ["contract"] }),
-  withTitle(({ contract }) => `Contract ${contract.name} | ${defaultTitle}`),
+  withTitle(({ contract }) => `Contract ${contract.name}`),
   setDisplayName("ContractContainer")
 )(Contract);

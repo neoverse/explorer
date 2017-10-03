@@ -7,7 +7,6 @@ import withTitle from "../hocs/withTitle";
 import Transactions from "../components/transactions/transactions";
 import Loading from "../components/loading";
 import Failed from "../components/failed";
-import defaultTitle from "../values/defaultTitle";
 
 const query = gql`
   { transactions {
@@ -22,6 +21,6 @@ const query = gql`
 export default compose(
   withGraphQuery(query),
   withGraphProgress({ Loading, Failed }),
-  withTitle(`Transactions | ${defaultTitle}`),
+  withTitle("Transactions"),
   setDisplayName("TransactionsContainer")
 )(Transactions);

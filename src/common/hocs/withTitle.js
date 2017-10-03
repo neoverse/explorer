@@ -8,10 +8,15 @@ const withTitle = (title = defaultTitle) => (Component) => {
   return class ComponentWithTitle extends React.Component {
     render = () => {
       return (
-        <DocumentTitle title={_.isFunction(title) ? title(this.props) : title}>
+        <DocumentTitle title={this.getDocumentTitle()}>
           <Component {...this.props} />
         </DocumentTitle>
       );
+    }
+
+    getDocumentTitle = () => {
+      const documentTitle = _.isFunction(title) ? title(this.props) : title;
+      return documentTitle === defaultTitle ? defaultTitle : `${documentTitle} | ${defaultTitle}`;
     }
   };
 };

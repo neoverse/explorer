@@ -8,7 +8,6 @@ import Address from "../components/address/address";
 import Loading from "../components/loading";
 import Failed from "../components/failed";
 import NotFound from "./notFound";
-import defaultTitle from "../values/defaultTitle";
 
 const query = gql`
   query ($address: String!) {
@@ -35,6 +34,6 @@ const query = gql`
 export default compose(
   withGraphQuery(query, { options: ({ match }) => ({ variables: { address: match.params.address } }) }),
   withGraphProgress({ Loading, Failed, NotFound, required: ["address"] }),
-  withTitle(({ address }) => `Address ${address.address} | ${defaultTitle}`),
+  withTitle(({ address }) => `Address ${address.address}`),
   setDisplayName("AddressContainer")
 )(Address);

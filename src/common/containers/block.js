@@ -8,7 +8,6 @@ import Block from "../components/block/block";
 import Loading from "../components/loading";
 import Failed from "../components/failed";
 import NotFound from "./notFound";
-import defaultTitle from "../values/defaultTitle";
 
 const query = gql`
   query ($hash: String!) {
@@ -63,6 +62,6 @@ const query = gql`
 export default compose(
   withGraphQuery(query, { options: ({ match }) => ({ variables: { hash: match.params.hash } }) }),
   withGraphProgress({ Loading, Failed, NotFound, required: ["block"] }),
-  withTitle(({ block }) => `Block ${block.hash} | ${defaultTitle}`),
+  withTitle(({ block }) => `Block ${block.hash}`),
   setDisplayName("BlockContainer")
 )(Block);
