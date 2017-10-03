@@ -21,9 +21,9 @@ async function execute() {
       await address.update({ balance });
     }
 
-    if (transaction) await transaction.commit();
+    await transaction.commit();
   } catch (err) {
-    if (transaction) await transaction.rollback();
+    await transaction.rollback();
     throw err;
   }
 }
