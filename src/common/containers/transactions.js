@@ -5,8 +5,8 @@ import withGraphQuery from "../hocs/graphql/withGraphQuery";
 import withGraphProgress from "../hocs/graphql/withGraphProgress";
 import withTitle from "../hocs/withTitle";
 import Transactions from "../components/transactions/transactions";
-import Loading from "../components/transactions/loading";
-import Failed from "../components/transactions/failed";
+import Loading from "../components/loading";
+import Failed from "../components/failed";
 import defaultTitle from "../values/defaultTitle";
 
 const query = gql`

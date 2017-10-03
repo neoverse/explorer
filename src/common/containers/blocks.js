@@ -5,8 +5,8 @@ import withGraphQuery from "../hocs/graphql/withGraphQuery";
 import withGraphProgress from "../hocs/graphql/withGraphProgress";
 import withTitle from "../hocs/withTitle";
 import Blocks from "../components/blocks/blocks";
-import Loading from "../components/blocks/loading";
-import Failed from "../components/blocks/failed";
+import Loading from "../components/loading";
+import Failed from "../components/failed";
 import defaultTitle from "../values/defaultTitle";
 
 const query = gql`

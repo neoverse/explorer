@@ -6,8 +6,8 @@ import withGraphProgress from "../hocs/graphql/withGraphProgress";
 import withTitle from "../hocs/withTitle";
 import getAssetName from "../helpers/getAssetName";
 import Asset from "../components/asset/asset";
-import Loading from "../components/asset/loading";
-import Failed from "../components/asset/failed";
+import Loading from "../components/loading";
+import Failed from "../components/failed";
 import NotFound from "./notFound";
 import defaultTitle from "../values/defaultTitle";
 

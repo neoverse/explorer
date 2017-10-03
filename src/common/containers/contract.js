@@ -5,8 +5,8 @@ import withGraphQuery from "../hocs/graphql/withGraphQuery";
 import withGraphProgress from "../hocs/graphql/withGraphProgress";
 import withTitle from "../hocs/withTitle";
 import Contract from "../components/contract/contract";
-import Loading from "../components/contract/loading";
-import Failed from "../components/contract/failed";
+import Loading from "../components/loading";
+import Failed from "../components/failed";
 import NotFound from "./notFound";
 import defaultTitle from "../values/defaultTitle";
 
