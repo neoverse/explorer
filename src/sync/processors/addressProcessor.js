@@ -35,11 +35,14 @@ export default class AddressProcessor {
     const groupedVouts = _.groupBy(vouts, "address");
 
     const addresses = _.map(groupedVouts, (vouts, address) => {
-      const voutBalances = vouts.map((vout) => ({ [vout.asset]: vout.value }));
+      const voutBalances = vouts.map((vout) => ({
+        [normalizeHex(vout.asset)]: vout.value
+      }));
 
       const balance = _.reduce(voutBalances, (accumulator, balance) => {
         _.each(balance, (value, asset) => {
-          accumulator[asset] = new BigNumber(accumulator[asset] || 0).plus(value);
+          const txid = normalizeHex(asset);
+          accumulator[txid] = new BigNumber(accumulator[txid] || 0).plus(value);
         });
 
         return accumulator;
@@ -63,9 +66,10 @@ export default class AddressProcessor {
     await Promise.all(vouts.map(async (vout) => {
       const address = _.find(addresses, { address: vout.address });
       const balance = { ...address.balance };
+      const txid = normalizeHex(vout.asset);
 
-      balance[vout.asset] = callback(
-        new BigNumber(balance[vout.asset] || 0),
+      balance[txid] = callback(
+        new BigNumber(balance[txid] || 0),
         new BigNumber(vout.value)
       );
 
