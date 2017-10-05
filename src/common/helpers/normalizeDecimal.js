@@ -1,4 +1,9 @@
-// TODO: make this function remove trailing 0's after the decimal
 export default function normalizeDecimal(number, precision) {
-  return number.toFixed(precision);
+  const [integer, decimal] = number.toFixed(precision).split(".");
+
+  if (decimal) {
+    return `${integer}.${decimal.replace(/0+$/, "")}`.replace(/\.$/, "");
+  } else {
+    return integer;
+  }
 }
