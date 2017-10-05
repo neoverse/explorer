@@ -19,6 +19,7 @@ import SvgIcon from "../components/shared/svgIcon";
 import { Container, Row, Column } from "../components/shared/grid";
 import rssSvg from "../icons/rss.svg";
 import twitterSvg from "../icons/twitter.svg";
+import githubSvg from "../icons/github.svg";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -95,7 +96,13 @@ export default class App extends React.Component {
                   <li>
                     <SvgIcon svg={twitterSvg} />
                     <a href="https://twitter.com/NEOverse_io" target="_blank" rel="noopener noreferrer">
-                      @NEOverse_io
+                      Twitter
+                    </a>
+                  </li>
+                  <li>
+                    <SvgIcon svg={githubSvg} />
+                    <a href="https://github.com/neoverse/explorer" target="_blank" rel="noopener noreferrer">
+                      Github
                     </a>
                   </li>
                 </ul>

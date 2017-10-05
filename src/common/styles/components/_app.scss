@@ -45,15 +45,17 @@
       li {
         list-style: none;
         padding: 0;
-        margin: 0;
+        margin: 0 0 6px;
       }
     }
 
     .svg-icon-component {
-      margin-right: 4px;
+      margin-right: 6px;
       vertical-align: middle;
 
       svg {
+        width: 16px;
+        height: 16px;
         fill: $gray-light;
       }
     }
