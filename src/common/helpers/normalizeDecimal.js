@@ -1,3 +1,4 @@
+// TODO: make this function remove trailing 0's after the decimal
 export default function normalizeDecimal(number, precision) {
-  return Number(number.toFixed(precision));
+  return number.toFixed(precision);
 }
