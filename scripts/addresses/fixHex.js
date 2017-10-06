@@ -34,6 +34,6 @@ execute()
     process.exit();
   })
   .catch((err) => {
-    console.error("Error:", err.message);
+    console.error(err);
     process.exit(1);
   });
