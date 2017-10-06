@@ -8,7 +8,7 @@ import {
   PUBLISH_TRANSACTION
 } from "../../common/values/transactions";
 
-export default class BlockProcessor {
+export default class TransactionProcessor {
   process = async (transactions, block, options = {}) => {
     return Transaction.bulkCreate(transactions.map((tx) => {
       const attrs = _.pick(tx, "type", "size", "nonce", "sys_fee", "net_fee", "scripts", "version",
