@@ -1,7 +1,7 @@
 export default function defineTransaction(sequelize) {
   const Sequelize = sequelize.constructor;
 
-  const Transaction = sequelize.define("transactions", {
+  const Transaction = sequelize.define("transaction", {
     txid: { type: Sequelize.STRING, allowNull: false },
     type: { type: Sequelize.STRING, allowNull: false },
     blockhash: { type: Sequelize.STRING, allowNull: false },
@@ -17,6 +17,7 @@ export default function defineTransaction(sequelize) {
     vout: { type: Sequelize.JSON, allowNull: false },
     data: { type: Sequelize.JSON, allowNull: true }
   }, {
+    tableName: "transactions",
     underscored: true,
     indexes: [
       { fields: ["txid"], unique: true },

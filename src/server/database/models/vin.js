@@ -1,13 +1,14 @@
 export default function defineVin(sequelize) {
   const Sequelize = sequelize.constructor;
 
-  const Vin = sequelize.define("vins", {
+  const Vin = sequelize.define("vin", {
     txid: { type: Sequelize.STRING, allowNull: false },
     previous_txid: { type: Sequelize.STRING, allowNull: false },
     address: { type: Sequelize.STRING, allowNull: false },
     asset: { type: Sequelize.STRING, allowNull: false },
     value: { type: Sequelize.DECIMAL, allowNull: false }
   }, {
+    tableName: "vins",
     underscored: true,
     indexes: [
       { fields: ["txid"] },
