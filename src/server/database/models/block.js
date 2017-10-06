@@ -1,7 +1,7 @@
 export default function defineBlock(sequelize) {
   const Sequelize = sequelize.constructor;
 
-  const Block = sequelize.define("blocks", {
+  const Block = sequelize.define("block", {
     hash: { type: Sequelize.STRING, allowNull: false },
     index: { type: Sequelize.INTEGER, allowNull: false },
     confirmations: { type: Sequelize.INTEGER, allowNull: false },
@@ -14,6 +14,7 @@ export default function defineBlock(sequelize) {
     time: { type: Sequelize.DATE, allowNull: false },
     version: { type: Sequelize.INTEGER, allowNull: false }
   }, {
+    tableName: "blocks",
     underscored: true,
     indexes: [
       { fields: ["hash"], unique: true },

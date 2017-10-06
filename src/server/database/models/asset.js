@@ -1,7 +1,7 @@
 export default function defineAsset(sequelize) {
   const Sequelize = sequelize.constructor;
 
-  const Asset = sequelize.define("assets", {
+  const Asset = sequelize.define("asset", {
     txid: { type: Sequelize.STRING, allowNull: false },
     name: { type: Sequelize.JSON, allowNull: false },
     type: { type: Sequelize.STRING, allowNull: false },
@@ -12,6 +12,7 @@ export default function defineAsset(sequelize) {
     owner: { type: Sequelize.STRING, allowNull: false },
     registered: { type: Sequelize.DATE, allowNull: false }
   }, {
+    tableName: "assets",
     underscored: true,
     indexes: [
       { fields: ["txid"], unique: true }
