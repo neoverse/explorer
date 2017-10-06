@@ -3,6 +3,7 @@ import AssetProcessor from "./processors/assetProcessor";
 import BlockProcessor from "./processors/blockProcessor";
 import ContractProcessor from "./processors/contractProcessor";
 import TransactionProcessor from "./processors/transactionProcessor";
+import VinProcessor from "./processors/vinProcessor";
 import VoutProcessor from "./processors/voutProcessor";
 import database from "../server/database";
 import { REGISTER_TRANSACTION, PUBLISH_TRANSACTION } from "../common/values/transactions";
@@ -14,6 +15,7 @@ export default class Processor {
     this.blockProcessor = new BlockProcessor();
     this.contractProcessor = new ContractProcessor();
     this.transactionProcessor = new TransactionProcessor();
+    this.vinProcessor = new VinProcessor();
     this.voutProcessor = new VoutProcessor();
   }
 
@@ -23,6 +25,7 @@ export default class Processor {
     try {
       await this.blockProcessor.process(block, { transaction });
       await this.transactionProcessor.process(block.tx, block, { transaction });
+      await this.vinProcessor.process(block.tx, { transaction });
       await this.voutProcessor.process(block.tx, { transaction });
       await this.addressProcessor.process(block.tx, block, { transaction });
       await this._createAssociations(block.tx, block, { transaction });
