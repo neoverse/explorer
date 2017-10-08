@@ -25,8 +25,10 @@ export default function defineTransaction(sequelize) {
     ]
   });
 
-  Transaction.associate = ({ Block }) => {
+  Transaction.associate = ({ Block, Vin, Vout }) => {
     Transaction.belongsTo(Block, { foreignKey: "blockhash", targetKey: "hash" });
+    Transaction.hasMany(Vin, { foreignKey: "txid", sourceKey: "txid" });
+    Transaction.hasMany(Vout, { foreignKey: "txid", sourceKey: "txid" });
   };
 
   return Transaction;
