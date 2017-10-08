@@ -10,6 +10,7 @@ import getAssetName from "../../helpers/getAssetName";
 import normalizeHex from "../../helpers/normalizeHex";
 import transactionShape from "../../shapes/transactionShape";
 import assetSummaryShape from "../../shapes/assetSummaryShape";
+import { GAS_ID } from "../../values/assets";
 
 const { arrayOf } = PropTypes;
 
@@ -50,13 +51,11 @@ export default class Transaction extends React.Component {
           </Attribute>
 
           <Attribute label="Network Fee">
-            {transaction.net_fee}{" "}
-            {this.renderAssetName("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7")}
+            {transaction.net_fee} {this.renderAssetName(GAS_ID)}
           </Attribute>
 
           <Attribute label="System Fee">
-            {transaction.sys_fee}{" "}
-            {this.renderAssetName("602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7")}
+            {transaction.sys_fee} {this.renderAssetName(GAS_ID)}
           </Attribute>
 
           <Attribute label="Size">
