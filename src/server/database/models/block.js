@@ -24,6 +24,11 @@ export default function defineBlock(sequelize) {
 
   Block.associate = ({ Transaction }) => {
     Block.hasMany(Transaction, { foreignKey: "blockhash", sourceKey: "hash" });
+
+    Block.getHeight = async (options = {}) => {
+      const index = await Block.max("index", options);
+      return index ? index + 1 : 0;
+    };
   };
 
   return Block;
