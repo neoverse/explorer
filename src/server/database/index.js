@@ -24,7 +24,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
     min: 0,
     idle: 20000,
     acquire: 20000
-  }
+  },
+  operatorsAliases: false
 });
 
 export const Block = defineBlock(sequelize);

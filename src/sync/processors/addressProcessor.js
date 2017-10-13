@@ -2,7 +2,9 @@ import _ from "lodash";
 import BigNumber from "bignumber.js";
 
 import normalizeHex from "../../common/helpers/normalizeHex";
-import { Vout, Address } from "../../server/database";
+import db, { Vout, Address } from "../../server/database";
+
+const { Op } = db.constructor;
 
 export default class AddressProcessor {
   process = async (transactions, block, options = {}) => {
@@ -88,7 +90,7 @@ export default class AddressProcessor {
         n: obj.vout
       }));
 
-      const vouts = await Vout.findAll({ ...options, where: { $or: createQueryItems(vins) } });
+      const vouts = await Vout.findAll({ ...options, where: { [Op.or]: createQueryItems(vins) } });
 
       if (vouts.length !== vins.length) {
         const vinsString = _.map(vins, "txid").join(", ");
@@ -105,7 +107,7 @@ export default class AddressProcessor {
     if (recipientAddresses.length === 0) {
       return [];
     } else {
-      return Address.findAll({ ...options, where: { address: { $in: recipientAddresses } } });
+      return Address.findAll({ ...options, where: { address: { [Op.in]: recipientAddresses } } });
     }
   }
 }

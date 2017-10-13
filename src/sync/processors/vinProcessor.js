@@ -1,7 +1,9 @@
 import _ from "lodash";
 
 import normalizeHex from "../../common/helpers/normalizeHex";
-import { Vin, Vout } from "../../server/database";
+import db, { Vin, Vout } from "../../server/database";
+
+const { Op } = db.constructor;
 
 function getVinVoutQueryConditions(vin) {
   return { txid: normalizeHex(vin.txid), n: vin.vout };
@@ -30,7 +32,7 @@ export default class VinProcessor {
     if (vins.length === 0) {
       return [];
     } else {
-      return Vout.findAll({ ...options, where: { $or: vins.map(getVinVoutQueryConditions) } });
+      return Vout.findAll({ ...options, where: { [Op.or]: vins.map(getVinVoutQueryConditions) } });
     }
   }
 }
