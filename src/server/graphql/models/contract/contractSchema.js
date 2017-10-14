@@ -1,6 +1,8 @@
 import { GraphQLObjectType, GraphQLBoolean, GraphQLString, GraphQLList, GraphQLNonNull } from "graphql";
 import { GraphQLDateTime } from "graphql-iso-date";
 
+import TransactionSchema from "../transaction/transactionSchema";
+
 const CodeSchema = new GraphQLObjectType({
   name: "ContractCode",
   description: "NEO contract code",
@@ -27,7 +29,7 @@ const CodeSchema = new GraphQLObjectType({
 export default new GraphQLObjectType({
   name: "Contract",
   description: "NEO contract",
-  fields: {
+  fields: () => ({
     txid: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Transaction ID"
@@ -66,7 +68,12 @@ export default new GraphQLObjectType({
     },
     registered: {
       type: new GraphQLNonNull(GraphQLDateTime),
-      description: "Asset registered timestamp"
+      description: "Contract registered timestamp"
+    },
+    transaction: {
+      type: new GraphQLNonNull(TransactionSchema),
+      description: "Contract registered transaction",
+      resolve: (contract) => contract.getTransaction()
     }
-  }
+  })
 });

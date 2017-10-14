@@ -18,6 +18,11 @@ const query = gql`
         value
       }
       registered
+      transactions {
+        txid
+        type
+        blocktime
+      }
     }
 
     assets {

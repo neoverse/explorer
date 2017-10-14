@@ -16,46 +16,83 @@ export default class Asset extends React.Component {
   };
 
   render = () => {
+    return (
+      <div className="asset-component">
+        {this.renderAsset()}
+        {this.renderTransaction()}
+      </div>
+    );
+  }
+
+  renderAsset = () => {
     const { asset } = this.props;
 
     return (
-      <div className="asset-component">
-        <h2>Asset {normalizeHex(asset.txid)}</h2>
+      <Panel renderHeader={this.renderAssetHeader}>
+        <Attribute label="Name">
+          {getAssetName(asset, "en")}
+        </Attribute>
 
-        <Panel>
-          <Attribute label="Name">
-            {getAssetName(asset, "en")}
-          </Attribute>
+        <Attribute label="Type">
+          {asset.type}
+        </Attribute>
 
-          <Attribute label="Type">
-            {asset.type}
-          </Attribute>
+        <Attribute label="Precision">
+          {asset.precision}
+        </Attribute>
 
-          <Attribute label="Precision">
-            {asset.precision}
-          </Attribute>
+        <Attribute label="Issued">
+          {asset.issued.toLocaleString()}
+        </Attribute>
 
-          <Attribute label="Issued">
-            {asset.issued.toLocaleString()}
-          </Attribute>
+        <Attribute label="Amount">
+          {asset.amount.toLocaleString()}
+        </Attribute>
 
-          <Attribute label="Amount">
-            {asset.amount.toLocaleString()}
-          </Attribute>
+        <Attribute label="Admin">
+          <Link to={`/addresses/${asset.admin}`}>{asset.admin}</Link>
+        </Attribute>
 
-          <Attribute label="Admin">
-            <Link to={`/addresses/${asset.admin}`}>{asset.admin}</Link>
-          </Attribute>
+        <Attribute label="Owner">
+          {asset.owner}
+        </Attribute>
 
-          <Attribute label="Owner">
-            {asset.owner}
-          </Attribute>
+        <Attribute label="Registered">
+          <TimeAgo date={asset.registered} />
+        </Attribute>
+      </Panel>
+    );
+  }
 
-          <Attribute label="Registered">
-            <TimeAgo date={asset.registered} />
-          </Attribute>
-        </Panel>
-      </div>
+  renderAssetHeader = () => {
+    return (
+      <h2>Asset {normalizeHex(this.props.asset.txid)}</h2>
+    );
+  }
+
+  renderTransaction = () => {
+    const { transaction } = this.props.asset;
+
+    return (
+      <Panel renderHeader={this.renderTransactionHeader}>
+        <Attribute label="Type">
+          {transaction.type.replace(/Transaction$/, "")}
+        </Attribute>
+
+        <Attribute label="ID">
+          <Link to={`/transactions/${transaction.txid}`}>{transaction.txid}</Link>
+        </Attribute>
+
+        <Attribute label="Time">
+          <TimeAgo date={transaction.blocktime} />
+        </Attribute>
+      </Panel>
+    );
+  }
+
+  renderTransactionHeader = () => {
+    return (
+      <span>Transaction</span>
     );
   }
 }

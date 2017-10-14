@@ -29,31 +29,7 @@ const query = gql`
       transactions {
         txid
         type
-        blockhash
         blocktime
-        net_fee
-        sys_fee
-        nonce
-        size
-        version
-        attributes {
-          data
-          usage
-        }
-        scripts {
-          invocation
-          verification
-        }
-        vin {
-          txid
-          vout
-        }
-        vout {
-          address
-          asset
-          n
-          value
-        }
       }
     }
   }

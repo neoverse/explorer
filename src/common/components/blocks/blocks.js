@@ -18,9 +18,7 @@ export default class Blocks extends React.Component {
   render = () => {
     return (
       <div className="blocks-component">
-        <h2>Blocks</h2>
-
-        <Panel>
+        <Panel renderHeader={this.renderHeader}>
           <table>
             <thead>
               <tr>
@@ -37,6 +35,12 @@ export default class Blocks extends React.Component {
           </table>
         </Panel>
       </div>
+    );
+  }
+
+  renderHeader = () => {
+    return (
+      <h2>Blocks</h2>
     );
   }
 

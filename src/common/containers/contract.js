@@ -27,6 +27,11 @@ const query = gql`
       email
       description
       registered
+      transaction {
+        txid
+        type
+        blocktime
+      }
     }
   }
 `;

@@ -2,6 +2,8 @@ import _ from "lodash";
 import { GraphQLObjectType, GraphQLFloat, GraphQLString, GraphQLList, GraphQLNonNull } from "graphql";
 import { GraphQLDateTime } from "graphql-iso-date";
 
+import TransactionSchema from "../transaction/transactionSchema";
+
 const BalanceSchema = new GraphQLObjectType({
   name: "AddressBalance",
   description: "Address asset balance",
@@ -20,7 +22,7 @@ const BalanceSchema = new GraphQLObjectType({
 export default new GraphQLObjectType({
   name: "Address",
   description: "Address on the NEO Blockchain",
-  fields: {
+  fields: () => ({
     address: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Address hash"
@@ -33,6 +35,11 @@ export default new GraphQLObjectType({
     registered: {
       type: new GraphQLNonNull(GraphQLDateTime),
       description: "Address registered timestamp"
+    },
+    transactions: {
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(TransactionSchema))),
+      description: "Address transactions",
+      resolve: (address) => address.getTransactions({ order: [["blocktime", "desc"]] })
     }
-  }
+  })
 });

@@ -23,26 +23,37 @@ export default class Address extends React.Component {
   };
 
   render = () => {
+    return (
+      <div className="address-component">
+        {this.renderAddress()}
+        {this.renderTransactions()}
+      </div>
+    );
+  }
+
+  renderAddress = () => {
     const { address } = this.props;
 
     return (
-      <div className="address-component">
-        <h2>Address {address.address}</h2>
+      <Panel renderHeader={this.renderAddressHeader}>
+        <Attribute label="Address">
+          {address.address}
+        </Attribute>
 
-        <Panel>
-          <Attribute label="Address">
-            {address.address}
-          </Attribute>
+        <Attribute label="Balance">
+          {this.renderBalances(address.balance)}
+        </Attribute>
 
-          <Attribute label="Balance">
-            {this.renderBalances(address.balance)}
-          </Attribute>
+        <Attribute label="Registered">
+          <TimeAgo date={address.registered} />
+        </Attribute>
+      </Panel>
+    );
+  }
 
-          <Attribute label="Registered">
-            <TimeAgo date={address.registered} />
-          </Attribute>
-        </Panel>
-      </div>
+  renderAddressHeader = () => {
+    return (
+      <h2>Address {this.props.address.address}</h2>
     );
   }
 
@@ -57,5 +68,40 @@ export default class Address extends React.Component {
         </div>
       );
     });
+  }
+
+  renderTransactions = () => {
+    return (
+      <Panel renderHeader={this.renderTransactionsHeader}>
+        <table>
+          <thead>
+            <tr>
+              <th className="narrow negligible">Type</th>
+              <th>ID</th>
+              <th className="narrow">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.props.address.transactions.map(this.renderTransaction)}
+          </tbody>
+        </table>
+      </Panel>
+    );
+  }
+
+  renderTransactionsHeader = () => {
+    return (
+      <span>Transactions</span>
+    );
+  }
+
+  renderTransaction = (transaction) => {
+    return (
+      <tr key={transaction.txid}>
+        <td className="negligible">{transaction.type.replace(/Transaction$/, "")}</td>
+        <td><Link to={`/transactions/${transaction.txid}`}>{transaction.txid}</Link></td>
+        <td><TimeAgo date={transaction.blocktime} /></td>
+      </tr>
+    );
   }
 }

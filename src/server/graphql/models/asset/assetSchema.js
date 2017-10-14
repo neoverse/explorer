@@ -1,10 +1,12 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLFloat, GraphQLString, GraphQLList, GraphQLNonNull } from "graphql";
 import { GraphQLDateTime } from "graphql-iso-date";
 
+import TransactionSchema from "../transaction/transactionSchema";
+
 const NameSchema = new GraphQLObjectType({
   name: "AssetName",
   description: "Asset name by language",
-  fields: {
+  fields: () => ({
     name: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Asset name"
@@ -13,13 +15,13 @@ const NameSchema = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       description: "Asset language"
     }
-  }
+  })
 });
 
 export default new GraphQLObjectType({
   name: "Asset",
   description: "Asset registered to the NEO Blockchain",
-  fields: {
+  fields: () => ({
     txid: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Transaction ID that registered the asset"
@@ -55,6 +57,11 @@ export default new GraphQLObjectType({
     registered: {
       type: new GraphQLNonNull(GraphQLDateTime),
       description: "Asset registered timestamp"
+    },
+    transaction: {
+      type: new GraphQLNonNull(TransactionSchema),
+      description: "Asset registered transaction",
+      resolve: (asset) => asset.getTransaction()
     }
-  }
+  })
 });

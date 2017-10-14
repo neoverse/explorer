@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLNonNull } from "graphql";
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from "graphql";
 
 export default new GraphQLObjectType({
   name: "Vout",
@@ -6,7 +6,6 @@ export default new GraphQLObjectType({
   fields: {
     address: { type: new GraphQLNonNull(GraphQLString), description: "TODO" },
     asset: { type: new GraphQLNonNull(GraphQLString), description: "TODO" },
-    n: { type: new GraphQLNonNull(GraphQLInt), description: "TODO" },
     value: { type: new GraphQLNonNull(GraphQLString), description: "TODO" }
   }
 });

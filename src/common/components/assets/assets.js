@@ -20,9 +20,7 @@ export default class Assets extends React.Component {
   render = () => {
     return (
       <div className="assets-component">
-        <h2>Assets</h2>
-
-        <Panel>
+        <Panel renderHeader={this.renderHeader}>
           <table>
             <thead>
               <tr>
@@ -38,6 +36,12 @@ export default class Assets extends React.Component {
           </table>
         </Panel>
       </div>
+    );
+  }
+
+  renderHeader = () => {
+    return (
+      <h2>Assets</h2>
     );
   }
 

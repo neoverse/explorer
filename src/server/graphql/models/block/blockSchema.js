@@ -3,12 +3,11 @@ import { GraphQLDateTime } from "graphql-iso-date";
 
 import ScriptSchema from "../script/scriptSchema";
 import TransactionSchema from "../transaction/transactionSchema";
-import { Transaction } from "../../../database";
 
 export default new GraphQLObjectType({
   name: "Block",
   description: "Block in the NEO Blockchain",
-  fields: {
+  fields: () => ({
     hash: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Block hash"
@@ -56,7 +55,7 @@ export default new GraphQLObjectType({
     transactions: {
       type: new GraphQLNonNull(new GraphQLList(TransactionSchema)),
       description: "TODO",
-      resolve: (block) => Transaction.findAll({ where: { blockhash: block.hash } })
+      resolve: (block) => block.getTransactions()
     }
-  }
+  })
 });

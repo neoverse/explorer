@@ -24,9 +24,7 @@ export default class Addresses extends React.Component {
   render = () => {
     return (
       <div className="addresses-component">
-        <h2>Addresses</h2>
-
-        <Panel>
+        <Panel renderHeader={this.renderHeader}>
           <table>
             <thead>
               <tr>
@@ -41,6 +39,12 @@ export default class Addresses extends React.Component {
           </table>
         </Panel>
       </div>
+    );
+  }
+
+  renderHeader = () => {
+    return (
+      <h2>Addresses</h2>
     );
   }
 
