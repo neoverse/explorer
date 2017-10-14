@@ -18,9 +18,7 @@ export default class Contracts extends React.Component {
   render = () => {
     return (
       <div className="contracts-component">
-        <h2>Contracts</h2>
-
-        <Panel>
+        <Panel renderHeader={this.renderHeader}>
           <table>
             <thead>
               <tr>
@@ -36,6 +34,12 @@ export default class Contracts extends React.Component {
           </table>
         </Panel>
       </div>
+    );
+  }
+
+  renderHeader = () => {
+    return (
+      <h2>Contracts</h2>
     );
   }
 

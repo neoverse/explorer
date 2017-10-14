@@ -5,14 +5,14 @@ import scriptShape from "./scriptShape";
 const { shape, string, number, arrayOf } = PropTypes;
 
 const vinShape = shape({
-  txid: string.isRequired,
-  vout: number.isRequired
+  address: string.isRequired,
+  asset: string.isRequired,
+  value: string.isRequired
 });
 
 const voutShape = shape({
   address: string.isRequired,
   asset: string.isRequired,
-  n: number.isRequired,
   value: string.isRequired
 });
 

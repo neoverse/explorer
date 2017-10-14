@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export default function defineAddress(sequelize) {
   const Sequelize = sequelize.constructor;
 
@@ -13,7 +15,32 @@ export default function defineAddress(sequelize) {
     ]
   });
 
-  Address.associate = () => { /* noop */ };
+  Address.associate = ({ Transaction, Vin, Vout }) => {
+    Address.hasMany(Vin, { foreignKey: "address", sourceKey: "address" });
+    Address.hasMany(Vout, { foreignKey: "address", sourceKey: "address" });
+
+    Address.prototype.getTransactions = async function(options = {}) {
+      const passDownOptions = _.pick(options, "transaction");
+
+      const generateTxidSql = (model) => {
+        return model.QueryGenerator.selectQuery(model.getTableName(options), {
+          ...passDownOptions,
+          attributes: ["txid"],
+          where: { address: this.address }
+        }, model).replace(/;$/, "");
+      };
+
+      const sql = [
+        generateTxidSql(Vin),
+        generateTxidSql(Vout)
+      ].join(" UNION ");
+
+      return Transaction.findAll({
+        ...options,
+        where: Sequelize.literal(`"txid" IN (${sql})`)
+      });
+    };
+  };
 
   return Address;
 }

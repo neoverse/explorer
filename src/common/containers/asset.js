@@ -25,6 +25,11 @@ const query = gql`
       admin
       owner
       registered
+      transaction {
+        txid
+        type
+        blocktime
+      }
     }
   }
 `;

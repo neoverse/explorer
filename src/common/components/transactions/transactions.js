@@ -19,9 +19,7 @@ export default class Transactions extends React.Component {
   render = () => {
     return (
       <div className="transactions-component">
-        <h2>Transactions</h2>
-
-        <Panel>
+        <Panel renderHeader={this.renderHeader}>
           <table>
             <thead>
               <tr>
@@ -37,6 +35,12 @@ export default class Transactions extends React.Component {
           </table>
         </Panel>
       </div>
+    );
+  }
+
+  renderHeader = () => {
+    return (
+      <h2>Transactions</h2>
     );
   }
 

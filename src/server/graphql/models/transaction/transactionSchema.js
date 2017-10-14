@@ -8,12 +8,11 @@ import ContractSchema from "../contract/contractSchema";
 import ScriptSchema from "../script/scriptSchema";
 import VinSchema from "../vin/vinSchema";
 import VoutSchema from "../vout/voutSchema";
-import { Asset, Contract } from "../../../database";
 
 export default new GraphQLObjectType({
   name: "Transaction",
   description: "NEO transaction",
-  fields: {
+  fields: () => ({
     txid: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Transaction ID"
@@ -61,21 +60,23 @@ export default new GraphQLObjectType({
     },
     vin: {
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(VinSchema))),
-      description: "TODO"
+      description: "TODO",
+      resolve: (transaction) => transaction.getVins()
     },
     vout: {
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(VoutSchema))),
-      description: "TODO"
+      description: "TODO",
+      resolve: (transaction) => transaction.getVouts()
     },
     asset: {
       type: AssetSchema,
       description: "Transaction asset",
-      resolve: (transaction) => Asset.findOne({ where: { txid: transaction.txid } })
+      resolve: (transaction) => transaction.getAsset()
     },
     contract: {
       type: ContractSchema,
       description: "Transaction contract",
-      resolve: (transaction) => Contract.findOne({ where: { txid: transaction.txid } })
+      resolve: (transaction) => transaction.getContract()
     }
-  }
+  })
 });

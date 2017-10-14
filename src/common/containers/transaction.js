@@ -22,13 +22,13 @@ const query = gql`
       sys_fee
       net_fee
       vin {
-        txid
-        vout
+        address
+        asset
+        value
       }
       vout {
         address
         asset
-        n
         value
       }
       attributes {
@@ -45,6 +45,13 @@ const query = gql`
           name
           lang
         }
+        precision
+      }
+      contract {
+        txid
+        hash
+        name
+        registered
       }
     }
 
@@ -54,6 +61,7 @@ const query = gql`
         name
         lang
       }
+      precision
     }
   }
 `;
