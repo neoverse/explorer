@@ -10,51 +10,51 @@ export default new GraphQLObjectType({
   fields: () => ({
     hash: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "Block hash"
+      description: "Hash value of the block"
     },
     index: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "Block index"
+      description: "Index value of the block"
     },
     confirmations: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "Confirmation count"
+      description: "Number of confirmations for the block"
     },
     merkleroot: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "Merkle tree root value"
+      description: "Merkle tree root for all transactions in the block"
     },
     nextconsensus: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "TODO"
+      description: "Hash value of the next bookkeeper contract"
     },
     nonce: {
       type: GraphQLString,
-      description: "TODO"
+      description: "Nonce value of the block"
     },
     previousblockhash: {
       type: GraphQLString,
-      description: "Hash for the previous block"
+      description: "Hash value of the previous block"
     },
     script: {
       type: new GraphQLNonNull(ScriptSchema),
-      description: "TODO"
+      description: "Scripts for the block"
     },
     size: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "TODO"
+      description: "Size of the block"
     },
     time: {
       type: new GraphQLNonNull(GraphQLDateTime),
-      description: "TODO"
+      description: "Timestamp the block "
     },
     version: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "TODO"
+      description: "Version number of the block"
     },
     transactions: {
       type: new GraphQLNonNull(new GraphQLList(TransactionSchema)),
-      description: "TODO",
+      description: "Transactions within the block",
       resolve: (block) => block.getTransactions()
     }
   })
