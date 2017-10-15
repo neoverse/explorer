@@ -15,67 +15,67 @@ export default new GraphQLObjectType({
   fields: () => ({
     txid: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "Transaction ID"
+      description: "ID of the transaction"
     },
     type: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "Transaction type"
+      description: "Type of the transaction"
     },
     blockhash: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "Block hash"
+      description: "Hash of the transaction's block"
     },
     blocktime: {
       type: new GraphQLNonNull(GraphQLDateTime),
-      description: "Block time"
+      description: "Timestamp of the transaction's block"
     },
     net_fee: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "Network fee"
+      description: "Network fee for the transaction"
     },
     sys_fee: {
       type: new GraphQLNonNull(GraphQLString),
-      description: "System fee"
+      description: "System fee for the transaction"
     },
     nonce: {
       type: GraphQLBigInt,
-      description: "Nonce"
+      description: "Nonce of the transaction"
     },
     size: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "Byte size"
+      description: "Size of the transaction"
     },
     version: {
       type: new GraphQLNonNull(GraphQLInt),
-      description: "Version"
+      description: "Version of the transaction"
     },
     attributes: {
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(AttributeSchema))),
-      description: "TODO",
+      description: "Attributes of the transaction",
       resolve: (transaction) => transaction.attrs
     },
     scripts: {
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(ScriptSchema))),
-      description: "TODO"
+      description: "Scripts for the transaction"
     },
     vin: {
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(VinSchema))),
-      description: "TODO",
+      description: "Inputs for the transaction",
       resolve: (transaction) => transaction.getVins()
     },
     vout: {
       type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(VoutSchema))),
-      description: "TODO",
+      description: "Outputs for the transaction",
       resolve: (transaction) => transaction.getVouts()
     },
     asset: {
       type: AssetSchema,
-      description: "Transaction asset",
+      description: "Asset registered by the transaction",
       resolve: (transaction) => transaction.getAsset()
     },
     contract: {
       type: ContractSchema,
-      description: "Transaction contract",
+      description: "Contract registered by the transaction",
       resolve: (transaction) => transaction.getContract()
     }
   })
