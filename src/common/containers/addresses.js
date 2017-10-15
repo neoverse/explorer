@@ -32,7 +32,6 @@ const query = gql`
 
 export default compose(
   withGraphQuery(query),
-  // withGraphQuery(assetsQuery),  // TODO: this should happen in the same request as above
   withGraphProgress({ Loading, Failed }),
   withTitle("Addresses"),
   setDisplayName("AddressesContainer")
