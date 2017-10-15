@@ -19,13 +19,8 @@ In development mode, the GraphQL UI can be access at the /graphql route
 ### Scripts
 
 Scripts are organized under the `/scripts` folder and can be placed into logical subfolders.  They
-can then be run via `yarn run script`.  For example, the `migrate.js` script would be run via
-`yarn run script migrate`, while the `assets/rename.js` script would be run via
-`yarn run script assets:rename`.  Any additional arguments can be passed in normally.
-
-**TODO:** the above is no longer accurate.  Instead, scripts need to be run via file path, e.g.:
-
-    yarn run script ./scripts/assets/rename.js
+can then be run via `yarn run script` along with the script path and any extra arguments.  For
+example, the `migrate.js` script can be run via `yarn run script ./scripts/migrate.js up`.
 
 ## Deployment
 
