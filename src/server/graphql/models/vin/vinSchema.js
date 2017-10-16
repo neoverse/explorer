@@ -5,7 +5,7 @@ import TransactionSchema from "../transaction/transactionSchema";
 export default new GraphQLObjectType({
   name: "Vin",
   description: "Transaction input",
-  fields: {
+  fields: () => ({
     address: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Address of the input"
@@ -23,5 +23,5 @@ export default new GraphQLObjectType({
       description: "Previous transaction",
       resolve: (vout) => vout.getPreviousTransaction()
     }
-  }
+  })
 });
