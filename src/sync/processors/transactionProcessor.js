@@ -18,7 +18,7 @@ export default class TransactionProcessor {
         ...attrs,
         txid: normalizeHex(tx.txid),
         attrs: tx.attributes,
-        blockhash: block.hash,
+        blockhash: normalizeHex(block.hash),
         blocktime: block.time * 1000,
         data: this._getTransactionData(tx)
       };

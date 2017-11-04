@@ -20,7 +20,7 @@ export default class VinProcessor {
         txid: normalizeHex(tx.txid),
         previous_txid: normalizeHex(vin.txid),
         address: vout.address,
-        asset: vout.asset,
+        asset: normalizeHex(vout.asset),
         value: vout.value
       };
     }));

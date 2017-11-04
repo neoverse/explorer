@@ -5,9 +5,12 @@ import { Vout } from "../../server/database";
 
 export default class VoutProcessor {
   process = async (transactions, options = {}) => {
-    return Vout.bulkCreate(_.flatMap(transactions, (tx) => tx.vout.map((vout) => {
-      const attrs = _.pick(vout, "address", "asset", "n", "value");
-      return { ...attrs, txid: normalizeHex(tx.txid) };
-    })), options);
+    return Vout.bulkCreate(_.flatMap(transactions, (tx) => tx.vout.map((vout) => ({
+      txid: normalizeHex(tx.txid),
+      address: vout.address,
+      asset: normalizeHex(vout.asset),
+      n: vout.n,
+      value: vout.value
+    }))), options);
   }
 }
