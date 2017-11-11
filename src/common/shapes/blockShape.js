@@ -1,9 +1,14 @@
 import PropTypes from "prop-types";
 
 import scriptShape from "./scriptShape";
-import transactionShape from "./transactionShape";
 
 const { shape, string, number, arrayOf } = PropTypes;
+
+const transactionSummaryShape = shape({
+  txid: string.isRequired,
+  type: string.isRequired,
+  blocktime: string.isRequired
+});
 
 export default shape({
   hash: string.isRequired,
@@ -17,5 +22,5 @@ export default shape({
   size: number.isRequired,
   time: string.isRequired,
   version: number.isRequired,
-  transactions: arrayOf(transactionShape).isRequired
+  transactions: arrayOf(transactionSummaryShape).isRequired
 });
