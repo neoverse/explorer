@@ -21,12 +21,12 @@ export default class Search extends React.Component {
   static displayName = "Search";
 
   static propTypes = {
-    search: searchResultShape,
-    history: historyShape
+    search: searchResultShape.isRequired,
+    history: historyShape.isRequired
   };
 
   componentDidMount = () => {
-    this.props.history.push(this.getRedirectPath());
+    this.props.history.replace(this.getRedirectPath());
   }
 
   render = () => {
