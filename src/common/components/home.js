@@ -1,19 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-import historyShape from "../shapes/historyShape";
+import Panel from "./shared/panel";
+import TransactionHistoryChart from "./charts/transactionHistoryChart";
+
+const { number, string, arrayOf, shape } = PropTypes;
+
+const transactionHistoryShape = shape({
+  date: string.isRequired,
+  count: number.isRequired
+});
 
 export default class Home extends React.Component {
   static displayName = "Home";
 
   static propTypes = {
-    history: historyShape.isRequired
+    transactionHistory: arrayOf(transactionHistoryShape).isRequired
   };
 
-  componentDidMount = () => {
-    this.props.history.replace("/blocks");
+  render = () => {
+    return (
+      <div className="home-component">
+        <Panel renderHeader={this.renderHeader}>
+          <TransactionHistoryChart data={this.props.transactionHistory} />
+        </Panel>
+      </div>
+    );
   }
 
-  render = () => {
-    return null;
+  renderHeader = () => {
+    return <h2>14-Day Transaction History</h2>;
   }
 }
