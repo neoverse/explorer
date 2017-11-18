@@ -59,7 +59,7 @@
     "morgan": "^1.8.2",
     "neo-api": "^1.0.1",
     "node-sass": "^4.5.3",
-    "pg": "^7.3.0",
+    "pg": "6.4.2",
     "prop-types": "^15.5.10",
     "razzle": "^0.8.2",
     "razzle-heroku": "^2.0.0",
