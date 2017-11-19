@@ -53,6 +53,7 @@
     "graphql": "^0.11.3",
     "graphql-bigint": "^1.0.0",
     "graphql-iso-date": "^3.3.0",
+    "ioredis": "^3.2.1",
     "is-heroku": "^1.0.1",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
