@@ -1,11 +1,16 @@
-# NEO Explorer
+# NEOverse Explorer
 
-NEO Explorer provides insight into the present and historical state of NEO blockchain.
+NEOverse Explorer provides insight into the present and historical state of NEO blockchain.
+
+## Dependencies
+
+* [PostgreSQL](https://www.postgresql.org/)
+* [Redis](https://redis.io/)
 
 ## Getting Started
 
 1. Run `yarn install`
-2. Run `yarn run migrate:up`
+2. Run `yarn run migrate:up` (ensure the `DATABASE_URL` setting in `.env` has the right credentials)
 3. Run `yarn run start` (or `yarn run start:web` to forego syncing blocks)
 4. Navigate to http://localhost:3000
 
