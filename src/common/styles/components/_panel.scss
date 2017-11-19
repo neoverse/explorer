@@ -4,10 +4,6 @@
   border-radius: 2px;
   box-shadow: 0 2px 2px 0 rgba($black, 0.14), 0 1px 5px 0 rgba($black, 0.12), 0 3px 1px -2px rgba($black, 0.2);
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-
   .panel-header {
     padding: 16px 24px;
     color: $white;
@@ -19,6 +15,17 @@
       margin: 0;
       color: $white;
       font-size: 16px;
+    }
+
+    a {  // todo: move this style into a mixin, and apply it to each individual page/component
+      color: $white;
+      font-size: 12px;
+      font-weight: normal;
+
+      &:hover {
+        text-decoration: none;
+        box-shadow: inset 0 -1px 0 $green-dark;
+      }
     }
   }
 

@@ -1,7 +1,58 @@
+@mixin recent-records($name) {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .recent-#{$name}s {
+    margin: -24px;
+  }
+
+  .recent-#{$name} {
+    padding: 12px 24px;
+    border-bottom: 1px solid $gray-light;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+
+      > * {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      a {
+        flex: 1 1 auto;
+        margin-right: 20px;
+      }
+    }
+
+    a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
 .home-component {
   font-size: 14px;
+}
 
-  .right {
-    text-align: right;
-  }
+.recent-blocks-component {
+  @include recent-records("block");
+}
+
+.recent-transactions-component {
+  @include recent-records("transaction");
 }
