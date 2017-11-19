@@ -61,7 +61,7 @@ export default class Home extends React.Component {
 
   renderDate = (dateString) => {
     const date = new Date(dateString);
-    return `${date.getMonth()}/${date.getDate()}`;
+    return `${date.getMonth() + 1}/${date.getDate()}`;
   }
 
   renderCount = (count) => {
