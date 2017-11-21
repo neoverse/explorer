@@ -52,7 +52,7 @@ export default class FetchQueue {
   }
 
   _createClient = async () => {
-    const node = await findBestNode();
+    const node = await findBestNode({ host: process.env.NEON_WALLET_API_HOST });
     return neo.node(node.url);
   }
 

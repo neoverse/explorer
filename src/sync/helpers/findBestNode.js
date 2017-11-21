@@ -3,9 +3,9 @@
 import "isomorphic-fetch";
 import _ from "lodash";
 
-async function getNodes({ retry }) {
+async function getNodes({ host, retry }) {
   try {
-    const response = await fetch("http://api.neonwallet.com/v2/network/nodes");
+    const response = await fetch(`https://${host}/v2/network/nodes`);
 
     if (response.status !== 200) {
       throw new Error(`Bad response: ${response.state}`);
@@ -22,8 +22,8 @@ async function getNodes({ retry }) {
   }
 }
 
-export default async function findBestNode({ retry = 3 } = {}) {
-  const response = await getNodes({ retry });
+export default async function findBestNode({ host = "api.neonwallet.com", retry = 3 } = {}) {
+  const response = await getNodes({ host, retry });
   const { nodes } = await response.json();
 
   const filteredNodes = _.filter(nodes, "block_height");
