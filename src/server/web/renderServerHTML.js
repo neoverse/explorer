@@ -32,7 +32,7 @@ export default function renderServerHTML({ html = "", state = {}, title = defaul
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments)};
           gtag('js', new Date());
-          gtag('config', 'UA-107269744-1');
+          gtag('config', '${process.env.GOOGLE_ANALYTICS_ID}');
         </script>
         ${getAssetsCSS()}
         ${getAssetsJS()}
