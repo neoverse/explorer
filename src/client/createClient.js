@@ -5,8 +5,10 @@ import fragmentMatcher from "../common/boot/fragmentMatcher";
 
 const networkInterface = createNetworkInterface({ uri: "/graphql" });
 
-export default new ApolloClient({
-  initialState,
-  networkInterface,
-  fragmentMatcher
-});
+export default function createClient() {
+  return new ApolloClient({
+    initialState,
+    networkInterface,
+    fragmentMatcher
+  });
+}

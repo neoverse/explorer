@@ -8,9 +8,10 @@ import "isomorphic-fetch";
 import App from "../../common/containers/app";
 import defaultTitle from "../../common/values/defaultTitle";
 import renderServerHTML from "./renderServerHTML";
-import client from "./client";
+import createClient from "./createClient";
 
 export default function handleRequest(req, res) {
+  const client = createClient();
   const context = {};
 
   if (context.url) {

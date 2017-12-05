@@ -8,9 +8,11 @@ import fragmentMatcher from "../../common/boot/fragmentMatcher";
 
 const networkInterface = createLocalInterface(graphql, schema);
 
-export default new ApolloClient({
-  initialState,
-  networkInterface,
-  fragmentMatcher,
-  ssrMode: true
-});
+export default function createClient() {
+  return new ApolloClient({
+    initialState,
+    networkInterface,
+    fragmentMatcher,
+    ssrMode: true
+  });
+}
