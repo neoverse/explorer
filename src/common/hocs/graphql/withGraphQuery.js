@@ -6,15 +6,14 @@ const DEFAULT_OPTIONS = {
   fetchPolicy: "network-first"
 };
 
-function wrapOptions(baseOptions) {
-  return (...args) => {
-    const result = baseOptions(...args);
-    return { ...DEFAULT_OPTIONS, ...result };
-  };
-}
-
 function extendOptions(baseOptions) {
   return { ...DEFAULT_OPTIONS, ...baseOptions };
+}
+
+function wrapOptions(baseOptions) {
+  return (...args) => {
+    return extendOptions(baseOptions(...args));
+  };
 }
 
 const withGraphQuery = (query, baseConfig = {}) => (Component) => {
