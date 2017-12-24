@@ -2,9 +2,8 @@
 
 import _ from "lodash";
 import async from "async";
-import * as neo from "neo-api";
 
-import findBestNode from "../helpers/findBestNode";
+import createClient from "../helpers/createClient";
 import getNextIndex from "../helpers/getNextIndex";
 
 const VERBOSE = 1;
@@ -30,7 +29,7 @@ export default class FetchQueue {
 
   start = async () => {
     if (!this.client) {
-      this.client = await this._createClient();
+      this.client = await createClient();
     }
 
     if (this.paused) {
@@ -49,11 +48,6 @@ export default class FetchQueue {
       clearInterval(this.clock);
       delete this.clock;
     }
-  }
-
-  _createClient = async () => {
-    const node = await findBestNode({ host: process.env.NEON_WALLET_API_HOST });
-    return neo.node(node.url);
   }
 
   _poll = async () => {
@@ -131,7 +125,7 @@ export default class FetchQueue {
     try {
       return callback();
     } catch (err) {
-      this.client = await this._createClient();
+      this.client = await createClient();
       return this._ensureWorkingClient(callback);
     }
   }
