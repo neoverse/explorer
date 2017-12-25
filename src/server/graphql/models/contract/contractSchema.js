@@ -34,10 +34,6 @@ export default new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       description: "Transaction ID"
     },
-    hash: {
-      type: new GraphQLNonNull(GraphQLString),
-      description: "Contract hash"
-    },
     name: {
       type: new GraphQLNonNull(GraphQLString),
       description: "Contract name"

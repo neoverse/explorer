@@ -11,7 +11,6 @@ import Failed from "../components/failed";
 const query = gql`
   { contracts {
     txid
-    hash
     name
     code {
       hash

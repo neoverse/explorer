@@ -69,7 +69,7 @@ export default class App extends React.Component {
                   <Route exact path="/assets" component={Assets} />
                   <Route exact path="/assets/:txid" component={Asset} />
                   <Route exact path="/contracts" component={Contracts} />
-                  <Route exact path="/contracts/:hash" component={Contract} />
+                  <Route exact path="/contracts/:txid" component={Contract} />
                   <Route exact path="/search/:term" component={Search} />
                   <Route component={NotFound} />
                 </Switch>

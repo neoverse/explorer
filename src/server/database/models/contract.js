@@ -3,7 +3,6 @@ export default function defineContract(sequelize) {
 
   const Contract = sequelize.define("contract", {
     txid: { type: Sequelize.STRING, allowNull: false },
-    hash: { type: Sequelize.STRING, allowNull: false },
     name: { type: Sequelize.STRING, allowNull: false },
     code: { type: Sequelize.JSON, allowNull: false },
     version: { type: Sequelize.STRING, allowNull: false },
@@ -16,8 +15,7 @@ export default function defineContract(sequelize) {
     tableName: "contracts",
     underscored: true,
     indexes: [
-      { fields: ["txid"], unique: true },
-      { fields: ["hash"], unique: true }
+      { fields: ["txid"], unique: true }
     ]
   });
 

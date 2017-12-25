@@ -52,7 +52,7 @@ export default class Contract extends React.Component {
 
   renderContractHeader = () => {
     return (
-      <h2>Contract {this.props.contract.hash}</h2>
+      <h2>Contract {this.props.contract.txid}</h2>
     );
   }
 

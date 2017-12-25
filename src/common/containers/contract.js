@@ -10,10 +10,9 @@ import Failed from "../components/failed";
 import NotFound from "./notFound";
 
 const query = gql`
-  query ($hash: String!) {
-    contract(hash: $hash) {
+  query ($txid: String!) {
+    contract(txid: $txid) {
       txid
-      hash
       name
       code {
         hash
@@ -37,7 +36,7 @@ const query = gql`
 `;
 
 export default compose(
-  withGraphQuery(query, { options: ({ match }) => ({ variables: { hash: match.params.hash } }) }),
+  withGraphQuery(query, { options: ({ match }) => ({ variables: { txid: match.params.txid } }) }),
   withGraphProgress({ Loading, Failed, NotFound, required: ["contract"] }),
   withTitle(({ contract }) => `Contract ${contract.name}`),
   setDisplayName("ContractContainer")

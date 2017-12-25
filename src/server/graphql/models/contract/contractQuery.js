@@ -8,10 +8,10 @@ export default {
   contract: {
     type: ContractSchema,
     args: {
-      hash: { type: new GraphQLNonNull(GraphQLString) }
+      txid: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (_source, { hash }) => {
-      return Contract.findOne({ where: { hash } });
+    resolve: (_source, { txid }) => {
+      return Contract.findOne({ where: { txid } });
     }
   },
   contracts: {

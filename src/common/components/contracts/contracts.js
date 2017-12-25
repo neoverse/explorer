@@ -22,7 +22,7 @@ export default class Contracts extends React.Component {
           <table>
             <thead>
               <tr>
-                <th>Hash</th>
+                <th>ID</th>
                 <th className="negligible">Name</th>
                 <th className="negligible">Author</th>
                 <th>Registered</th>
@@ -46,8 +46,8 @@ export default class Contracts extends React.Component {
   renderContracts = () => {
     return this.props.contracts.map((contract) => {
       return (
-        <tr key={contract.hash}>
-          <td><Link to={`/contracts/${contract.hash}`}>{contract.hash}</Link></td>
+        <tr key={contract.txid}>
+          <td><Link to={`/contracts/${contract.txid}`}>{contract.txid}</Link></td>
           <td className="negligible">{contract.name}</td>
           <td className="negligible">{contract.author}</td>
           <td><TimeAgo date={contract.registered} /></td>
