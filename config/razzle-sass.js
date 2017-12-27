@@ -1,3 +1,4 @@
+const path = require("path");
 const autoprefixer = require("autoprefixer");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -21,9 +22,18 @@ module.exports = (config, { target, dev }, _webpack) => {
     }
   };
 
+  const sassLoader = {
+    loader: "sass-loader",
+    options: {
+      includePaths: [
+        path.resolve(__dirname, "../node_modules")
+      ]
+    }
+  };
+
   config.module.rules.push({
     test: /\.scss$/,
-    use: isServer ? ["css-loader", "sass-loader"] : (
+    use: isServer ? ["css-loader", sassLoader] : (
       dev ? [
         "style-loader",
         {
@@ -31,7 +41,7 @@ module.exports = (config, { target, dev }, _webpack) => {
           options: { modules: false, sourceMap: true }
         },
         postCssLoader,
-        "sass-loader"
+        sassLoader
       ] : ExtractTextPlugin.extract({
         fallback: "style-loader",
         use: [
@@ -40,7 +50,7 @@ module.exports = (config, { target, dev }, _webpack) => {
             options: { importLoaders: 1 }
           },
           postCssLoader,
-          "sass-loader"
+          sassLoader
         ]
       })
     )

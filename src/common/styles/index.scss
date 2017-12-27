@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import "react-toggle/style";
 @import "./variables";
 @import "./common";
 @import "./components/app";
@@ -8,6 +9,7 @@
 @import "./components/home";
 @import "./components/loading";
 @import "./components/navbar";
+@import "./components/netToggle";
 @import "./components/panel";
 @import "./components/search";
 @import "./components/spinner";

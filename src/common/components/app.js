@@ -17,6 +17,7 @@ import Search from "../containers/search";
 import NotFound from "../containers/notFound";
 import Navbar from "../components/shared/navbar";
 import SvgIcon from "../components/shared/svgIcon";
+import NetToggle from "../components/shared/netToggle";
 import { Container, Row, Column } from "../components/shared/grid";
 import SearchInput from "../components/search/searchInput";
 import historyShape from "../shapes/historyShape";
@@ -51,7 +52,8 @@ export default class App extends React.Component {
             <NavLink to="/addresses" onClick={this.handleToggleNav}>Addresses</NavLink>,
             <NavLink to="/assets" onClick={this.handleToggleNav}>Assets</NavLink>,
             <NavLink to="/contracts" onClick={this.handleToggleNav}>Contracts</NavLink>,
-            <SearchInput className="search-input" onSearch={this.handleSearch} />
+            <SearchInput className="search-input" onSearch={this.handleSearch} />,
+            <NetToggle on={!process.env.RAZZLE_TESTNET} onToggle={this.handleToggleNet} />
           ]} />
 
         <div className="content">
@@ -128,6 +130,17 @@ export default class App extends React.Component {
 
   handleToggleNav = () => {
     this.setState({ navOpen: !this.state.navOpen });
+  }
+
+  handleToggleNet = (value) => {
+    const { location } = window;
+    const { host, href } = location;
+
+    const newHost = value
+      ? host.replace("testnet.", "explorer.")
+      : host.replace("explorer.", "testnet.");
+
+    location.href = href.replace(host, newHost);
   }
 
   handleSearch = (term) => {

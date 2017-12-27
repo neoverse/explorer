@@ -1,0 +1,28 @@
+.net-toggle-component {
+  display: inline-block;
+  margin: 12px 0;
+  cursor: pointer;
+
+  > * {
+    vertical-align: middle;
+  }
+
+  .toggle-value {
+    $toggle-color: $green-dark;
+
+    .react-toggle-track,
+    &:hover .react-toggle-track {
+      background-color: $toggle-color;
+    }
+
+    .react-toggle-thumb {
+      border-color: $toggle-color;
+    }
+  }
+
+  .label-text {
+    margin-left: 4px;
+    color: $white;
+    font-size: 14px;
+  }
+}
