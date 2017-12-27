@@ -25,11 +25,15 @@ export default class NetToggle extends React.Component {
           className="toggle-value"
           icons={false}
           defaultChecked={this.props.on}
-          onChange={this.props.onToggle} />
+          onChange={this.handleChange} />
         <span className="label-text">
           {this.props.on ? "MainNet" : "TestNet"}
         </span>
       </label>
     );
+  }
+
+  handleChange = (event) => {
+    this.props.onToggle(event.target.checked);
   }
 }
