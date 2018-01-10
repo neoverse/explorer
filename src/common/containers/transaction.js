@@ -49,7 +49,6 @@ const query = gql`
       }
       contract {
         txid
-        hash
         name
         registered
       }
